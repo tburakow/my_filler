@@ -6,7 +6,7 @@
 #    By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/09 12:15:46 by tburakow          #+#    #+#              #
-#    Updated: 2022/06/10 15:35:18 by tburakow         ###   ########.fr        #
+#    Updated: 2022/07/21 14:48:33 by tburakow         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ all: $(NAME)
 
 $(NAME):
 	make -C libft/
-	gcc -Wall -Wextra -Werror -c -g -fsanitize=address $(FILES)
+	gcc -Wall -Wextra -Werror -c -g $(FILES)
 	ar rcs $(NAME) $(OBJS) $(OBJECTS)
 
 clean:

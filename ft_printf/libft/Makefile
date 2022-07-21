@@ -85,7 +85,7 @@ FUNCS = ft_isalpha \
 all:	$(NAME)
 	
 $(NAME):	$(SRCS)
-	gcc -Wall -Wextra -Werror -c -g -fsanitize=address $(SRCS)
+	gcc -Wall -Wextra -Werror -c -g $(SRCS)
 	ar rcs $(NAME) $(OBJS)
 
 clean:
