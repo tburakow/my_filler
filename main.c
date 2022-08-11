@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:03:18 by tburakow          #+#    #+#             */
-/*   Updated: 2022/07/21 16:48:44 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/11 14:54:31 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	determine_player(char *name)
 	i = 1;
 	while(i < 3)
 	{
-		(void)get_next_line(1, &temp);
+		(void)get_next_line(STDIN, &temp);
 		//ft_printf("%s", temp);
 		if (ft_strstr(temp, name) != NULL)
 		{
@@ -61,6 +61,7 @@ int	init_struct(t_data **map_plr)
 	(*map_plr)->fills = "oO";
 	if ((*map_plr)->player == 2)
 		(*map_plr)->fills = "xX";
+	get_map_size(map_plr);
 /* 	(*map_plr)->map_x = determine_map_x();
 	(*map_plr)->map_y = determine_map_y;
 	(*map_plr)->map = 
@@ -74,7 +75,7 @@ int	main(void)
 {
 	t_data	*map_plr;
 	
-	if (init_struct(&map_plr) == 0)
+	if (init_struct(&map_plr) != 1)
 	{
 		ft_printf("error, struct creation failed.");
 		exit(1);
