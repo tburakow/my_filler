@@ -17,13 +17,16 @@
 # include "ft_printf/ft_printf.h"
 
 # define STDIN 0
+# define OK 1
+# define KO 0
 
 /* This struct holds the map and piece information, and assigns the correct sym-
 bols for the players. */
 typedef	struct	s_data
 {
-	int		player;
-	char 	*fills;
+	int 	players_set;
+	char	player;
+	char 	opponent;
 	int	map_x;
 	int map_y;
 /* 	char **map;
@@ -34,11 +37,13 @@ typedef	struct	s_data
 
 /* typedef struct s_2darray
 {
-	int **array;
+	char **array;
+	int	w;
+	int h;
 }				t_2darray;
  */
 /* in main.c - file */
-int	determine_player(char *name);
+int	determine_player(t_data **map_plr);
 int	init_struct(t_data **map_plr);
 
 /* in get_map.c -file */
