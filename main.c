@@ -58,12 +58,12 @@ int	determine_player(t_data **map_plr)
 
 int	init_struct(t_data **map_plr)
 {
-	if (determine_player(map_plr) == KO);
+	if (determine_player(map_plr) == KO)
 		return (KO);
 	ft_printf ("I am : %c", (*map_plr)->player);
 	ft_printf ("The opponent is : %c", (*map_plr)->opponent);
-	get_map(map_plr);
-/* 	(*map_plr)->map_x = determine_map_x();
+/*	get_map(map_plr);
+ 	(*map_plr)->map_x = determine_map_x();
 	(*map_plr)->map_y = determine_map_y;
 	(*map_plr)->map = 
 	(*map_plr)->piece_x
