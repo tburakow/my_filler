@@ -27,26 +27,27 @@ typedef	struct	s_data
 	int 	players_set;
 	char	player;
 	char 	opponent;
-	int	map_x;
-	int map_y;
+	t_array map;
+	int 	map_w;
+	int		map_h;
 /* 	char **map;
 	int piece_x;
 	int piece_y;
 	char **piece_fill; */
 	}			t_data;
 
-/* typedef struct s_2darray
+typedef struct  s_array
 {
 	char **array;
-	int	w;
-	int h;
-}				t_2darray;
- */
+}				t_array;
+
+
+
 /* in main.c - file */
 int	determine_player(t_data **map_plr);
 int	init_struct(t_data **map_plr);
 
 /* in get_map.c -file */
-void	get_map_size(t_data **map_plr);
+int	get_map(t_data **map_plr);
 
 #endif
