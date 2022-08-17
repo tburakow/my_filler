@@ -31,17 +31,17 @@ int get_map_size(t_data **map_plr)
 		ft_printf("error : failed to read line for map size.\n");
 		return (KO);
 	}
-	if (strstr(&input, "Plateau"))
+	if (strstr(input, "Plateau"))
 	{
-		while(input[i] != NULL)
+		while(input[i] != '\0')
 		{
 			if(ft_isdigit(input[i]))
 			{
 				if(!(*map_plr)->map_w)
-					(*map_plr)->map_w = ft_atoi(input[i]);
+					(*map_plr)->map_w = ft_atoi(&input[i]);
 				else
 				{
-					(*map_plr)->map_h = ft_atoi(input[i]);
+					(*map_plr)->map_h = ft_atoi(&input[i]);
 					return (OK);
 				}
 				while (ft_isdigit(input[i]))
@@ -105,7 +105,7 @@ int	init_struct(t_data **map_plr)
 	}
 	ft_printf ("I am : %c\n", (*map_plr)->player);
 	ft_printf ("The opponent is : %c\n", (*map_plr)->opponent);
-	if (get_map(map_plr) != OK);
+	if (get_map(map_plr) != OK)
 	{
 		ft_printf("Error: Fail to get map.");
 		return (KO);
