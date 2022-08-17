@@ -20,6 +20,11 @@
 # define OK 1
 # define KO 0
 
+typedef struct  s_array
+{
+	char **array;
+}				t_array;
+
 /* This struct holds the map and piece information, and assigns the correct sym-
 bols for the players. */
 typedef	struct	s_data
@@ -35,13 +40,6 @@ typedef	struct	s_data
 	int piece_y;
 	char **piece_fill; */
 	}			t_data;
-
-typedef struct  s_array
-{
-	char **array;
-}				t_array;
-
-
 
 /* in main.c - file */
 int	determine_player(t_data **map_plr);
