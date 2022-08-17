@@ -116,7 +116,7 @@ int	init_struct(t_data **map_plr)
 	(*map_plr)->piece_x
 	(*map_plr)->piece_y
 	(*map_plr)->piece_fill */
-	return (1);
+	return (OK);
 }
 
 int	main(void)
@@ -133,7 +133,6 @@ int	main(void)
 		ft_printf("error, struct creation failed.");
 		exit(1);
 	}
-	
+	ft_printf("The end.");
 	return (0);
-	//ft_printf("I am player %d\n", (map_plr)->player);
 }
