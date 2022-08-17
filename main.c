@@ -26,6 +26,7 @@ int get_map_size(t_data **map_plr)
 	int		i;
 
 	i = 0;
+	ft_printf("enter");
 	if (get_next_line(STDIN, &input) <= 0)
 	{
 		ft_printf("error : failed to read line for map size.\n");
