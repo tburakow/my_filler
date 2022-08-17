@@ -12,7 +12,7 @@
 
 NAME = tburakow.filler
 
-FUNCTIONS = main get_map
+FUNCTIONS = main
 
 FILES = $(patsubst %, %.c, $(FUNCTIONS))
 
