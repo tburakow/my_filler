@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:03:18 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/19 12:48:49 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/19 14:36:50 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,48 +18,6 @@ int create_struct(t_data **map_plr)
 	if (*map_plr == NULL)
 		return (KO);
 	(*map_plr)->players_set = 0;
-	return (OK);
-}
-
-int get_map_size(t_data **map_plr)
-{
-	char	*input;
-	int		i;
-
-	i = 0;
-	ft_printf("enter");
-	if (get_next_line(STDIN, &input) <= 0)
-	{
-		ft_printf("error : failed to read line for map size.\n");
-		return (KO);
-	}
-	if (strstr(input, "Plateau"))
-	{
-		while(input[i] != '\0')
-		{
-			if(ft_isdigit(input[i]))
-			{
-				if(!(*map_plr)->map_w)
-					(*map_plr)->map_w = ft_atoi(&input[i]);
-				else
-				{
-					(*map_plr)->map_h = ft_atoi(&input[i]);
-					return (OK);
-				}
-				while (ft_isdigit(input[i]))
-					i++;
-			}
-			i++;
-		}
-	}
-	ft_printf("Map size is ; width : %i. height : %i.\n", (*map_plr)->map_w, (*map_plr)->map_h);
-	return (OK);
-}
-
-int get_map(t_data **map_plr)
-{
-	if (!get_map_size(map_plr))
-		return (KO);
 	return (OK);
 }
 
@@ -81,13 +39,13 @@ int	determine_player(t_data **map_plr)
 		ft_printf("Error: Fail to read from STDIN\n");
 		return (KO);
 	}
-	if (strchr(input, 'p') == NULL)
+	if (ft_strchr(input, 'p') == NULL)
 	{
 		ft_printf("Error: incorrect input on line.\n");
 		ft_strdel(&input);
 		return (KO);
 	}
-	if (strstr(input, name) == 0)
+	if (ft_strstr(input, name) == NULL)
 	{
 		(*map_plr)->player = 'X';
 		(*map_plr)->opponent = 'O';
@@ -108,14 +66,14 @@ int	init_struct(t_data **map_plr)
 	
 	if (determine_player(map_plr) == KO)
 	{
-		ft_printf("Error: Fail to determine players.");
+		ft_printf("Error: Fail to determine players.\n");
 		return (KO);
 	}
 	ft_printf ("I am : %c\n", (*map_plr)->player);
 	ft_printf ("The opponent is : %c\n", (*map_plr)->opponent);
 	if (get_map(map_plr) != OK)
 	{
-		ft_printf("Error: Fail to get map.");
+		ft_printf("Error: Fail to get map.\n");
 		return (KO);
 	}
 /*  (*map_plr)->map_x = determine_map_x();
@@ -133,14 +91,17 @@ int	main(void)
 
 	if (!create_struct(&map_plr))
 	{
-		ft_printf("error : failed to create map/player -struct");
+		ft_printf("error : failed to create map/player -struct\n");
 		exit (1);
 	}
 	if (init_struct(&map_plr) != 1)
 	{
-		ft_printf("error, struct creation failed.");
+		ft_printf("error, struct creation failed.\n");
 		exit(1);
 	}
-	ft_printf("The end.");
+	ft_printf("map width: %d\n", map_plr->map_w);
+	ft_printf("map height: %d\n", map_plr->map_h);
+	print_out_map(&map_plr);
+	ft_printf("The end.\n");
 	return (0);
 }

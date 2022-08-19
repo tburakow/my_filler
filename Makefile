@@ -6,13 +6,13 @@
 #    By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/09 12:15:46 by tburakow          #+#    #+#              #
-#    Updated: 2022/08/11 13:53:45 by tburakow         ###   ########.fr        #
+#    Updated: 2022/08/19 14:34:47 by tburakow         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = tburakow.filler
 
-FUNCTIONS = main
+FUNCTIONS = main get_map print_out_map
 
 FILES = $(patsubst %, %.c, $(FUNCTIONS))
 
