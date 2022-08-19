@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:00:08 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/19 15:34:29 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:42:29 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	fill_map(t_data **map_plr)
 	j = 0;
 	ft_printf("check 1\n");
 	(*map_plr)->map = (char **)malloc(sizeof(char *) * (*map_plr)->map_h);
-	(void)get_next_line(STDIN, &line);
 	while (i < (*map_plr)->map_h)
 	{
 		ft_printf("check 2\n");
@@ -58,9 +57,10 @@ int	fill_map(t_data **map_plr)
 			j++;
 		}
 		ft_printf("i is: %d\n", i);
-		ft_printf("map_h is : %d\n", (*map_plr)->map_h);
+		//ft_printf("map_h is : %d\n", (*map_plr)->map_h);
 		i++;
 		ft_printf("check 8\n");
+		ft_strdel(&line);
 	}
 	return (OK);
 }
@@ -69,7 +69,6 @@ int get_map_size(t_data **map_plr)
 {
 	char	*input;
 	int		i;
-	char 	*return_of_strstr;
 
 	i = 0;
 	ft_printf("enter\n");
@@ -78,34 +77,32 @@ int get_map_size(t_data **map_plr)
 		ft_printf("error : failed to read line for map size.\n");
 		return (KO);
 	}
-	return_of_strstr = ft_strstr(input, "Plateau");
-	ft_printf("return of strstr : %s\n", return_of_strstr);
-	if (return_of_strstr != NULL)
+
+	if (ft_strstr(input, "Plateau") != NULL)
 	{
-		while(input[i] != '\0')
+		while(input[i])
 		{
 			if(ft_isdigit(input[i]))
 			{
 				if(!(*map_plr)->map_h)
 					(*map_plr)->map_h = ft_atoi(&input[i]);
 				else
-				{
 					(*map_plr)->map_w = ft_atoi(&input[i]);
-					return (OK);
-				}
 				while (ft_isdigit(input[i]))
 					i++;
 			}
 			i++;
 		}
 	}
-	ft_printf("Map size is ; width : %i. height : %i.\n", (*map_plr)->map_w, (*map_plr)->map_h);
+	//ft_printf("Map size is ; width : %i. height : %i.\n", (*map_plr)->map_w, (*map_plr)->map_h);
+	ft_strdel(&input);
+	skip_line(&input);
 	return (OK);
 }
 
 int get_map(t_data **map_plr)
 {
-	if (!get_map_size(map_plr))
+	if (get_map_size(map_plr) != OK)
 		return (KO);
 	if (!fill_map(map_plr))
 		return (KO);

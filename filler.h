@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/19 14:34:52 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:53:39 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,8 @@ int fill_map(t_data **map_plr);
 
 /* in the print_out.c -file */
 void	print_out_map(t_data **map_plr);
+
+/* in the skip_line.c -file */
+void	skip_line(char **input);
 
 #endif

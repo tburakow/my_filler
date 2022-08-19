@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:03:18 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/19 14:36:50 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:48:31 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,11 @@ int	determine_player(t_data **map_plr)
 {
 	char *input;
 	char *name = "tburakow.filler";
-	int el_ret;
-	
 	
 	input = NULL;
-	el_ret = get_next_line(STDIN, &input);
-	ft_printf("it reads : %s\n", input);
-	ft_printf("el_ret is : %d", el_ret);
 	if ((*map_plr)->players_set == OK)
 		return (OK);
-	if (el_ret <= 0)
+	if (get_next_line(STDIN, &input) <= 0)
 	{
 		ft_printf("Error: Fail to read from STDIN\n");
 		return (KO);
@@ -56,8 +51,8 @@ int	determine_player(t_data **map_plr)
 		(*map_plr)->opponent = 'X';
 	}
 	(*map_plr)->players_set = OK;
-	(void)get_next_line(STDIN, &input);
 	ft_strdel(&input);
+	skip_line(&input);
 	return (OK);
 }
 
@@ -103,5 +98,6 @@ int	main(void)
 	ft_printf("map height: %d\n", map_plr->map_h);
 	print_out_map(&map_plr);
 	ft_printf("The end.\n");
+	//while(1);
 	return (0);
 }
