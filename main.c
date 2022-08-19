@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:03:18 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/19 20:25:36 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/19 20:40:16 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,15 @@ int	main(void)
 	{
 		return(error_output(1, "error, map/piece creation failed."));
 	}
-	ft_printf("map width: %d\n", map_plr->map_w);
-	ft_printf("map height: %d\n", map_plr->map_h);
-	print_out_map(&map_plr);
-	ft_printf("piece h: %d\n", piece->h);
-	ft_printf("piece w: %d\n", piece->w);
-	print_out_piece(&piece);
+	printf("map width: %d\n", map_plr->map_w);
+	printf("map height: %d\n", map_plr->map_h);
+	//print_out_map(&map_plr);
+	printf("piece h: %d\n", piece->h);
+	printf("piece w: %d\n", piece->w);
+	//print_out_piece(&piece);
 	print_out_heatmap(&heatmap);
-	ft_printf("The end.\n");
+	printf("%d\n", heatmap->array[3][3]);
+	printf("The end.\n");
 	//while(1);
 	return (0);
 }
