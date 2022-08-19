@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:03:18 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/19 12:45:58 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/19 12:48:49 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	determine_player(t_data **map_plr)
 	char *name = "tburakow.filler";
 	int el_ret;
 	
+	
 	input = NULL;
 	el_ret = get_next_line(STDIN, &input);
 	ft_printf("it reads : %s\n", input);
@@ -86,7 +87,7 @@ int	determine_player(t_data **map_plr)
 		ft_strdel(&input);
 		return (KO);
 	}
-	if (strstr(input, name) == NULL)
+	if (strstr(input, name) == 0)
 	{
 		(*map_plr)->player = 'X';
 		(*map_plr)->opponent = 'O';
