@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:03:18 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/11 14:54:31 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/19 12:45:58 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 int create_struct(t_data **map_plr)
 {
 	*map_plr = (t_data *)ft_memalloc(sizeof(t_data));
-	if (!*map_plr)
+	if (*map_plr == NULL)
 		return (KO);
+	(*map_plr)->players_set = 0;
 	return (OK);
 }
 
@@ -66,10 +67,15 @@ int	determine_player(t_data **map_plr)
 {
 	char *input;
 	char *name = "tburakow.filler";
-
+	int el_ret;
+	
+	input = NULL;
+	el_ret = get_next_line(STDIN, &input);
+	ft_printf("it reads : %s\n", input);
+	ft_printf("el_ret is : %d", el_ret);
 	if ((*map_plr)->players_set == OK)
 		return (OK);
-	if (get_next_line(STDIN, &input) <= 0)
+	if (el_ret <= 0)
 	{
 		ft_printf("Error: Fail to read from STDIN\n");
 		return (KO);
