@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:00:08 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/19 16:42:29 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/19 19:58:30 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,18 @@ int	fill_map(t_data **map_plr)
 	(*map_plr)->map = (char **)malloc(sizeof(char *) * (*map_plr)->map_h);
 	while (i < (*map_plr)->map_h)
 	{
-		ft_printf("check 2\n");
+		//ft_printf("check 2\n");
 		if(get_next_line(STDIN, &line) <= 0)
 			return (KO);
-		ft_printf("check 3\n");
+		//ft_printf("check 3\n");
 		j = 0;
 		while (line[j] != '\0')
 		{
-			ft_printf("check 4\n");
+			//ft_printf("check 4\n");
 			//ft_printf("%c", line[j]);
 			if(map_char(line[j]) == OK)
 			{
-				ft_printf("check 5\n");
+				//ft_printf("check 5\n");
 				//ft_printf("line : %s\n", line);
 				(*map_plr)->map[i] = ft_strdup(&line[j]);
 				if ((*map_plr)->map[i] == NULL)
@@ -50,13 +50,13 @@ int	fill_map(t_data **map_plr)
 					ft_printf("strdup fail.");
 					return (KO);
 				}
-				ft_printf("check 6\n");
+				//ft_printf("check 6\n");
 				j += (*map_plr)->map_w - 1;
-				ft_printf("j : %d\n", j);
+				//ft_printf("j : %d\n", j);
 			}
 			j++;
 		}
-		ft_printf("i is: %d\n", i);
+		//ft_printf("i is: %d\n", i);
 		//ft_printf("map_h is : %d\n", (*map_plr)->map_h);
 		i++;
 		ft_printf("check 8\n");
@@ -94,7 +94,7 @@ int get_map_size(t_data **map_plr)
 			i++;
 		}
 	}
-	//ft_printf("Map size is ; width : %i. height : %i.\n", (*map_plr)->map_w, (*map_plr)->map_h);
+	ft_printf("Map size is ; width : %i. height : %i.\n", (*map_plr)->map_w, (*map_plr)->map_h);
 	ft_strdel(&input);
 	skip_line(&input);
 	return (OK);

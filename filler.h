@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/19 15:53:39 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/19 20:08:40 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 
 # include "ft_printf/libft/libft.h"
 # include "ft_printf/ft_printf.h"
+#include <stdio.h>
 
 # define STDIN 0
 # define OK 1
 # define KO 0
+# define MIN -1
 
 /* This struct holds the map and piece information, and assigns the correct sym-
 bols for the players. */
@@ -34,11 +36,34 @@ typedef	struct	s_data
 	int piece_x;
 	int piece_y;
 	char **piece_fill; */
-	}			t_data;
+}				t_data;
+
+typedef	struct	s_heat
+{
+	int		**array;
+	int		w;
+	int		h;
+}			t_heat;
+
+typedef struct s_cell
+{
+	int heat;
+	int orig_h;
+	int orig_w;
+	int max_h;
+	int max_w;
+}				t_cell;
+
+typedef	struct	s_piece
+{
+	int		w;
+	int		h;
+	char	**array;
+}			t_piece;
 
 /* in main.c - file */
 int	determine_player(t_data **map_plr);
-int	init_struct(t_data **map_plr);
+int	init(t_data **map_plr, t_piece **piece, t_heat **heatmap);
 
 /* in get_map.c - file */
 int	get_map(t_data **map_plr);
@@ -47,8 +72,29 @@ int fill_map(t_data **map_plr);
 
 /* in the print_out.c -file */
 void	print_out_map(t_data **map_plr);
+void	print_out_piece(t_piece **piece);
+void	print_out_heatmap(t_heat **heatmap);
 
 /* in the skip_line.c -file */
 void	skip_line(char **input);
+
+/* in create_structs.c - file */
+int create_map(t_data **map_plr);
+int	create_piece(t_piece **piece);
+int create_heatmap(t_heat **heatmap, t_data **map_plr);
+
+/* in the get_piece.c -file */
+int get_piece(t_piece **piece);
+int get_piece_size(t_piece **piece);
+
+/* in the error_output.c -file */
+int	error_output(int type, char *msg);
+
+/* in the get_heat.c -file */
+int	get_heat(t_heat **heatmap, t_data **map_plr);
+int	is_free(char c);
+int create_cell(t_cell **heat_cell, int h, int w, t_heat **heatmap);
+int	calculate_heat(t_heat **heatmap, t_data **map_plr, int h, int w);
+void parse_heat(t_cell **heat_cell, t_data **map_plr, int h, int w);
 
 #endif
