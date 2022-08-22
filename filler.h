@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/19 20:08:40 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/22 18:57:33 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # define OK 1
 # define KO 0
 # define MIN -1
+# define ME 2
+# define OPP 3
 
 /* This struct holds the map and piece information, and assigns the correct sym-
 bols for the players. */
@@ -43,16 +45,12 @@ typedef	struct	s_heat
 	int		**array;
 	int		w;
 	int		h;
+	int		heat;
+	int 	orig_h;
+	int 	orig_w;
+	char	**map_copy;
 }			t_heat;
 
-typedef struct s_cell
-{
-	int heat;
-	int orig_h;
-	int orig_w;
-	int max_h;
-	int max_w;
-}				t_cell;
 
 typedef	struct	s_piece
 {
@@ -92,9 +90,14 @@ int	error_output(int type, char *msg);
 
 /* in the get_heat.c -file */
 int	get_heat(t_heat **heatmap, t_data **map_plr);
-int	is_free(char c);
-int create_cell(t_cell **heat_cell, int h, int w, t_heat **heatmap);
+int	check_occup(char c, t_data **map_plr);
 int	calculate_heat(t_heat **heatmap, t_data **map_plr, int h, int w);
-void parse_heat(t_cell **heat_cell, t_data **map_plr, int h, int w);
+void	parse_heat(t_data **map_plr, t_heat **heatmap, int h, int w);
+
+/* in the vector.c file */
+int		vector_calc(int h, int w);
+
+/* in square_root.c -file */
+float	square_root(int num, int dec);
 
 #endif

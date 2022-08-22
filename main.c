@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:03:18 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/19 20:40:16 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/22 15:06:51 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,20 @@ int	determine_player(t_data **map_plr)
 		ft_strdel(&input);
 		return(error_output(KO, "Error: incorrect input on line."));
 	}
-	if (ft_strstr(input, name) == NULL)
+	if (ft_strstr(input, name) && ft_strstr (input, "p2"))
 	{
 		(*map_plr)->player = 'X';
 		(*map_plr)->opponent = 'O';
 	}
-	else
+	else if (ft_strstr(input, name) && ft_strstr (input, "p1"))
 	{
 		(*map_plr)->player = 'O';
 		(*map_plr)->opponent = 'X';
 	}
+	else
+		return (error_output(KO, "player name mismatch."));
 	(*map_plr)->players_set = OK;
 	ft_strdel(&input);
-	skip_line(&input);
 	return (OK);
 }
 
@@ -70,7 +71,7 @@ int	main(void)
 	t_data	*map_plr;
 	t_piece *piece;
 	t_heat	*heatmap;
-
+	
 	if (!create_map(&map_plr))
 	{
 		return(error_output(1, "error : failed to create map/player -struct."));
@@ -90,7 +91,8 @@ int	main(void)
 	printf("piece w: %d\n", piece->w);
 	//print_out_piece(&piece);
 	print_out_heatmap(&heatmap);
-	printf("%d\n", heatmap->array[3][3]);
+	//printf("%d\n", heatmap->array[3][3]);
+	print_out_map(&map_plr);
 	printf("The end.\n");
 	//while(1);
 	return (0);

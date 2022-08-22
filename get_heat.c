@@ -6,65 +6,65 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 18:12:31 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/19 20:52:01 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/22 18:45:10 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-int	is_free(char c)
+int	reset_map_copy(t_data **map_plr, t_heat **heatmap)
 {
-	if (c != 'X' || c != 'x' || c != 'O' || c != 'o')
-		return(KO);
+	int	i;
+
+	i = 0;
+	while (i < (*map_plr)->map_h)
+	{
+		ft_strcpy((*heatmap)->map_copy[i], (*map_plr)->map[i]);
+		i++;
+	}	
 	return (OK);
 }
 
-void parse_heat(t_cell **heat_cell, t_data **map_plr, int h, int w)
+int	check_occup(char c, t_data **map_plr)
 {
-	int red;
+	if (c == '.')
+		return(OK);
+	if (c == (*map_plr)->player || c == (*map_plr)->player + 32)
+		return(ME);
+	if (c == (*map_plr)->opponent || c == (*map_plr)->opponent + 32)
+		return(OPP);
+	return (KO);
+}
 
-	red = 0;
-	printf("red :%d\n", red);
-	if ((h - 1) > MIN && is_free((*map_plr)->map[h - 1][w]))
-		parse_heat(heat_cell, map_plr, h - 1, w);
-	if ((h + 1) < (*heat_cell)->max_h && is_free((*map_plr)->map[h + 1][w]))
-		parse_heat(heat_cell, map_plr, h + 1, w);
-	if ((w - 1) > MIN && is_free((*map_plr)->map[h][w - 1]))
-		parse_heat(heat_cell, map_plr, h, w - 1);
-	if ((w + 1) < (*heat_cell)->max_w && is_free((*map_plr)->map[h][w + 1]))
-		parse_heat(heat_cell, map_plr, h, w + 1);
-	if ((h - (*heat_cell)->orig_h) > (w - (*heat_cell)->orig_w))
-		red = (h - (*heat_cell)->orig_h);
-	else
-		red = (w - (*heat_cell)->orig_w);
-	printf("red :%d\n", red);
-	(*heat_cell)->heat -= red;
+void	parse_heat(t_data **map_plr, t_heat **heatmap, int h, int w)
+{
+	if (check_occup((*heatmap)->map_copy[h][w], map_plr) == OPP)
+	{
+		if (vector_calc(h - (*heatmap)->orig_h, w - (*heatmap)->orig_w) < (*heatmap)->heat)
+			(*heatmap)->heat = vector_calc(h - (*heatmap)->orig_h, w - (*heatmap)->orig_w);
+	}
+	(*heatmap)->map_copy[h][w] = 'H';
+	if ((h - 1) > MIN && check_occup((*heatmap)->map_copy[h - 1][w], map_plr))
+		parse_heat(map_plr, heatmap, (h - 1), w);
+	if ((h + 1) < (*heatmap)->h && check_occup((*heatmap)->map_copy[h + 1][w], map_plr))
+		parse_heat(map_plr, heatmap, (h + 1), w);
+	if ((w - 1) > MIN && check_occup((*heatmap)->map_copy[h][w - 1], map_plr))
+		parse_heat(map_plr, heatmap, h, (w - 1));
+	if ((w + 1) < (*heatmap)->w && check_occup((*heatmap)->map_copy[h][w + 1], map_plr))
+		parse_heat(map_plr, heatmap, h, (w + 1));
 	return;
-}
-
-int create_cell(t_cell **heat_cell, int h, int w, t_heat **heatmap)
-{
-	*heat_cell = (t_cell *)ft_memalloc(sizeof(t_cell));
-	if (*heat_cell == NULL)
-		return (KO);
-	(*heat_cell)->orig_h = h;
-	(*heat_cell)->orig_w = w;
-	(*heat_cell)->max_h = (*heatmap)->h;
-	(*heat_cell)->max_h = (*heatmap)->w;
-	return (OK);
 }
 
 int	calculate_heat(t_heat **heatmap, t_data **map_plr, int h, int w)
 {
-	t_cell *heat_cell;
-	
-	if (!create_cell(&heat_cell, h, w, heatmap))
-		return(error_output(KO, "error: Failed to create heat_cell"));
-	heat_cell->heat = 100000;
-	printf("Before parse\n");
-	parse_heat(&heat_cell, map_plr, h, w);
-	(*heatmap)->array[h][w] = heat_cell->heat;
-	free(heat_cell);
+	if (!reset_map_copy(map_plr, heatmap))
+		return (error_output(KO, "resetting map_copy failed."));
+	(*heatmap)->heat = 1000000;
+	(*heatmap)->orig_h = h;
+	(*heatmap)->orig_w = w;
+	(*heatmap)->map_copy[h][w] = 'H';
+	parse_heat(map_plr, heatmap, h, w);
+	(*heatmap)->array[h][w] = (*heatmap)->heat;
 	return (OK);
 }
 
@@ -79,16 +79,18 @@ int	get_heat(t_heat **heatmap, t_data **map_plr)
 	while (h < (*heatmap)->h)
 	{
 		w = 0;
-		while (w < (*heatmap)->h)
+		while (w < (*heatmap)->w)
 		{
-			if (is_free((*map_plr)->map[h][w]))
+			if (check_occup((*map_plr)->map[h][w], map_plr) == OK)
 			{
-				calculate_heat(heatmap, map_plr, h, w);
+				if (!calculate_heat(heatmap, map_plr, h, w))
+					return (error_output(KO, "error : heat calculation failed."));
 				printf("Hello!\n");
 			}
 			w++;
 		}
 		h++;
 	}
+	printf("After pheat_whileloop\n");
 	return (OK);
 }
