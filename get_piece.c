@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:22:32 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/23 14:28:32 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/23 16:45:28 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int get_piece(t_piece **piece)
 	(*piece)->array = (char **)malloc(sizeof(char *) * (*piece)->whole.h);
 	while (i < (*piece)->whole.h)
 	{
-		if (get_next_line(STDIN, &line) <= 0)
+		if (get_next_line(STDIN, &line) < 0)
 			return(error_output(KO, "piece line reading failed."));
 		(*piece)->array[i] = ft_strdup(line);
 		printf("1\n");

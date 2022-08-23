@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 18:12:31 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/22 18:45:10 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/23 16:46:22 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	get_heat(t_heat **heatmap, t_data **map_plr)
 			{
 				if (!calculate_heat(heatmap, map_plr, h, w))
 					return (error_output(KO, "error : heat calculation failed."));
-				printf("Hello!\n");
+				//printf("Hello!\n");
 			}
 			w++;
 		}

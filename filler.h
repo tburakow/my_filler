@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/23 16:09:20 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/23 16:55:04 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ typedef	struct	s_piece
 
 /* in main.c - file */
 int	determine_player(t_data **map_plr);
-int	init(t_data **map_plr, t_heat **heatmap);
 
 /* In play.c -File */
 int	try_piece(t_data **map_plr, t_heat **heatmap, t_piece **piece);

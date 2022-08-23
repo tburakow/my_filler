@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:03:18 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/23 15:34:04 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/23 16:56:55 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,6 @@ int	determine_player(t_data **map_plr)
 	return (OK);
 }
 
-int	init(t_data **map_plr, t_heat **heatmap)
-{
-	if (determine_player(map_plr) == KO)
-		return(error_output(1, "Error: Fail to determine players."));
-	//ft_printf ("I am : %c\n", (*map_plr)->player);
-	//ft_printf ("The opponent is : %c\n", (*map_plr)->opponent);
-	if (get_map(map_plr) != OK)
-		return(error_output(KO, "Error: Fail to get map."));
-	ft_printf("get_map done.\n");
-	if (!create_heatmap(heatmap, map_plr))
-		return(error_output(KO, "error : heatmap craetion failed."));
-	ft_printf("heat map created done.\n");
-	return (OK);
-}
-
 int	main(void)
 {
 	t_data	*map_plr;
@@ -73,12 +58,10 @@ int	main(void)
 	{
 		return(error_output(1, "error : piece creation failed."));
 	}
-	if (init(&map_plr, &heatmap) != 1)
+	if (determine_player(&map_plr) != 1)
 	{
-		return(error_output(1, "error, map/piece creation failed."));
+		return(error_output(1, "player determination failed."));
 	}
-	if (play(&map_plr, &piece, &heatmap) == OK)
-		return (0);
 	//printf("map width: %d\n", map_plr->map_w);
 	//printf("map height: %d\n", map_plr->map_h);
 	//print_out_map(&map_plr);
@@ -91,4 +74,6 @@ int	main(void)
 	//while(1);
 	//print_out_map(&map_plr);
 	//return (play(&map_plr, &piece, &heatmap));
+	if (play(&map_plr, &piece, &heatmap) == OK)
+		return (0);
 }

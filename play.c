@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 19:31:44 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/23 16:08:52 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/23 16:58:31 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int		try_piece(t_data **map_plr, t_heat **heatmap, t_piece **piece)
 	t_coord		*place;
 	int			place_success;
 
-	place = NULL;
+	place = (t_coord *)malloc(sizeof(t_coord));
 	place->h = -20;
 	place->w = -20;
 	place_success = 0;
@@ -102,7 +102,7 @@ int		try_piece(t_data **map_plr, t_heat **heatmap, t_piece **piece)
 			place->w ++;
 		while (place->w  + (*piece)->top_left.w > MIN && place->w  + (*piece)->right_bottom.w < (*map_plr)->map_w)
 		{
-			if (validate_place(map_plr, piece, place))
+			if (validate_place(map_plr, piece, place) == OK)
 			{
 				score_piece(heatmap, piece, place);
 				place_success = 1;
@@ -112,6 +112,7 @@ int		try_piece(t_data **map_plr, t_heat **heatmap, t_piece **piece)
 		place->h++;
 	}
 	printf("%d %d\n", (*piece)->best.w, (*piece)->best.h);
+	free(place);
 	return (place_success);
 }
 
@@ -119,16 +120,25 @@ int		play(t_data **map_plr, t_piece **piece, t_heat **heatmap)
 {
 	while (1)
 	{
-		if (!reset_map(map_plr))
-			return (error_output(1, "Error, failed to fetch map (inside play)"));
+		if (get_map(map_plr) != OK)
+			return(error_output(KO, "Error: Fail to get map."));
+		ft_printf("get_map done.\n");
+		if (!create_heatmap(heatmap, map_plr))
+			return(error_output(KO, "error : heatmap craetion failed."));
+		ft_printf("heat map created done.\n");
 		if (!get_piece(piece))
 			return (error_output(1, "Error, failed to fetch piece (inside play)"));
 		ft_printf("get_piece done.\n");
+		printf("piece h: %d\n", (*piece)->whole.h);
+		printf("piece w: %d\n", (*piece)->whole.w);
 		if (!get_heat(heatmap, map_plr))
 			return (error_output(1, "Error, failed to fetch heatmap (inside play)"));
 		ft_printf("get_heat done.\n");
 		if (try_piece(map_plr, heatmap, piece) != 1)
 			break;
 	}
+	print_out_piece(&(*piece));
+	print_out_map(&(*map_plr));
+	printf("%c\n", (*map_plr)->player);
 	return (OK);
 }

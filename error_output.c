@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:09:01 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/19 17:17:52 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/23 16:33:07 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	error_output(int type, char *msg)
 {
-	ft_printf("%s\n", msg);
+	printf("%s\n", msg);
 	return(type);
 }
