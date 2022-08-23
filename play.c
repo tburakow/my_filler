@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 19:31:44 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/23 16:58:31 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/23 17:43:45 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,16 @@ void score_piece(t_heat **heatmap, t_piece **piece, t_coord *place)
 	score = 0;
 	i = place->h + (*piece)->top_left.h;
 	j = place->w + (*piece)->top_left.w;
-	while (i++ <= (*piece)->right_bottom.h)
+	while (i <= (*piece)->right_bottom.h)
 	{
-		while (j++ <= (*piece)->right_bottom.w)
+		j = place->w + (*piece)->top_left.w;
+		while (j <= (*piece)->right_bottom.w)
 		{
 			if ((*piece)->array[i][j] == '*')
 				score += (*heatmap)->array[i][j];
+			j++;
 		}
+		i++;
 	}
 	if (score < (*piece)->best_score)
 	{
@@ -66,16 +69,22 @@ int		validate_place(t_data **map_plr, t_piece **piece, t_coord *place)
 	j =	place->w + (*piece)->top_left.w;
 	hits = 0;
 	crashes = 0;
-	while (i++ <= (*piece)->right_bottom.h)
+	//printf("HALOO!\n");
+	while (i <= (*piece)->right_bottom.h + (*piece)->top_left.h)
 	{
-		while (j++ <= (*piece)->right_bottom.w)
+		j = place->w + (*piece)->top_left.w;
+		while (j <= (*piece)->right_bottom.w + (*piece)->top_left.w)
 		{
-			if ((*map_plr)->map[i][j] == (*map_plr)->player && (*piece)->array[i][j] == (*map_plr)->player)
+			printf("map : %c   piece : %c   player : %c   h : %d W : %d   hits : %d crashes : %d\n  i : %d   j : %d\n", (*map_plr)->map[i][j], (*piece)->array[i][j], (*map_plr)->player, i, j, hits, crashes);
+			if ((*map_plr)->map[i][j] == (*map_plr)->player && (*piece)->array[i][j] == '*')
 				hits++;
-			if ((*map_plr)->map[i][j] == (*map_plr)->opponent && (*piece)->array[i][j] == (*map_plr)->opponent)
+			if ((*map_plr)->map[i][j] == (*map_plr)->opponent && (*piece)->array[i][j] == '*')
 				crashes++;
+			j++;
 		}
+		i++;
 	}
+	//printf("HELLO!");
 	if (hits == 1 && crashes == 0)
 		return (OK);
 	return (KO);
@@ -87,7 +96,9 @@ int		try_piece(t_data **map_plr, t_heat **heatmap, t_piece **piece)
 {
 	t_coord		*place;
 	int			place_success;
+	int			test_count;
 
+	test_count = 0;
 	place = (t_coord *)malloc(sizeof(t_coord));
 	place->h = -20;
 	place->w = -20;
@@ -95,15 +106,18 @@ int		try_piece(t_data **map_plr, t_heat **heatmap, t_piece **piece)
 	(*piece)->best_score = 100000;
 	while (place->h + (*piece)->top_left.h <= MIN)
 		place->h ++;
-	while (place->h - (*piece)->top_left.h > MIN && place->h + (*piece)->right_bottom.h < (*map_plr)->map_h)
+	while (place->h + (*piece)->right_bottom.h < (*map_plr)->map_h)
 	{
 		place->w = -20;
 		while (place->w  + (*piece)->top_left.w <= MIN)
 			place->w ++;
-		while (place->w  + (*piece)->top_left.w > MIN && place->w  + (*piece)->right_bottom.w < (*map_plr)->map_w)
+		while (place->w  + (*piece)->right_bottom.w < (*map_plr)->map_w)
 		{
+			test_count++;
+			printf("place_w : %d   r_b : %d   map_w : %d\n", place->w, (*piece)->right_bottom.w, (*map_plr)->map_w);
 			if (validate_place(map_plr, piece, place) == OK)
 			{
+				printf("SCORING!");
 				score_piece(heatmap, piece, place);
 				place_success = 1;
 			}

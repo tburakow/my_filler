@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:22:32 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/23 16:45:28 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/23 17:19:14 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int		set_piece_limits(t_piece **piece)
 					(*piece)->top_left.h = j;
 				if (k < (*piece)->top_left.w)
 					(*piece)->top_left.w = k;
-				if (k > (*piece)->right_bottom.h)
-					(*piece)->right_bottom.h = k;
-				if (j > (*piece)->right_bottom.w)
-					(*piece)->right_bottom.w = j;
+				if (k > (*piece)->right_bottom.w)
+					(*piece)->right_bottom.w = k;
+				if (j > (*piece)->right_bottom.h)
+					(*piece)->right_bottom.h = j;
 			}
 			k++;
 		}
