@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/23 14:26:23 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/23 16:09:20 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,9 @@ int	init(t_data **map_plr, t_heat **heatmap);
 /* In play.c -File */
 int	try_piece(t_data **map_plr, t_heat **heatmap, t_piece **piece);
 int	play(t_data **map_plr, t_piece **piece, t_heat **heatmap);
+int	validate_place(t_data **map_plr, t_piece **piece, t_coord *place);
+int	reset_map(t_data **map_plr);
+void score_piece(t_heat **heatmap, t_piece **piece, t_coord *place);
 
 /* in get_map.c - file */
 int	get_map(t_data **map_plr);
