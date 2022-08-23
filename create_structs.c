@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:02:13 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/22 17:01:47 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/23 14:24:39 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ int	create_piece(t_piece **piece)
 	*piece = (t_piece *)ft_memalloc(sizeof(t_piece));
 	if (*piece == NULL)
 		return (KO);
+	(*piece)->top_left.h = 100;
+	(*piece)->top_left.w = 100;
+	(*piece)->right_bottom.h = 0;
+	(*piece)->right_bottom.w = 0;
+	
+	
+	(*piece)->best_score = 100000;
 	return (OK);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/22 18:57:33 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/23 14:26:23 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,29 @@ typedef	struct	s_heat
 	char	**map_copy;
 }			t_heat;
 
+typedef struct	s_coord
+{
+	int	h;
+	int w;
+}				t_coord;
 
 typedef	struct	s_piece
 {
-	int		w;
-	int		h;
+	t_coord	whole;
+	t_coord	top_left;
+	t_coord right_bottom;
 	char	**array;
+	t_coord best;
+	int		best_score;
 }			t_piece;
 
 /* in main.c - file */
 int	determine_player(t_data **map_plr);
-int	init(t_data **map_plr, t_piece **piece, t_heat **heatmap);
+int	init(t_data **map_plr, t_heat **heatmap);
+
+/* In play.c -File */
+int	try_piece(t_data **map_plr, t_heat **heatmap, t_piece **piece);
+int	play(t_data **map_plr, t_piece **piece, t_heat **heatmap);
 
 /* in get_map.c - file */
 int	get_map(t_data **map_plr);

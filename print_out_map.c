@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:28:55 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/19 19:52:29 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/23 14:28:03 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	print_out_piece(t_piece **piece)
 	int i;
 
 	i = 0;
-	while (i < (*piece)->h)
+	while (i < (*piece)->whole.h)
 	{
 		ft_printf("%s\n", (*piece)->array[i]);
 		i++;

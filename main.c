@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:03:18 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/22 15:06:51 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/22 19:58:25 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,8 @@ int	determine_player(t_data **map_plr)
 	return (OK);
 }
 
-int	init(t_data **map_plr, t_piece **piece, t_heat **heatmap)
+int	init(t_data **map_plr, t_heat **heatmap)
 {
-	
 	if (determine_player(map_plr) == KO)
 		return(error_output(1, "Error: Fail to determine players."));
 	//ft_printf ("I am : %c\n", (*map_plr)->player);
@@ -57,12 +56,6 @@ int	init(t_data **map_plr, t_piece **piece, t_heat **heatmap)
 	if (!create_heatmap(heatmap, map_plr))
 		return(error_output(KO, "error : heatmap craetion failed."));
 	ft_printf("heat map created done.\n");
-	if (!get_piece(piece))
-		return(error_output(KO, "Error : failed to initialize piece"));
-	ft_printf("get_piece done.\n");
-	if (!get_heat(heatmap, map_plr))
-		return(error_output(KO, "error : failed to get heat."));
-	ft_printf("get_heat done.\n");
 	return (OK);
 }
 
@@ -80,20 +73,21 @@ int	main(void)
 	{
 		return(error_output(1, "error : piece creation failed."));
 	}
-	if (init(&map_plr, &piece, &heatmap) != 1)
+	if (init(&map_plr, &heatmap) != 1)
 	{
 		return(error_output(1, "error, map/piece creation failed."));
 	}
-	printf("map width: %d\n", map_plr->map_w);
-	printf("map height: %d\n", map_plr->map_h);
+	play(&map_plr, &piece, &heatmap);
+	//printf("map width: %d\n", map_plr->map_w);
+	//printf("map height: %d\n", map_plr->map_h);
 	//print_out_map(&map_plr);
-	printf("piece h: %d\n", piece->h);
-	printf("piece w: %d\n", piece->w);
-	//print_out_piece(&piece);
+	//printf("piece h: %d\n", piece->h);
+	//printf("piece w: %d\n", piece->w);
+	print_out_piece(&piece);
 	print_out_heatmap(&heatmap);
 	//printf("%d\n", heatmap->array[3][3]);
-	print_out_map(&map_plr);
-	printf("The end.\n");
+	//printf("The end.\n");
 	//while(1);
-	return (0);
+	print_out_map(&map_plr);
+	//return (play(&map_plr, &piece, &heatmap));
 }
