@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 19:31:44 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/23 17:43:45 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 10:36:04 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,21 @@ int		validate_place(t_data **map_plr, t_piece **piece, t_coord *place)
 	int	hits;
 	int crashes;
 
-	i = place->h + (*piece)->top_left.h;
-	j =	place->w + (*piece)->top_left.w;
+	i = 0;
+	j =	0;
 	hits = 0;
 	crashes = 0;
 	//printf("HALOO!\n");
-	while (i <= (*piece)->right_bottom.h + (*piece)->top_left.h)
+	//printf("map : %c   piece : %c   player : %c   h : %d W : %d   hits : %d crashes : %d\n\n", (*map_plr)->map[i][j], (*piece)->array[i][j], (*map_plr)->player, i, j, hits, crashes);
+	while (i <= (*piece)->right_bottom.h)
 	{
-		j = place->w + (*piece)->top_left.w;
-		while (j <= (*piece)->right_bottom.w + (*piece)->top_left.w)
+		j = 0;
+		while (j <= (*piece)->right_bottom.w)
 		{
-			printf("map : %c   piece : %c   player : %c   h : %d W : %d   hits : %d crashes : %d\n  i : %d   j : %d\n", (*map_plr)->map[i][j], (*piece)->array[i][j], (*map_plr)->player, i, j, hits, crashes);
-			if ((*map_plr)->map[i][j] == (*map_plr)->player && (*piece)->array[i][j] == '*')
+			//printf("map : %c   piece : %c   player : %c   h : %d W : %d   hits : %d crashes : %d\n\n", (*map_plr)->map[i][j], (*piece)->array[i][j], (*map_plr)->player, i, j, hits, crashes);
+			if ((*map_plr)->map[i + place->h][j + place->w] == (*map_plr)->player && (*piece)->array[i][j] == '*')
 				hits++;
-			if ((*map_plr)->map[i][j] == (*map_plr)->opponent && (*piece)->array[i][j] == '*')
+			if ((*map_plr)->map[i + place->h][j + place->w] == (*map_plr)->opponent && (*piece)->array[i][j] == '*')
 				crashes++;
 			j++;
 		}
@@ -114,10 +115,10 @@ int		try_piece(t_data **map_plr, t_heat **heatmap, t_piece **piece)
 		while (place->w  + (*piece)->right_bottom.w < (*map_plr)->map_w)
 		{
 			test_count++;
-			printf("place_w : %d   r_b : %d   map_w : %d\n", place->w, (*piece)->right_bottom.w, (*map_plr)->map_w);
+			//printf("place_w : %d place_h :  %d  r_b : %d   map_w : %d\n", place->w, place->h, (*piece)->right_bottom.w, (*map_plr)->map_w);
 			if (validate_place(map_plr, piece, place) == OK)
 			{
-				printf("SCORING!");
+				//printf("SCORING!");
 				score_piece(heatmap, piece, place);
 				place_success = 1;
 			}
@@ -125,7 +126,7 @@ int		try_piece(t_data **map_plr, t_heat **heatmap, t_piece **piece)
 		}
 		place->h++;
 	}
-	printf("%d %d\n", (*piece)->best.w, (*piece)->best.h);
+	ft_printf("%d %d\n", (*piece)->best.w, (*piece)->best.h);
 	free(place);
 	return (place_success);
 }
@@ -136,23 +137,23 @@ int		play(t_data **map_plr, t_piece **piece, t_heat **heatmap)
 	{
 		if (get_map(map_plr) != OK)
 			return(error_output(KO, "Error: Fail to get map."));
-		ft_printf("get_map done.\n");
+		//ft_printf("get_map done.\n");
 		if (!create_heatmap(heatmap, map_plr))
 			return(error_output(KO, "error : heatmap craetion failed."));
-		ft_printf("heat map created done.\n");
+		//ft_printf("heat map created done.\n");
 		if (!get_piece(piece))
 			return (error_output(1, "Error, failed to fetch piece (inside play)"));
-		ft_printf("get_piece done.\n");
-		printf("piece h: %d\n", (*piece)->whole.h);
-		printf("piece w: %d\n", (*piece)->whole.w);
+		//ft_printf("get_piece done.\n");
+		//printf("piece h: %d\n", (*piece)->whole.h);
+		//printf("piece w: %d\n", (*piece)->whole.w);
 		if (!get_heat(heatmap, map_plr))
 			return (error_output(1, "Error, failed to fetch heatmap (inside play)"));
-		ft_printf("get_heat done.\n");
+		//ft_printf("get_heat done.\n");
 		if (try_piece(map_plr, heatmap, piece) != 1)
 			break;
 	}
-	print_out_piece(&(*piece));
-	print_out_map(&(*map_plr));
-	printf("%c\n", (*map_plr)->player);
+	//print_out_piece(&(*piece));
+	//print_out_map(&(*map_plr));
+	//printf("%c\n", (*map_plr)->player);
 	return (OK);
 }

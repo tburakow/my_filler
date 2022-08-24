@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 18:12:31 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/23 16:46:22 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 10:10:35 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	get_heat(t_heat **heatmap, t_data **map_plr)
 
 	h = 0;
 	w = 0;
-	printf("Before pheat_whileloop\n");
+	//printf("Before pheat_whileloop\n");
 	while (h < (*heatmap)->h)
 	{
 		w = 0;
@@ -91,6 +91,6 @@ int	get_heat(t_heat **heatmap, t_data **map_plr)
 		}
 		h++;
 	}
-	printf("After pheat_whileloop\n");
+	//printf("After pheat_whileloop\n");
 	return (OK);
 }

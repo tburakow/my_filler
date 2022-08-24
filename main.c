@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:03:18 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/23 16:56:55 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 10:35:33 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ int	main(void)
 	//print_out_map(&map_plr);
 	//return (play(&map_plr, &piece, &heatmap));
 	if (play(&map_plr, &piece, &heatmap) == OK)
-		return (0);
+		ft_printf("0 0\n");
+	return (0);
 }
