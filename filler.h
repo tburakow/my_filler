@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 12:08:00 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 12:41:41 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void 	fprint_string(char *message);
 void 	fprint_int(int message);
 
 /* in the skip_line.c -file */
-void	skip_line(char **input);
+int		skip_line(void);
 
 /* in create_structs.c - file */
 int create_map(t_data **map_plr);

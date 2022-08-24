@@ -6,20 +6,20 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 19:31:44 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 12:10:29 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 13:03:23 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-int	reset_map(t_data **map_plr)
+/* int	reset_map(t_data **map_plr)
 {
 	int		i;
 	char 	*line;
 
 	i = 0;
-	skip_line(&line);
-	skip_line(&line);
+	(void)skip_line();
+	(void)skip_line();
 	while (i < (*map_plr)->map_h)
 	{
 		if (get_next_line(STDIN, &line) <= 0)
@@ -28,7 +28,7 @@ int	reset_map(t_data **map_plr)
 		i++;
 	}
 	return (OK);
-}
+} */
 
 void score_piece(t_heat **heatmap, t_piece **piece, t_coord *place)
 {

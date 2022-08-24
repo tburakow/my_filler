@@ -6,14 +6,22 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 15:51:30 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/19 15:53:47 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 12:57:46 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void skip_line(char **input)
+int		skip_line(void)
 {
-	(void)get_next_line(STDIN, input);
-	ft_strdel(input);
+	fprint_string("start of skip_line");
+	char	*skip_line;
+	int		ret;
+	
+	ret = get_next_line(STDIN, &skip_line);
+	if (ret < 0)
+		return (KO);
+	fprint_string(skip_line);
+	//ft_strdel(&skip_line);
+	return (OK);
 }

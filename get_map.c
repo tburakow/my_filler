@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:00:08 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 12:26:00 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 12:57:03 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,7 @@ int get_map_size(t_data **map_plr)
 		ft_printf("error : failed to read line for map size.\n");
 		return (KO);
 	}
-
-	if (ft_strstr(input, "Plateau") != NULL)
+	if (ft_strstr(input, "Plateau"))
 	{
 		while(input[i])
 		{
@@ -99,7 +98,9 @@ int get_map_size(t_data **map_plr)
 	}
 	//ft_printf("Map size is ; width : %i. height : %i.\n", (*map_plr)->map_w, (*map_plr)->map_h);
 	ft_strdel(&input);
-	skip_line(&input);
+	fprint_string("before skip line");
+	if (!skip_line())
+		return(error_output(1, "error :line skip irregular"));
 	fprint_string("get map size end");
 	return (OK);
 }
