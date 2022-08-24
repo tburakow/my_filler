@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 15:51:30 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 12:57:46 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 14:14:42 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@ int		skip_line(void)
 	char	*skip_line;
 	int		ret;
 	
+	skip_line = NULL;
 	ret = get_next_line(STDIN, &skip_line);
+	fprint_int(ret);
 	if (ret < 0)
 		return (KO);
-	fprint_string(skip_line);
-	//ft_strdel(&skip_line);
+	fprint_string_2(skip_line, "inputs");
+	if (skip_line)
+		free(skip_line);
 	return (OK);
 }

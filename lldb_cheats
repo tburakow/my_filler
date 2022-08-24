@@ -1,0 +1,5 @@
+thread until <line number>  = mene kohtaan X
+thread return = poistu functiosta. (t'lle voi my;s antaa arvon.)
+process attach --name tburakow.filler --waitfor = liita tahan processiin ja odota sen kaynnistymista.
+(lisaa ylle : muista lisata parin sekunnin sleep mainiin, jotta lldb ehtii mukaan. taman jalkeen thread return kunnes ollaan mainissa)
+bt (backtrace) (kertoo missa olet ja mista se on kutsuttu.)

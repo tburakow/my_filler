@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:00:08 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 12:57:03 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 15:43:20 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	fill_map(t_data **map_plr)
 		if(get_next_line(STDIN, &line) <= 0)
 			return (KO);
 		//ft_printf("check 3\n");
+		fprint_string_2(line, "inputs");
 		j = 0;
 		while (line[j] != '\0')
 		{
@@ -73,6 +74,7 @@ int get_map_size(t_data **map_plr)
 	int		i;
 
 	i = 0;
+	input = NULL;
 	fprint_string("get map size start");
 	//ft_printf("enter\n");
 	if (get_next_line(STDIN, &input) <= 0)
@@ -80,6 +82,7 @@ int get_map_size(t_data **map_plr)
 		ft_printf("error : failed to read line for map size.\n");
 		return (KO);
 	}
+	fprint_string_2(input, "inputs");
 	if (ft_strstr(input, "Plateau"))
 	{
 		while(input[i])
@@ -96,7 +99,7 @@ int get_map_size(t_data **map_plr)
 			i++;
 		}
 	}
-	//ft_printf("Map size is ; width : %i. height : %i.\n", (*map_plr)->map_w, (*map_plr)->map_h);
+	dprintf(2, "Map size is ; width : %i. height : %i.\n", (*map_plr)->map_w, (*map_plr)->map_h);
 	ft_strdel(&input);
 	fprint_string("before skip line");
 	if (!skip_line())

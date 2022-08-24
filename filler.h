@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 12:41:41 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 16:11:18 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void	print_out_piece(t_piece **piece);
 void	print_out_heatmap(t_heat **heatmap);
 void 	fprint_string(char *message);
 void 	fprint_int(int message);
+void fprint_string_2(char *message, char *filename);
+void	fprint_out_piece(t_piece **piece);
 
 /* in the skip_line.c -file */
 int		skip_line(void);

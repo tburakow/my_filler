@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:22:32 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 10:10:19 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 16:08:16 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int get_piece_size(t_piece **piece)
 	if (get_next_line(STDIN, &line) <= 0)
 		return(error_output(KO, "failed to read line for piece size."));
 	//printf("!!!!%s\n", line);
+	fprint_string_2(line, "inputs");
 	if (ft_strstr(line, "Piece") != NULL)
 	{
 		while(line[i])
@@ -88,14 +89,15 @@ int get_piece(t_piece **piece)
 	{
 		if (get_next_line(STDIN, &line) < 0)
 			return(error_output(KO, "piece line reading failed."));
+		fprint_string_2(line, "inputs");
 		(*piece)->array[i] = ft_strdup(line);
 		//printf("1\n");
-		ft_strdel(&line);
 		//printf("2\n");
 		i++;
 	}
 	if (!set_piece_limits(piece))
 		return(error_output(KO, "Setting of piece limits failed"));
 	//printf("Helloo from get_piece! END\n");
+	ft_strdel(&line);
 	return (OK);
 }

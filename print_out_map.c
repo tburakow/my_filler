@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:28:55 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 12:07:44 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 16:12:50 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,27 @@ void	fprint_out_map(t_data **map_plr)
 	int 	i;
 
 	i = 0;
-	fp = fopen("map_plr", "a");
+	fp = fopen("maps_read", "a");
+	fprintf(fp, "\n---- START OF NEW MAP ----\n\n");
 	while (i < (*map_plr)->map_h)
 	{
 		fprintf(fp, "%s\n", (*map_plr)->map[i]);
+		i++;
+	}
+	fclose(fp);
+}
+
+void	fprint_out_piece(t_piece **piece)
+{
+	FILE 	*fp;
+	int 	i;
+
+	i = 0;
+	fp = fopen("maps_read", "a");
+	fprintf(fp, "\n---- START OF NEW PIECE ----\n\n");
+	while (i < (*piece)->whole.h)
+	{
+		fprintf(fp, "%s\n", (*piece)->array[i]);
 		i++;
 	}
 	fclose(fp);
@@ -58,6 +75,17 @@ void fprint_string(char *message)
 
 	i = 0;
 	fp = fopen("msg", "a");
+	fprintf(fp, "%s\n", message);
+	fclose(fp);
+}
+
+void fprint_string_2(char *message, char *filename)
+{
+	FILE 	*fp;
+	int 	i;
+
+	i = 0;
+	fp = fopen(filename, "a");
 	fprintf(fp, "%s\n", message);
 	fclose(fp);
 }

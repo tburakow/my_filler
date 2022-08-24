@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 14:09:25 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 12:26:42 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 14:30:35 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-# define BUFF_SIZE 400
+# define BUFF_SIZE 2
 # define FD_SIZE 4096
 
 typedef struct s_list
