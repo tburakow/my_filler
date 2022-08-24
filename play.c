@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 19:31:44 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 10:36:04 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 11:20:37 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,16 @@ void score_piece(t_heat **heatmap, t_piece **piece, t_coord *place)
 	int j;
 	
 	score = 0;
-	i = place->h + (*piece)->top_left.h;
-	j = place->w + (*piece)->top_left.w;
+	i = 0;
+	j = 0;
 	while (i <= (*piece)->right_bottom.h)
 	{
-		j = place->w + (*piece)->top_left.w;
+		j = 0;
 		while (j <= (*piece)->right_bottom.w)
 		{
 			if ((*piece)->array[i][j] == '*')
-				score += (*heatmap)->array[i][j];
+				score += (*heatmap)->array[i + place->h][j + place->w];
+			//printf("score : %d", score);
 			j++;
 		}
 		i++;
@@ -105,6 +106,7 @@ int		try_piece(t_data **map_plr, t_heat **heatmap, t_piece **piece)
 	place->w = -20;
 	place_success = 0;
 	(*piece)->best_score = 100000;
+	//printf("current best : %d %d score : %d\n", (*piece)->best.w, (*piece)->best.h, (*piece)->best_score);
 	while (place->h + (*piece)->top_left.h <= MIN)
 		place->h ++;
 	while (place->h + (*piece)->right_bottom.h < (*map_plr)->map_h)
@@ -118,8 +120,10 @@ int		try_piece(t_data **map_plr, t_heat **heatmap, t_piece **piece)
 			//printf("place_w : %d place_h :  %d  r_b : %d   map_w : %d\n", place->w, place->h, (*piece)->right_bottom.w, (*map_plr)->map_w);
 			if (validate_place(map_plr, piece, place) == OK)
 			{
+				//print_out_heatmap(heatmap);
 				//printf("SCORING!");
 				score_piece(heatmap, piece, place);
+				//printf("current best : %d %d score : %d\n", (*piece)->best.w, (*piece)->best.h, (*piece)->best_score);
 				place_success = 1;
 			}
 			place->w++;
