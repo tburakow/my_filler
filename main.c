@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:03:18 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 10:35:33 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 12:21:39 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	determine_player(t_data **map_plr)
 	char *name = "tburakow.filler";
 	
 	input = NULL;
+	fprint_string("player determine start");
 	if ((*map_plr)->players_set == OK)
 		return (OK);
 	if (get_next_line(STDIN, &input) <= 0)
@@ -41,6 +42,7 @@ int	determine_player(t_data **map_plr)
 		return (error_output(KO, "player name mismatch."));
 	(*map_plr)->players_set = OK;
 	ft_strdel(&input);
+	fprint_string("player determine end");
 	return (OK);
 }
 
@@ -50,6 +52,8 @@ int	main(void)
 	t_piece *piece;
 	t_heat	*heatmap;
 	
+	fprint_string("-----NEW RUN------\n");
+	fprint_string("start of main\n");
 	if (!create_map(&map_plr))
 	{
 		return(error_output(1, "error : failed to create map/player -struct."));
@@ -62,6 +66,7 @@ int	main(void)
 	{
 		return(error_output(1, "player determination failed."));
 	}
+	fprint_string("before play.\n");
 	//printf("map width: %d\n", map_plr->map_w);
 	//printf("map height: %d\n", map_plr->map_h);
 	//print_out_map(&map_plr);

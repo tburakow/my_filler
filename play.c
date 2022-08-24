@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 19:31:44 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 11:20:37 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 12:10:29 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void score_piece(t_heat **heatmap, t_piece **piece, t_coord *place)
 	score = 0;
 	i = 0;
 	j = 0;
+	fprint_string("start of score_piece\n");
 	while (i <= (*piece)->right_bottom.h)
 	{
 		j = 0;
@@ -57,6 +58,8 @@ void score_piece(t_heat **heatmap, t_piece **piece, t_coord *place)
 		(*piece)->best.h = place->h;
 		(*piece)->best.w = place->w;
 	}
+	fprint_string("end of score_piece\n");
+	return;
 }
 
 int		validate_place(t_data **map_plr, t_piece **piece, t_coord *place)
@@ -70,6 +73,7 @@ int		validate_place(t_data **map_plr, t_piece **piece, t_coord *place)
 	j =	0;
 	hits = 0;
 	crashes = 0;
+	//fprint_string("start of validate_piece\n");
 	//printf("HALOO!\n");
 	//printf("map : %c   piece : %c   player : %c   h : %d W : %d   hits : %d crashes : %d\n\n", (*map_plr)->map[i][j], (*piece)->array[i][j], (*map_plr)->player, i, j, hits, crashes);
 	while (i <= (*piece)->right_bottom.h)
@@ -78,15 +82,18 @@ int		validate_place(t_data **map_plr, t_piece **piece, t_coord *place)
 		while (j <= (*piece)->right_bottom.w)
 		{
 			//printf("map : %c   piece : %c   player : %c   h : %d W : %d   hits : %d crashes : %d\n\n", (*map_plr)->map[i][j], (*piece)->array[i][j], (*map_plr)->player, i, j, hits, crashes);
-			if ((*map_plr)->map[i + place->h][j + place->w] == (*map_plr)->player && (*piece)->array[i][j] == '*')
+			if (((*map_plr)->map[i + place->h][j + place->w] == (*map_plr)->player && (*piece)->array[i][j] == '*')
+			|| ((*map_plr)->map[i + place->h][j + place->w] == (*map_plr)->player + 32 && (*piece)->array[i][j] == '*'))
 				hits++;
-			if ((*map_plr)->map[i + place->h][j + place->w] == (*map_plr)->opponent && (*piece)->array[i][j] == '*')
+			if (((*map_plr)->map[i + place->h][j + place->w] == (*map_plr)->opponent && (*piece)->array[i][j] == '*')
+			|| ((*map_plr)->map[i + place->h][j + place->w] == (*map_plr)->opponent + 32 && (*piece)->array[i][j] == '*'))
 				crashes++;
 			j++;
 		}
 		i++;
 	}
 	//printf("HELLO!");
+	//fprint_string("end of validate_piece\n");
 	if (hits == 1 && crashes == 0)
 		return (OK);
 	return (KO);
@@ -106,6 +113,7 @@ int		try_piece(t_data **map_plr, t_heat **heatmap, t_piece **piece)
 	place->w = -20;
 	place_success = 0;
 	(*piece)->best_score = 100000;
+	fprint_string("start of try_piece\n");
 	//printf("current best : %d %d score : %d\n", (*piece)->best.w, (*piece)->best.h, (*piece)->best_score);
 	while (place->h + (*piece)->top_left.h <= MIN)
 		place->h ++;
@@ -130,8 +138,13 @@ int		try_piece(t_data **map_plr, t_heat **heatmap, t_piece **piece)
 		}
 		place->h++;
 	}
-	ft_printf("%d %d\n", (*piece)->best.w, (*piece)->best.h);
+	printf("%d %d\n", (*piece)->best.w, (*piece)->best.h);
+	fprint_string("best.w is :");
+	fprint_int((*piece)->best.w);
+	fprint_string("best.h is :");
+	fprint_int((*piece)->best.h);
 	free(place);
+	fprint_string("end of try_piece\n");
 	return (place_success);
 }
 
@@ -139,22 +152,30 @@ int		play(t_data **map_plr, t_piece **piece, t_heat **heatmap)
 {
 	while (1)
 	{
+		fprint_string("start of play.\n");
 		if (get_map(map_plr) != OK)
 			return(error_output(KO, "Error: Fail to get map."));
+		fprint_out_map(map_plr);
+		fprint_string("after getmap.\n");
 		//ft_printf("get_map done.\n");
 		if (!create_heatmap(heatmap, map_plr))
-			return(error_output(KO, "error : heatmap craetion failed."));
+			return(error_output(KO, "error : heatmap creation failed."));
+		fprint_string("after create heat\n");
 		//ft_printf("heat map created done.\n");
 		if (!get_piece(piece))
 			return (error_output(1, "Error, failed to fetch piece (inside play)"));
 		//ft_printf("get_piece done.\n");
 		//printf("piece h: %d\n", (*piece)->whole.h);
 		//printf("piece w: %d\n", (*piece)->whole.w);
+		fprint_string("after get piece\n");
 		if (!get_heat(heatmap, map_plr))
 			return (error_output(1, "Error, failed to fetch heatmap (inside play)"));
 		//ft_printf("get_heat done.\n");
+		fprint_string("after get heat\n");
 		if (try_piece(map_plr, heatmap, piece) != 1)
 			break;
+		fprint_string("after try piece\n");
+		fprint_string("end of play.");
 	}
 	//print_out_piece(&(*piece));
 	//print_out_map(&(*map_plr));

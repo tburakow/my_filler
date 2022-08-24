@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:00:08 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 10:08:44 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 12:26:00 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	fill_map(t_data **map_plr)
 
 	i = 0;
 	j = 0;
+	fprint_string("fill map start");
 	//ft_printf("check 1\n");
 	(*map_plr)->map = (char **)malloc(sizeof(char *) * (*map_plr)->map_h);
 	while (i < (*map_plr)->map_h)
@@ -62,6 +63,7 @@ int	fill_map(t_data **map_plr)
 		//ft_printf("check 8\n");
 		ft_strdel(&line);
 	}
+	fprint_string("fill map end");
 	return (OK);
 }
 
@@ -71,6 +73,7 @@ int get_map_size(t_data **map_plr)
 	int		i;
 
 	i = 0;
+	fprint_string("get map size start");
 	//ft_printf("enter\n");
 	if (get_next_line(STDIN, &input) <= 0)
 	{
@@ -97,14 +100,17 @@ int get_map_size(t_data **map_plr)
 	//ft_printf("Map size is ; width : %i. height : %i.\n", (*map_plr)->map_w, (*map_plr)->map_h);
 	ft_strdel(&input);
 	skip_line(&input);
+	fprint_string("get map size end");
 	return (OK);
 }
 
 int get_map(t_data **map_plr)
 {
+	fprint_string("get map start");
 	if (get_map_size(map_plr) != OK)
 		return (KO);
 	if (!fill_map(map_plr))
 		return (KO);
+	fprint_string("get map end");
 	return (OK);
 }

@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/23 16:55:04 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 12:08:00 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,13 @@ int get_map_size(t_data **map_plr);
 int fill_map(t_data **map_plr);
 
 /* in the print_out.c -file */
+void	fprint_out_map(t_data **map_plr);
+void	dprint_out_map(t_data **map_plr);
 void	print_out_map(t_data **map_plr);
 void	print_out_piece(t_piece **piece);
 void	print_out_heatmap(t_heat **heatmap);
+void 	fprint_string(char *message);
+void 	fprint_int(int message);
 
 /* in the skip_line.c -file */
 void	skip_line(char **input);
