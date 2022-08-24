@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:03:18 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 15:18:35 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 17:05:34 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ int	main(void)
 	t_piece *piece;
 	t_heat	*heatmap;
 	
-	sleep(2);
+	//sleep(2);
+	//ft_putstr("8 2\n");
 	fprint_string("-----NEW RUN------\n");
 	fprint_string("start of main\n");
 	if (!create_map(&map_plr))

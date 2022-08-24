@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 18:12:31 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 11:06:50 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 17:14:13 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,43 +55,43 @@ void	parse_heat(t_data **map_plr, t_heat **heatmap, int h, int w)
 	return;
 }
 
-int	calculate_heat(t_heat **heatmap, t_data **map_plr, int h, int w)
+int	calculate_heat(t_heat **heatmap, t_data **map_plr, int y, int x)
 {
 	if (!reset_map_copy(map_plr, heatmap))
 		return (error_output(KO, "resetting map_copy failed."));
 	(*heatmap)->heat = 1000000;
-	(*heatmap)->orig_h = h;
-	(*heatmap)->orig_w = w;
-	(*heatmap)->map_copy[h][w] = 'H';
-	parse_heat(map_plr, heatmap, h, w);
-	(*heatmap)->array[h][w] = (*heatmap)->heat;
+	(*heatmap)->orig_h = y;
+	(*heatmap)->orig_w = x;
+	(*heatmap)->map_copy[y][x] = 'H';
+	parse_heat(map_plr, heatmap, y, x);
+	(*heatmap)->array[y][x] = (*heatmap)->heat;
 	return (OK);
 }
 
 int	get_heat(t_heat **heatmap, t_data **map_plr)
 {
-	int h;
-	int w;
+	int y;
+	int x;
 
-	h = 0;
-	w = 0;
+	y = 0;
+	x = 0;
 	//printf("Before pheat_whileloop\n");
-	while (h < (*heatmap)->h)
+	while (y < (*heatmap)->h)
 	{
-		w = 0;
-		while (w < (*heatmap)->w)
+		x = 0;
+		while (x < (*heatmap)->w)
 		{
-			if (check_occup((*map_plr)->map[h][w], map_plr) == OK)
+			if (check_occup((*map_plr)->map[y][x], map_plr) == OK)
 			{
-				if (!calculate_heat(heatmap, map_plr, h, w))
+				if (!calculate_heat(heatmap, map_plr, y, x))
 					return (error_output(KO, "error : heat calculation failed."));
 				//printf("Hello!\n");
 			}
-			if (check_occup((*map_plr)->map[h][w], map_plr) == ME)
-				(*heatmap)->array[h][w] = 0;
-			w++;
+			if (check_occup((*map_plr)->map[y][x], map_plr) == ME)
+				(*heatmap)->array[y][x] = 0;
+			x++;
 		}
-		h++;
+		y++;
 	}
 	//printf("After pheat_whileloop\n");
 	return (OK);

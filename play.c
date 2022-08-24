@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 19:31:44 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 16:44:16 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 17:09:46 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,10 @@ void	score_piece(t_heat **heatmap, t_piece **piece, t_coord *place)
 	while (i <= (*piece)->right_bottom.h && place->h + i < (*heatmap)->h)
 	{
 		j = 0;
-		while (j <= (*piece)->right_bottom.h && place->w + j < (*heatmap)->w)
+		while (j <= (*piece)->right_bottom.w && place->w + j < (*heatmap)->w)
 		{
 			if ((*piece)->array[i][j] == '*')
-			{
-				dprintf(2, "Ping!\n");
 				score += (*heatmap)->array[i + place->h][j + place->w];
-			}
 			j++;
 		}
 		dprintf(2, "score : %d\n", score);
@@ -153,10 +150,13 @@ int		validate_place(t_data **map_plr, t_piece **piece, t_coord *place)
 	while (i <= (*piece)->right_bottom.h && place->h + i < (*map_plr)->map_h)
 	{
 		j = 0;
-		while (j <= (*piece)->right_bottom.h && place->w + j < (*map_plr)->map_w)
+		while (j <= (*piece)->right_bottom.w && place->w + j < (*map_plr)->map_w)
 		{
 			if ((*piece)->array[i][j] == '*')
 			{
+				fprint_string("\n--- IN VALIDATE PIECE --- i + place->h & j + place->w :\n");
+				fprint_int(i + place->h);
+				fprint_int(j + place->w);
 				if ((*map_plr)->map[i + place->h][j + place->w] == (*map_plr)->player)
 					hits++;
 				if ((*map_plr)->map[i + place->h][j + place->w] == (*map_plr)->player + 32)
@@ -184,9 +184,7 @@ int		try_piece(t_data **map_plr, t_heat **heatmap, t_piece **piece)
 {
 	t_coord		*place;
 	int			place_success;
-	int			test_count;
 
-	test_count = 0;
 	place = (t_coord *)malloc(sizeof(t_coord));
 	place->h = -20;
 	place->w = -20;
@@ -203,7 +201,9 @@ int		try_piece(t_data **map_plr, t_heat **heatmap, t_piece **piece)
 			place->w ++;
 		while (place->w  + (*piece)->right_bottom.w < (*map_plr)->map_w)
 		{
-			test_count++;
+			fprint_string("\n IN TRY_PIECE --- i + place->h & j + place->w :\n");
+			fprint_int((*piece)->top_left.h + place->h);
+			fprint_int((*piece)->top_left.w + place->w);
 			//printf("place_w : %d place_h :  %d  r_b : %d   map_w : %d\n", place->w, place->h, (*piece)->right_bottom.w, (*map_plr)->map_w);
 			if (validate_place(map_plr, piece, place) == OK)
 			{
@@ -216,12 +216,11 @@ int		try_piece(t_data **map_plr, t_heat **heatmap, t_piece **piece)
 			place->w++;
 		}
 		place->h++;
-		
 	}
-	fprint_string("best.w is :");
-	fprint_int((*piece)->best.w);
-	fprint_string("best.h is :");
-	fprint_int((*piece)->best.h);
+	//fprint_string("best.w is :");
+	//fprint_int((*piece)->best.w);
+	//fprint_string("best.h is :");
+	//fprint_int((*piece)->best.h);
 	free(place);
 	fprint_string("end of try_piece\n");
 	return (place_success);
@@ -234,7 +233,7 @@ int		play(t_data **map_plr, t_piece **piece, t_heat **heatmap)
 		fprint_string("start of play.\n");
 		if (get_map(map_plr) != OK)
 			return(error_output(KO, "Error: Fail to get map."));
-		fprint_out_map(map_plr);
+		//fprint_out_map(map_plr);
 		fprint_string("after getmap.\n");
 		//ft_printf("get_map done.\n");
 		if (!create_heatmap(heatmap, map_plr))
@@ -243,7 +242,7 @@ int		play(t_data **map_plr, t_piece **piece, t_heat **heatmap)
 		//ft_printf("heat map created done.\n");
 		if (!get_piece(piece))
 			return (error_output(1, "Error, failed to fetch piece (inside play)"));
-		fprint_out_piece(piece);
+		//fprint_out_piece(piece);
 		//ft_printf("get_piece done.\n");
 		//printf("piece h: %d\n", (*piece)->whole.h);
 		//printf("piece w: %d\n", (*piece)->whole.w);
@@ -254,7 +253,7 @@ int		play(t_data **map_plr, t_piece **piece, t_heat **heatmap)
 		fprint_string("after get heat\n");
 		if (try_piece(map_plr, heatmap, piece) != 1)
 			break;
-		printf("%d %d\n", (*piece)->best.h, (*piece)->best.w);
+		ft_printf("%d %d\n", (*piece)->best.h, (*piece)->best.w);
 		fprint_string("after try piece\n");
 		fprint_string("end of play.");
 	}
