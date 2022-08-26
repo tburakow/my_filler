@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:29:28 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/26 17:32:01 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/26 17:34:29 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	fill_map(t_map *map)
 	
 	i = 0;
 	j = 0;
-	map->array = (char **)ft_memalloc(sizeof(char *) * map->size.h + 1);
+	if (!map->array)
+		map->array = (char **)ft_memalloc(sizeof(char *) * map->size.h + 1);
 	fprint_out_map(map, "start of fill_map :");
 	while (i < map->size.h)
 	{
@@ -38,12 +39,9 @@ int	fill_map(t_map *map)
 		j = 4;
 		while (j < 5)
 		{
-			/* if (ft_strchr(".xXoO", line[j]) != NULL)
-			{ */
-				fprint_out_int(j, "j at fill_map");
-				map->array[i] = ft_strdup(map->array[i], &line[j]);
-				j++;
-			/* } */
+			fprint_out_int(j, "j at fill_map");
+			map->array[i] = ft_strdup(&line[j]);
+			j++;
 		}
 		ft_strdel(&line);
 		i++;
