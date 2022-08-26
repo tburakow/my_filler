@@ -79,7 +79,10 @@ FUNCS = ft_isalpha \
 	ft_free_array \
 	ft_itoa_uns \
 	ft_itoa_base \
-	get_next_line
+	get_next_line \
+	square_root \
+	twod_vector_length \
+	error_output
 
 		 
 all:	$(NAME)

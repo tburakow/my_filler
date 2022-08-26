@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 19:31:44 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 17:09:46 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/24 17:27:47 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,7 +253,10 @@ int		play(t_data **map_plr, t_piece **piece, t_heat **heatmap)
 		fprint_string("after get heat\n");
 		if (try_piece(map_plr, heatmap, piece) != 1)
 			break;
-		ft_printf("%d %d\n", (*piece)->best.h, (*piece)->best.w);
+		ft_putnbr((*piece)->best.h);
+		ft_putchar(' ');
+		ft_putnbr((*piece)->best.w);
+		ft_putchar('\n');
 		fprint_string("after try piece\n");
 		fprint_string("end of play.");
 	}

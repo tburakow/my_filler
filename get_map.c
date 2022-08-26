@@ -5,116 +5,95 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 14:00:08 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 15:43:20 by tburakow         ###   ########.fr       */
+/*   Created: 2022/08/26 12:29:28 by tburakow          #+#    #+#             */
+/*   Updated: 2022/08/26 17:32:01 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-static int	map_char(char c)
+void	skip_line(void)
 {
-	if (c == '.' || c == 'o' || c == 'O' || c == 'x' || c == 'X')
-		return (OK);
-	return (KO);
+	char	*line;
+	
+	line = NULL;
+	(void)get_next_line(STDIN, &line);
+	ft_strdel(&line);
 }
 
-int	fill_map(t_data **map_plr)
+int	fill_map(t_map *map)
 {
 	char	*line;
 	int		i;
 	int		j;
-
+	
 	i = 0;
 	j = 0;
-	fprint_string("fill map start");
-	//ft_printf("check 1\n");
-	(*map_plr)->map = (char **)malloc(sizeof(char *) * (*map_plr)->map_h);
-	while (i < (*map_plr)->map_h)
+	map->array = (char **)ft_memalloc(sizeof(char *) * map->size.h + 1);
+	fprint_out_map(map, "start of fill_map :");
+	while (i < map->size.h)
 	{
-		//ft_printf("check 2\n");
-		if(get_next_line(STDIN, &line) <= 0)
-			return (KO);
-		//ft_printf("check 3\n");
-		fprint_string_2(line, "inputs");
-		j = 0;
-		while (line[j] != '\0')
+		if (get_next_line(STDIN, &line) <= 0)
+			return (sub_error_output("failed to read line for map_fill.\n"));
+		j = 4;
+		while (j < 5)
 		{
-			//ft_printf("check 4\n");
-			//ft_printf("%c", line[j]);
-			if(map_char(line[j]) == OK)
-			{
-				//ft_printf("check 5\n");
-				//ft_printf("line : %s\n", line);
-				(*map_plr)->map[i] = ft_strdup(&line[j]);
-				if ((*map_plr)->map[i] == NULL)
-				{
-					ft_printf("strdup fail.");
-					return (KO);
-				}
-				//ft_printf("check 6\n");
-				j += (*map_plr)->map_w - 1;
-				//ft_printf("j : %d\n", j);
-			}
-			j++;
+			/* if (ft_strchr(".xXoO", line[j]) != NULL)
+			{ */
+				fprint_out_int(j, "j at fill_map");
+				map->array[i] = ft_strdup(map->array[i], &line[j]);
+				j++;
+			/* } */
 		}
-		//ft_printf("i is: %d\n", i);
-		//ft_printf("map_h is : %d\n", (*map_plr)->map_h);
-		i++;
-		//ft_printf("check 8\n");
 		ft_strdel(&line);
+		i++;
 	}
-	fprint_string("fill map end");
+	fprint_out_map(map, "end of fill_map :");
 	return (OK);
 }
 
-int get_map_size(t_data **map_plr)
+int	get_map_size(t_map *map)
 {
-	char	*input;
+	char	*line;
 	int		i;
-
+	
 	i = 0;
-	input = NULL;
-	fprint_string("get map size start");
-	//ft_printf("enter\n");
-	if (get_next_line(STDIN, &input) <= 0)
+	line = NULL;
+	if (get_next_line(STDIN, &line) <= 0)
+		return(sub_error_output("error : failed to read line for mapsize\n"));
+	if (ft_strstr(line, "Plateau"))
 	{
-		ft_printf("error : failed to read line for map size.\n");
-		return (KO);
-	}
-	fprint_string_2(input, "inputs");
-	if (ft_strstr(input, "Plateau"))
-	{
-		while(input[i])
+		while(line[i])
 		{
-			if(ft_isdigit(input[i]))
+			if(ft_isdigit(line[i]))
 			{
-				if(!(*map_plr)->map_h)
-					(*map_plr)->map_h = ft_atoi(&input[i]);
+				if(!map->size.h)
+					map->size.h = ft_atoi(&line[i]);
 				else
-					(*map_plr)->map_w = ft_atoi(&input[i]);
-				while (ft_isdigit(input[i]))
+					map->size.w = ft_atoi(&line[i]);
+				while (ft_isdigit(line[i]))
 					i++;
 			}
 			i++;
 		}
 	}
-	dprintf(2, "Map size is ; width : %i. height : %i.\n", (*map_plr)->map_w, (*map_plr)->map_h);
-	ft_strdel(&input);
-	fprint_string("before skip line");
-	if (!skip_line())
-		return(error_output(1, "error :line skip irregular"));
-	fprint_string("get map size end");
+	else
+	{
+		ft_strdel(&line);
+		return (sub_error_output("error : could not find Plateau\n"));
+	}
+	ft_strdel(&line);
+	skip_line();
+	fprint_out_map(map, "end of get_map_size :");
 	return (OK);
 }
 
-int get_map(t_data **map_plr)
+int	get_map(t_map *map)
 {
-	fprint_string("get map start");
-	if (get_map_size(map_plr) != OK)
-		return (KO);
-	if (!fill_map(map_plr))
-		return (KO);
-	fprint_string("get map end");
+	if (!get_map_size(map))
+		return (sub_error_output("error : failed to get map size\n"));
+	if (!fill_map(map))
+		return (sub_error_output("error : failed to fill map\n"));
+	fprint_out_map(map, "end of get_map :");
 	return (OK);
 }

@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 13:56:34 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/19 12:37:49 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/26 09:33:29 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	add_to_line(char **line, char **arr, const int fd)
 		*line = ft_strdup(arr[fd]);
 		ft_strdel(&arr[fd]);
 	}
-	return (1);                                                             
+	return (1);
 }
 
 int	read_and_join(char **arr, const int fd)
@@ -57,13 +57,13 @@ int	read_and_join(char **arr, const int fd)
 			arr[fd] = tmp;
 		}
 		if (ft_strchr(arr[fd], '\n') != NULL)
-			break ;              
+			break ;
 		ret = read(fd, buf, BUFF_SIZE);
 	}
 	return (ret);
 }
 
-int	get_next_line(const int fd, char **line)  
+int	get_next_line(const int fd, char **line)
 {
 	int			ret;
 	static char	*arr[FD_SIZE + 1];

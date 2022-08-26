@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 14:09:25 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 14:30:35 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/26 14:08:57 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,7 @@ void	*ft_free_array(char **array, size_t wc);
 char	*ft_itoa_unsigned(unsigned long long n);
 char	*ft_itoa_base(unsigned long long n, unsigned long long base);
 int		get_next_line(const int fd, char **line);
+float	square_root(int num, int dec);
+float	twod_vector_length(int y_1, int x_1, int y_2, int x_2);
+void	error_out(char *s);
 #endif

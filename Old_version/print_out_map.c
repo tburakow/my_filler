@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 14:28:55 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 16:12:50 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/26 12:48:28 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,22 @@ void	dprint_out_map(t_data **map_plr)
 	}
 }
 
-void	fprint_out_map(t_data **map_plr)
+void	fprint_out_map(t_data **map, char *s)
 {
 	FILE 	*fp;
 	int 	i;
 
 	i = 0;
-	fp = fopen("maps_read", "a");
-	fprintf(fp, "\n---- START OF NEW MAP ----\n\n");
-	while (i < (*map_plr)->map_h)
+	fp = fopen("maps", "a");
+	fprintf(fp, "\n%s\n\n", s);
+	fprintf(fp, "player : %s\n", (*map)->player);
+	fprintf(fp, "opponent : %s\n", (*map)->opponent);
+	while (i < (*map)->size.h)
 	{
-		fprintf(fp, "%s\n", (*map_plr)->map[i]);
+		fprintf(fp, "%s\n", (char *)(*map)->map[i]);
 		i++;
 	}
+	fprintf("h : %d, w : %d\n\n", (*map)->size.h, (*map)->size.w);
 	fclose(fp);
 }
 

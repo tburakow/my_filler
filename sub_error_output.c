@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.c                                           :+:      :+:    :+:   */
+/*   sub_error_output.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/22 18:08:47 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/22 18:58:55 by tburakow         ###   ########.fr       */
+/*   Created: 2022/08/26 12:15:56 by tburakow          #+#    #+#             */
+/*   Updated: 2022/08/26 14:41:30 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-int		vector_calc(int h, int w)
+int	sub_error_output(char *s)
 {
-	int		ret;
-
-	if (h < 0)
-		h *= -1;
-	if (w < 0)
-		w *= -1;
-	ret = (h * h) + (w * w);
-	return ((int)square_root(ret, 5));
+	error_out(s);
+	return (KO);
 }

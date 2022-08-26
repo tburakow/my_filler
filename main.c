@@ -5,84 +5,68 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/21 13:03:18 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/24 17:05:34 by tburakow         ###   ########.fr       */
+/*   Created: 2022/08/26 09:46:52 by tburakow          #+#    #+#             */
+/*   Updated: 2022/08/26 17:23:53 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-int	determine_player(t_data **map_plr)
+/* This function writes out the coordinates for the pacement of the 
+current piece */
+static void	write_out(int y, int x)
 {
-	char *input;
-	char *name = "tburakow.filler";
-	
-	input = NULL;
-	fprint_string("player determine start");
-	if ((*map_plr)->players_set == OK)
-		return (OK);
-	if (get_next_line(STDIN, &input) <= 0)
-		return(error_output(KO, "Error: Fail to read from STDIN."));
-	fprint_string_2(input, "inputs");
-	if (ft_strchr(input, 'p') == NULL)
-	{
-		ft_strdel(&input);
-		return(error_output(KO, "Error: incorrect input on line."));
-	}
-	if (ft_strstr(input, name) && ft_strstr (input, "p2"))
-	{
-		(*map_plr)->player = 'X';
-		(*map_plr)->opponent = 'O';
-	}
-	else if (ft_strstr(input, name) && ft_strstr (input, "p1"))
-	{
-		(*map_plr)->player = 'O';
-		(*map_plr)->opponent = 'X';
-	}
-	else
-		return (error_output(KO, "player name mismatch."));
-	(*map_plr)->players_set = OK;
-	ft_strdel(&input);
-	fprint_string("player determine end");
+	ft_putnbr(y);
+	ft_putchar(' ');
+	ft_putnbr(x);
+	ft_putchar('\n');
+}
+
+/* Initializing the structs. */
+int	init(t_map *map, t_heat *heat, t_piece *piece)
+{
+	/* Here we set the map -struct : */
+	ft_bzero(map, sizeof(*map));
+	map->players_set = 0;
+	map->player = "oO";
+	map->opponent = "xX";
+	/* Setting up the heat - struct */
+	ft_bzero(heat, sizeof(*heat));
+	heat->heat = 100000;
+	heat->orig.y = 0;
+	heat->orig.x = 0;
+	heat->size.h = 0;
+	heat->size.w = 0;
+	/* Setting up the piece -struct */
+	ft_bzero(piece, sizeof(*piece));
+	piece->orig.y = 0;
+	piece->orig.x = 0;
 	return (OK);
 }
 
 int	main(void)
 {
-	t_data	*map_plr;
-	t_piece *piece;
-	t_heat	*heatmap;
+	t_map		map;
+	t_heat		heat;
+	t_piece		piece;
 	
-	//sleep(2);
-	//ft_putstr("8 2\n");
-	fprint_string("-----NEW RUN------\n");
-	fprint_string("start of main\n");
-	if (!create_map(&map_plr))
+	fprint_out_int(1, "-------- NEW RUN!!!!!-----");
+	fprint_out_map(&map, "NEW RUN NEW RUN NEW RUN!!!!");
+	if (!init(&map, &heat, &piece))
+		error_out("error : init failed.");
+	if (!get_player(&map))
+		error_out("error : get player failed.");
+	while (1)
 	{
-		return(error_output(1, "error : failed to create map/player -struct."));
+		if (!get_map(&map))
+			error_out("error : get map failed.");
+/* 		if (!get_heat(&heat, &map))
+			error_out("error : failed to get heat.");
+		if (!get_piece(&piece))
+			error_out("error : failed to get piece.");
+		if (!play(&map, &heat, &piece)) */
+			break ;
 	}
-	if (!create_piece(&piece))
-	{
-		return(error_output(1, "error : piece creation failed."));
-	}
-	if (determine_player(&map_plr) != 1)
-	{
-		return(error_output(1, "player determination failed."));
-	}
-	fprint_string("before play.\n");
-	//printf("map width: %d\n", map_plr->map_w);
-	//printf("map height: %d\n", map_plr->map_h);
-	//print_out_map(&map_plr);
-	//printf("piece h: %d\n", piece->h);
-	//printf("piece w: %d\n", piece->w);
-	//print_out_piece(&piece);
-	//print_out_heatmap(&heatmap);
-	//printf("%d\n", heatmap->array[3][3]);
-	//printf("The end.\n");
-	//while(1);
-	//print_out_map(&map_plr);
-	//return (play(&map_plr, &piece, &heatmap));
-	if (play(&map_plr, &piece, &heatmap) == OK)
-		ft_printf("0 0\n");
+	write_out(0, 0);
 	return (0);
 }

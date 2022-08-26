@@ -6,13 +6,13 @@
 #    By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/09 12:15:46 by tburakow          #+#    #+#              #
-#    Updated: 2022/08/24 15:52:53 by tburakow         ###   ########.fr        #
+#    Updated: 2022/08/26 17:19:58 by tburakow         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = tburakow.filler
 
-FUNCTIONS = main get_map print_out_map skip_line create_structs get_piece get_heat square_root vector play
+FUNCTIONS = main print_outs get_map get_player sub_error_output
 
 FILES = $(patsubst %, %.c, $(FUNCTIONS))
 
