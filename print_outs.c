@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:48:47 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/26 15:19:13 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/26 19:26:27 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,48 @@ void	fprint_out_int(int i, char *s)
 	
 	fp = fopen("misc", "a");
 	fprintf(fp, "%s is : %d\n", s, i);
+}
+
+void	fprint_out_heat(t_heat *heat, char *s)
+{
+	FILE 	*fp;
+	int 	i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	fp = fopen("heats", "a");
+	fprintf(fp, "----------------------------------------------\n");
+	fprintf(fp, "\n%s\n\n", s);
+	fprintf(fp, "----------------------------------------------\n");
+	if (heat->array)	
+		while (i < heat->size.h)
+		{
+			j = 0;
+			while (j < heat->size.w)
+			{
+				if (heat->array[i][j])
+					fprintf(fp, "%d, ", heat->array[i][j]);
+				j++;
+			}
+			fprintf(fp, "\n");
+			i++;
+		}
+	fprintf(fp, "\n----------------------------------------------\n");
+	i = 0;
+	if (heat->map_copy)	
+		while (i < heat->size.h)
+		{
+			if (heat->map_copy[i])
+				fprintf(fp, "%s\n", heat->map_copy[i]);
+			i++;
+		}
+	fprintf(fp, "\n----------------------------------------------\n");
+	if (heat->size.h && heat->size.w)
+		fprintf(fp, "heat h : %d, heat : %d\n\n", heat->size.h, heat->size.w);
+	if (heat->heat)
+		fprintf(fp, "heat is : %d", heat->heat);
+	if (heat->orig.y && heat->orig.x)
+		fprintf(fp, "heat orig. y : %d, heat orig. x : %d\n\n", heat->orig.y, heat->orig.x);
+	fclose(fp);
 }

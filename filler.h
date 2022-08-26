@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/26 15:17:29 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/26 18:41:47 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define STDIN 0
 # define KO 0
 # define OK 1
+# define MIN -1
 
 typedef struct s_coords
 {
@@ -45,10 +46,11 @@ typedef	struct s_map
 
 typedef struct s_heat
 {
-	int			**map;
+	int			**array;
 	t_size		size;
 	int			heat;
 	t_coords	orig;
+	char		**map_copy;
 }				t_heat;
 
 typedef struct s_piece
@@ -75,8 +77,15 @@ int		get_map(t_map *map);
 /* In the print_outs.c -file */
 void	fprint_out_map(t_map *map, char *s);
 void	fprint_out_int(int i, char *s);
+void	fprint_out_heat(t_heat *heat, char *s);
 
 /* In main.c -file */
 int	init(t_map *map, t_heat *heat, t_piece *piece);
 
+/* In the get_heat.c -file */
+int	get_heat(t_heat *heat, t_map *map);
+int	heat_setup(t_heat *heat, t_map *map);
+int	calculate_heat(t_heat *heat, t_map *map, int y, int x);
+int	reset_map_copy(t_heat *heat, t_map *map);
+void	parse_heat(t_heat *heat, t_map *map, int y, int x);
 #endif

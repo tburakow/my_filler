@@ -6,7 +6,7 @@
 #    By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/09 12:15:46 by tburakow          #+#    #+#              #
-#    Updated: 2022/08/26 11:54:07 by tburakow         ###   ########.fr        #
+#    Updated: 2022/08/26 19:39:02 by tburakow         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ libft/ft_strncpy libft/ft_strnequ libft/ft_strnew libft/ft_strnstr \
 libft/ft_strrchr libft/ft_strsplit libft/ft_strstr libft/ft_strsub \
 libft/ft_strtrim libft/ft_tolower libft/ft_toupper libft/ft_word_count \
 libft/ft_itoa_uns libft/get_next_line libft/square_root \
-libft/twod_vector_length libft/error_output
+libft/simple_vector libft/error_output
 
 FILES = $(patsubst %, %.c, $(FUNCTIONS))
 OBJECTS = $(patsubst %, %.o, $(FUNCTIONS))

@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 09:46:52 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/26 17:23:53 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/26 17:36:03 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ int	main(void)
 	{
 		if (!get_map(&map))
 			error_out("error : get map failed.");
-/* 		if (!get_heat(&heat, &map))
+		if (!get_heat(&heat, &map))
 			error_out("error : failed to get heat.");
-		if (!get_piece(&piece))
+/* 		if (!get_piece(&piece))
 			error_out("error : failed to get piece.");
 		if (!play(&map, &heat, &piece)) */
 			break ;

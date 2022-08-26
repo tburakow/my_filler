@@ -81,7 +81,7 @@ FUNCS = ft_isalpha \
 	ft_itoa_base \
 	get_next_line \
 	square_root \
-	twod_vector_length \
+	simple_vector \
 	error_output
 
 		 
