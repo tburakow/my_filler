@@ -6,13 +6,13 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 09:46:52 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/26 17:36:03 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/27 13:49:51 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-/* This function writes out the coordinates for the pacement of the 
+/* This function writes out the coordinates for the placement of the 
 current piece */
 static void	write_out(int y, int x)
 {
@@ -62,9 +62,9 @@ int	main(void)
 			error_out("error : get map failed.");
 		if (!get_heat(&heat, &map))
 			error_out("error : failed to get heat.");
-/* 		if (!get_piece(&piece))
+		if (!get_piece(&piece))
 			error_out("error : failed to get piece.");
-		if (!play(&map, &heat, &piece)) */
+/* 		if (!play(&map, &heat, &piece)) */
 			break ;
 	}
 	write_out(0, 0);

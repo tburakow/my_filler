@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/26 18:41:47 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/27 13:49:18 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ typedef struct s_piece
 	t_coords	orig;
 	t_coords	start;
 	t_coords	end;
-	t_size		active;
 	t_coords	best;
+	t_size		size;
 	char		**array;
 	int			best_score;
 }				t_piece;
@@ -78,6 +78,7 @@ int		get_map(t_map *map);
 void	fprint_out_map(t_map *map, char *s);
 void	fprint_out_int(int i, char *s);
 void	fprint_out_heat(t_heat *heat, char *s);
+void	fprint_out_piece(t_piece *piece, char *s);
 
 /* In main.c -file */
 int	init(t_map *map, t_heat *heat, t_piece *piece);
@@ -88,4 +89,9 @@ int	heat_setup(t_heat *heat, t_map *map);
 int	calculate_heat(t_heat *heat, t_map *map, int y, int x);
 int	reset_map_copy(t_heat *heat, t_map *map);
 void	parse_heat(t_heat *heat, t_map *map, int y, int x);
+
+/* in the get_piece.c -file */
+int		get_piece(t_piece *piece);
+int		get_piece_size(t_piece *piece);
+int		get_piece_actual(t_piece *piece);
 #endif

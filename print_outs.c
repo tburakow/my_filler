@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:48:47 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/26 19:26:27 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/27 13:52:18 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,38 @@ void	fprint_out_int(int i, char *s)
 	
 	fp = fopen("misc", "a");
 	fprintf(fp, "%s is : %d\n", s, i);
+}
+
+void	fprint_out_piece(t_piece *piece, char *s)
+{
+	FILE 	*fp;
+	int 	i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	fp = fopen("pieces", "a");
+	fprintf(fp, "----------------------------------------------\n");
+	fprintf(fp, "\n%s\n\n", s);
+	fprintf(fp, "----------------------------------------------\n");
+	if (piece->array)	
+		while (i < piece->size.h)
+		{
+			j = 0;
+			while (j < piece->size.w)
+			{
+				if (piece->array[i][j])
+					fprintf(fp, "%c ", piece->array[i][j]);
+				j++;
+			}
+			fprintf(fp, "\n");
+			i++;
+		}
+	if (piece->best_score)
+		fprintf(fp, "best_score is : %d", piece->best_score);
+	if (piece->best.y && piece->best.x)
+		fprintf(fp, "piece best y : %d, piece best x : %d\n\n", piece->best.y, piece->best.x);
+	fclose(fp);
 }
 
 void	fprint_out_heat(t_heat *heat, char *s)
