@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:06:27 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/26 15:11:44 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/29 17:52:15 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ int	get_player(t_map *map)
 	}
 	map->players_set = OK;
 	ft_strdel(&line);
-	fprint_out_map(map, "end of get_player :");
+/* 	fprint_out_map(map, "end of get_player :"); */
 	return (OK);
 }

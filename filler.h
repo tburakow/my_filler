@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/29 16:58:37 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/29 19:16:39 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct s_heat
 
 typedef struct s_piece
 {
-	t_coords	orig;
 	t_coords	start;
 	t_coords	end;
 	t_coords	best;
@@ -81,8 +80,9 @@ void	fprint_out_heat(t_heat *heat, char *s);
 void	fprint_out_piece(t_piece *piece, char *s);
 
 /* In main.c -file */
-int	init(t_map *map, t_heat *heat, t_piece *piece);
+int		init(t_map *map, t_heat *heat, t_piece *piece);
 void	write_out(int y, int x);
+void	free_structs(t_map *map, t_heat *heat, t_piece *piece);
 
 /* In the get_heat.c -file */
 int	get_heat(t_heat *heat, t_map *map);

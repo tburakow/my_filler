@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:48:47 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/27 13:52:18 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/29 20:20:31 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,15 @@ void	fprint_out_map(t_map *map, char *s)
 		fprintf(fp, "player : %s\n", map->player);
 	if (map->opponent)
 		fprintf(fp, "opponent : %s\n", map->opponent);
-	if (map->array)	
+	if (map->array)
+	{
 		while (i < map->size.h)
 		{
 			if (map->array[i])
 				fprintf(fp, "%s\n", (char *)map->array[i]);
 			i++;
 		}
+	}
 	if (map->size.h && map->size.w)
 		fprintf(fp, "map h : %d, w : %d\n\n", map->size.h, map->size.w);
 	fclose(fp);
@@ -60,7 +62,8 @@ void	fprint_out_piece(t_piece *piece, char *s)
 	fprintf(fp, "----------------------------------------------\n");
 	fprintf(fp, "\n%s\n\n", s);
 	fprintf(fp, "----------------------------------------------\n");
-	if (piece->array)	
+	if (piece->array)
+	{
 		while (i < piece->size.h)
 		{
 			j = 0;
@@ -73,10 +76,15 @@ void	fprint_out_piece(t_piece *piece, char *s)
 			fprintf(fp, "\n");
 			i++;
 		}
+	}
 	if (piece->best_score)
-		fprintf(fp, "best_score is : %d", piece->best_score);
+		fprintf(fp, "best_score is : %d\n", piece->best_score);
 	if (piece->best.y && piece->best.x)
 		fprintf(fp, "piece best y : %d, piece best x : %d\n\n", piece->best.y, piece->best.x);
+	if (piece->start.y && piece->start.x)
+		fprintf(fp, "piece start y : %d, piece start x : %d\n\n", piece->start.y, piece->start.x);
+	if (piece->end.y && piece->end.x)
+		fprintf(fp, "piece end y : %d, piece end x : %d\n\n", piece->start.y, piece->start.x);
 	fclose(fp);
 }
 
@@ -92,7 +100,8 @@ void	fprint_out_heat(t_heat *heat, char *s)
 	fprintf(fp, "----------------------------------------------\n");
 	fprintf(fp, "\n%s\n\n", s);
 	fprintf(fp, "----------------------------------------------\n");
-	if (heat->array)	
+	if (heat->array)
+	{
 		while (i < heat->size.h)
 		{
 			j = 0;
@@ -105,15 +114,18 @@ void	fprint_out_heat(t_heat *heat, char *s)
 			fprintf(fp, "\n");
 			i++;
 		}
+	}
 	fprintf(fp, "\n----------------------------------------------\n");
 	i = 0;
 	if (heat->map_copy)	
+	{
 		while (i < heat->size.h)
 		{
 			if (heat->map_copy[i])
 				fprintf(fp, "%s\n", heat->map_copy[i]);
 			i++;
 		}
+	}
 	fprintf(fp, "\n----------------------------------------------\n");
 	if (heat->size.h && heat->size.w)
 		fprintf(fp, "heat h : %d, heat : %d\n\n", heat->size.h, heat->size.w);

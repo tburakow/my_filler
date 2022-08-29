@@ -6,11 +6,37 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 09:46:52 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/29 16:26:52 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/29 20:37:54 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
+
+void	free_structs(t_map *map, t_heat *heat, t_piece *piece)
+{
+	int	i;
+	int	j;
+	
+	i = 0;
+	j = 0;
+	while (i < map->size.h)
+	{
+		ft_bzero(map->array[i], map->size.w);
+		i++;
+	}
+	i = 0;
+	while (i < map->size.h)
+	{
+		ft_bzero(heat->array[i], map->size.w);
+		i++;
+	}
+	i = 0;
+	while (i < piece->size.h)
+	{
+		ft_bzero(piece->array[i], piece->size.w);
+		i++;
+	}
+}
 
 /* This function writes out the coordinates for the placement of the 
 current piece */
@@ -39,8 +65,10 @@ int	init(t_map *map, t_heat *heat, t_piece *piece)
 	heat->size.w = 0;
 	/* Setting up the piece -struct */
 	ft_bzero(piece, sizeof(*piece));
-	piece->orig.y = 0;
-	piece->orig.x = 0;
+	piece->start.y = 0;
+	piece->start.x = 0;
+	piece->end.y = 0;
+	piece->end.x = 0;
 	return (OK);
 }
 
@@ -50,23 +78,31 @@ int	main(void)
 	t_heat		heat;
 	t_piece		piece;
 	
-	fprint_out_int(1, "-------- NEW RUN!!!!!-----");
-	fprint_out_map(&map, "NEW RUN NEW RUN NEW RUN!!!!");
 	if (!init(&map, &heat, &piece))
 		error_out("error : init failed.");
 	if (!get_player(&map))
 		error_out("error : get player failed.");
-	while (1)
+	while(1)
 	{
 		if (!get_map(&map))
+		{
 			error_out("error : get map failed.");
+			break;
+		}
 		if (!get_heat(&heat, &map))
+		{
 			error_out("error : failed to get heat.");
+			break;
+		}
 		if (!get_piece(&piece))
+		{
 			error_out("error : failed to get piece.");
-/* 		if (!play(&map, &heat, &piece)) */
-			break ;
+			break;
+		}
+		if (!play(&map, &heat, &piece))
+			break;
 	}
+	free_structs(&map, &heat, &piece);
 	write_out(0, 0);
 	return (0);
 }

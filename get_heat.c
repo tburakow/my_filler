@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 17:37:26 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/26 19:43:40 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/29 19:05:15 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int	calculate_heat(t_heat *heat, t_map *map, int y, int x)
 	heat->map_copy[y][x] = 'H';
 	parse_heat(heat, map, y, x);
 	heat->array[y][x] = heat->heat;
-	fprint_out_heat(heat, "At the end of calculate_heat.");
-	fprint_out_map(map, "at the end of calculate_heat.");
+/* 	fprint_out_heat(heat, "At the end of calculate_heat.");
+	fprint_out_map(map, "at the end of calculate_heat."); */
 	return (OK);
 }
 
@@ -110,6 +110,6 @@ int	get_heat(t_heat *heat, t_map *map)
 		y++;
 	}
 	fprint_out_heat(heat, "At the end of get_heat.");
-	fprint_out_map(map, "at the end of get_heat.");
+	/* fprint_out_map(map, "at the end of get_heat."); */
 	return (OK);
 }

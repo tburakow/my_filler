@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:14:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/27 13:51:05 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/29 20:43:27 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ int		get_piece_actual(t_piece *piece)
 
 	i = 0;
 	j = 0;
+	piece->start.y = 100000;
+	piece->start.x = 100000;
+	piece->end.y = 0;
+	piece->end.x = 0;
 	while (i < piece->size.h)
 	{
 		j = 0;
@@ -31,9 +35,9 @@ int		get_piece_actual(t_piece *piece)
 				if (j < piece->start.x)
 					piece->start.x = j;
 				if (i > piece->end.y)
-					piece->start.y = i;
+					piece->end.y = i;
 				if (j > piece->end.x)
-					piece->start.x = j;
+					piece->end.x = j;
 			}
 			j++;
 		}
@@ -49,6 +53,8 @@ int		get_piece_size(t_piece *piece)
 	int		i;
 
 	i = 0;
+	piece->size.h = 0;
+	piece->size.w = 0;
 	if (get_next_line(STDIN, &line) <= 0)
 		return(sub_error_output("error :failed to read line for piece size."));
 	if (ft_strstr(line, "Piece") != NULL)
@@ -67,7 +73,7 @@ int		get_piece_size(t_piece *piece)
 			i++;
 		}
 	}
-	fprint_out_piece(piece, "at the end of get_piece_size.");
+	/* fprint_out_piece(piece, "at the end of get_piece_size."); */
 	return (OK);
 }
 
@@ -79,8 +85,7 @@ int		get_piece(t_piece *piece)
 	i = 0;
 	if (!get_piece_size(piece))
 		return(sub_error_output("error : failed to get piece size."));
-	if (!piece->array)
-		piece->array = (char **)ft_memalloc(sizeof(char * ) * piece->size.h + 1);
+	piece->array = (char **)ft_memalloc(sizeof(char *) * piece->size.h + 1);
 	while (i < piece->size.h)
 	{
 		if (get_next_line(STDIN, &line) < 0)
@@ -91,6 +96,6 @@ int		get_piece(t_piece *piece)
 	if (!get_piece_actual(piece))
 		return (sub_error_output("error : failed to optimize piece."));
 	ft_strdel(&line);
-	fprint_out_piece(piece, "at the end of get_piece.");
+	/* fprint_out_piece(piece, "at the end of get_piece."); */
 	return (OK);
 }
