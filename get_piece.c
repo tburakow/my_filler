@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:14:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/29 20:43:27 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/29 21:00:46 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int		get_piece_actual(t_piece *piece)
 		}
 		i++;
 	}
-	fprint_out_piece(piece, "end of get_piece_actual.");
 	return (OK);
 }
 
@@ -73,6 +72,7 @@ int		get_piece_size(t_piece *piece)
 			i++;
 		}
 	}
+	ft_strdel(&line);
 	/* fprint_out_piece(piece, "at the end of get_piece_size."); */
 	return (OK);
 }
@@ -91,6 +91,7 @@ int		get_piece(t_piece *piece)
 		if (get_next_line(STDIN, &line) < 0)
 			return (sub_error_output("error : failed to read line for piece"));
 		piece->array[i] = ft_strdup(line);
+		ft_strdel(&line);
 		i++;
 	}
 	if (!get_piece_actual(piece))

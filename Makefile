@@ -6,7 +6,7 @@
 #    By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/09 12:15:46 by tburakow          #+#    #+#              #
-#    Updated: 2022/08/29 18:54:59 by tburakow         ###   ########.fr        #
+#    Updated: 2022/08/29 20:54:04 by tburakow         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ all: $(NAME)
 
 $(NAME):
 	make -C ft_printf/
-	gcc -Wall -Wextra -Werror -I. -L ft_printf/ -l ftprintf -g -fsanitize=address $(FILES) -o $(NAME)
+	gcc -Wall -Wextra -Werror -I. -L ft_printf/ -l ftprintf -g $(FILES) -o $(NAME)
 #ar rcs $(NAME) $(OBJS) $(OBJECTS) $(PROBJS)
 
 clean:

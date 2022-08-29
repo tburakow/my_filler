@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 09:46:52 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/29 20:37:54 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/29 21:11:38 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,26 @@ void	free_structs(t_map *map, t_heat *heat, t_piece *piece)
 	j = 0;
 	while (i < map->size.h)
 	{
-		ft_bzero(map->array[i], map->size.w);
+		ft_strdel(&map->array[i]);
 		i++;
 	}
 	i = 0;
 	while (i < map->size.h)
 	{
-		ft_bzero(heat->array[i], map->size.w);
+		free(heat->array[i]);
+		heat->array[i] = NULL;
+		i++;
+	}
+	i = 0;
+	while (i < map->size.h)
+	{
+		ft_strdel(&heat->map_copy[i]);
 		i++;
 	}
 	i = 0;
 	while (i < piece->size.h)
 	{
-		ft_bzero(piece->array[i], piece->size.w);
+		ft_strdel(&piece->array[i]);
 		i++;
 	}
 }
@@ -101,8 +108,10 @@ int	main(void)
 		}
 		if (!play(&map, &heat, &piece))
 			break;
+		free_structs(&map, &heat, &piece);
 	}
 	free_structs(&map, &heat, &piece);
 	write_out(0, 0);
+	system("leaks tburakow.filler 1<&2");
 	return (0);
 }
