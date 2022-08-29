@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/27 13:49:18 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/29 16:58:37 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	fprint_out_piece(t_piece *piece, char *s);
 
 /* In main.c -file */
 int	init(t_map *map, t_heat *heat, t_piece *piece);
+void	write_out(int y, int x);
 
 /* In the get_heat.c -file */
 int	get_heat(t_heat *heat, t_map *map);
@@ -91,7 +92,13 @@ int	reset_map_copy(t_heat *heat, t_map *map);
 void	parse_heat(t_heat *heat, t_map *map, int y, int x);
 
 /* in the get_piece.c -file */
-int		get_piece(t_piece *piece);
-int		get_piece_size(t_piece *piece);
-int		get_piece_actual(t_piece *piece);
+int	get_piece(t_piece *piece);
+int	get_piece_size(t_piece *piece);
+int	get_piece_actual(t_piece *piece);
+
+/* In the play.c -file */
+int	play(t_map *map, t_heat *heat, t_piece *piece);
+int	try_piece(t_map *map, t_heat *heat, t_piece *piece, t_coords *current);
+int	validate_place(t_map *map, t_piece *piece, t_coords *current);
+int	hits_and_crashes(t_map *map, char *s, t_coords *current, t_coords *spot);
 #endif
