@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 11:42:01 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/30 15:42:29 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/30 15:59:24 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,39 +44,22 @@ int	calculate_heat(t_heat *heat, t_map *map, int y, int x)
 
 	value = 0;
 	if (y > 0)
-	{
-		value = check_for_heat(heat, map, y - 1, x);
-		if (value != 0)
-			heat->array[y][x] += value;
-	}
+		check_for_heat(heat, map, y - 1, x);
 	if (x > 0)
-	{
-		value = check_for_heat(heat, map, y, x - 1);
-		if (value != 0)
-			heat->array[y][x] += value;
-	}
+		check_for_heat(heat, map, y, x - 1);
 	if (y + 1 < heat->size.h)
-	{
-		value = check_for_heat(heat, map, y + 1, x);
-		if (value != 0)
-			heat->array[y][x] += value;
-	}
+		check_for_heat(heat, map, y + 1, x);
 	if (x + 1 < heat->size.w)
-	{
-		value = check_for_heat(heat, map, y, x + 1);
-		if (value != 0)
-			heat->array[y][x] += value;
-	}
+		check_for_heat(heat, map, y, x + 1);
 	return (OK);
 }
 
-int	check_for_heat(t_heat *heat, t_map *map, int y, int x)
+void	check_for_heat(t_heat *heat, t_map *map, int y, int x)
 {
 	if (ft_strchr(map->opponent, map->array[y][x]))
-		return (1);
+		heat->array[y][x] = 1;
 	else if (heat->array[y][x] > 0)
-		return(heat->array[y][x] + 1);
-	return (0);
+		heat->array[y][x] += 1;
 }
 
 int	get_heat(t_heat *heat, t_map *map)
@@ -99,8 +82,10 @@ int	get_heat(t_heat *heat, t_map *map)
 			{
 				if (!calculate_heat(heat, map, y, x))
 					return(sub_error_output("failed to calculate heat."));
-/* 				if (y > map->size.h / 3 && y < map->size.h / 3 * 2 && x > map->size.w / 3 && x < map->size.w / 3 * 2 && heat->array[y][x] > 2)
-					heat->array[y][x]--; */
+				// remove the following if:s if the results suck, it's middle-of-board optimization.
+				if (map->array[map->size.h / 2][map->size.w / 2] == '.')
+					if (y > map->size.h / 3 && y < map->size.h / 3 * 2 && x > map->size.w / 3 && x < map->size.w / 3 * 2 && heat->array[y][x] > 2)
+						heat->array[y][x]--;
 				x++;
 			}
 			y++;
