@@ -1,4 +1,5 @@
-seed = 5044
-../tburakow.filler won
+seed = 601
+../tburakow.filler: Segfault at 0
+players/carli.filler won
 Score:
-809AGAINST1216
+341AGAINST0

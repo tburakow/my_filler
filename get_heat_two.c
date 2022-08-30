@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 11:42:01 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/30 14:54:50 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/30 15:42:29 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,33 @@ int set_heat_limit(t_map *map)
 
 int	calculate_heat(t_heat *heat, t_map *map, int y, int x)
 {
+	int		value;
+
+	value = 0;
 	if (y > 0)
-		heat->array[y][x] = check_for_heat(heat, map, y - 1, x);
+	{
+		value = check_for_heat(heat, map, y - 1, x);
+		if (value != 0)
+			heat->array[y][x] += value;
+	}
 	if (x > 0)
-		heat->array[y][x] = check_for_heat(heat, map, y, x - 1);
+	{
+		value = check_for_heat(heat, map, y, x - 1);
+		if (value != 0)
+			heat->array[y][x] += value;
+	}
 	if (y + 1 < heat->size.h)
-		heat->array[y][x] = check_for_heat(heat, map, y + 1, x);
+	{
+		value = check_for_heat(heat, map, y + 1, x);
+		if (value != 0)
+			heat->array[y][x] += value;
+	}
 	if (x + 1 < heat->size.w)
-		heat->array[y][x] = check_for_heat(heat, map, y, x + 1);
+	{
+		value = check_for_heat(heat, map, y, x + 1);
+		if (value != 0)
+			heat->array[y][x] += value;
+	}
 	return (OK);
 }
 
@@ -64,16 +83,14 @@ int	get_heat(t_heat *heat, t_map *map)
 {
 	int			x;
 	int			y;
-	int			heat_value;
 	int			heat_limit;
 
 	heat_limit = set_heat_limit(map);
-	heat_value = 0;
 	y = 0;
 	x = 0;
 	if (heat_setup(heat, map) != OK)
 		return (sub_error_output("error : heat_map setup failed."));
-	while (heat_value < heat_limit)
+	while (heat_limit > 0)
 	{
 		while (y < heat->size.h)
 		{
@@ -82,11 +99,13 @@ int	get_heat(t_heat *heat, t_map *map)
 			{
 				if (!calculate_heat(heat, map, y, x))
 					return(sub_error_output("failed to calculate heat."));
+/* 				if (y > map->size.h / 3 && y < map->size.h / 3 * 2 && x > map->size.w / 3 && x < map->size.w / 3 * 2 && heat->array[y][x] > 2)
+					heat->array[y][x]--; */
 				x++;
 			}
 			y++;
 		}
-		heat_value++;
+		heat_limit--;
 	}
 	/* fprint_out_heat(heat, "At the end of get_heat."); */
 	/* fprint_out_map(map, "at the end of get_heat."); */
