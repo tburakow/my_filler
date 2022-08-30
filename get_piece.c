@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:14:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/29 21:00:46 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/30 14:53:07 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,9 @@ int		get_piece(t_piece *piece)
 	{
 		if (get_next_line(STDIN, &line) < 0)
 			return (sub_error_output("error : failed to read line for piece"));
-		piece->array[i] = ft_strdup(line);
+		if (!piece->array[i])
+			piece->array[i] = (char *)ft_memalloc(sizeof(char) * piece->size.w + 1);
+		piece->array[i] = ft_strcpy(piece->array[i], line); 
 		ft_strdel(&line);
 		i++;
 	}

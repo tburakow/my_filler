@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:49:00 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/29 20:44:37 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/30 15:07:49 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	score_piece(t_heat *heat, t_piece *piece, t_coords *current)
 	i = 0;
 	j = 0;
 	score = 0;
-	fprint_out_piece(piece, "start of score piece.");
+	/* fprint_out_piece(piece, "start of score piece."); */
 	while (i <= piece->end.y)
 	{
 		j = 0;
@@ -59,7 +59,7 @@ int	validate_place(t_map *map, t_piece *piece, t_coords *current)
 	int			hits;
 	int 		crashes;
 
-	fprint_out_piece(piece, "start of validate piece.");
+	/* fprint_out_piece(piece, "start of validate piece."); */
 	spot = (t_coords *)ft_memalloc(sizeof(t_coords *));
 	spot->y = 0;
 	spot->x = 0;
@@ -119,7 +119,7 @@ int	try_piece(t_map *map, t_heat *heat, t_piece *piece, t_coords *current)
 		}
 		current->y++;
 	}
-	fprint_out_piece(piece, "end of try piece.");
+	/* fprint_out_piece(piece, "end of try piece."); */
 	return (return_value);
 }
 

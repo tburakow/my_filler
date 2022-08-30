@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/29 19:16:39 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/30 14:33:27 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ typedef struct s_heat
 	int			**array;
 	t_size		size;
 	int			heat;
-	t_coords	orig;
-	char		**map_copy;
 }				t_heat;
 
 typedef struct s_piece
@@ -85,10 +83,11 @@ void	write_out(int y, int x);
 void	free_structs(t_map *map, t_heat *heat, t_piece *piece);
 
 /* In the get_heat.c -file */
-int	get_heat(t_heat *heat, t_map *map);
-int	heat_setup(t_heat *heat, t_map *map);
-int	calculate_heat(t_heat *heat, t_map *map, int y, int x);
-int	reset_map_copy(t_heat *heat, t_map *map);
+int		get_heat(t_heat *heat, t_map *map);
+int		heat_setup(t_heat *heat, t_map *map);
+int		calculate_heat(t_heat *heat, t_map *map, int y, int x);
+int 	set_heat_limit(t_map *map);
+int		check_for_heat(t_heat *heat, t_map *map, int y, int x);
 void	parse_heat(t_heat *heat, t_map *map, int y, int x);
 
 /* in the get_piece.c -file */

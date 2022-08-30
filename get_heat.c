@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 17:37:26 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/29 19:05:15 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/30 11:52:08 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	get_heat(t_heat *heat, t_map *map)
 		}
 		y++;
 	}
-	fprint_out_heat(heat, "At the end of get_heat.");
+	/* fprint_out_heat(heat, "At the end of get_heat."); */
 	/* fprint_out_map(map, "at the end of get_heat."); */
 	return (OK);
 }

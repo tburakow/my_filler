@@ -6,24 +6,36 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 09:46:52 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/29 21:11:38 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/30 14:56:31 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
+void	free_piece(t_piece *piece)
+{
+	int i;
+	
+	i = 0;
+	while (i < piece->size.h)
+	{
+		ft_strdel(&piece->array[i]);
+		i++;
+	}
+	free(piece->array);
+}
+
 void	free_structs(t_map *map, t_heat *heat, t_piece *piece)
 {
 	int	i;
-	int	j;
 	
 	i = 0;
-	j = 0;
 	while (i < map->size.h)
 	{
 		ft_strdel(&map->array[i]);
 		i++;
 	}
+	free(map->array);
 	i = 0;
 	while (i < map->size.h)
 	{
@@ -31,18 +43,14 @@ void	free_structs(t_map *map, t_heat *heat, t_piece *piece)
 		heat->array[i] = NULL;
 		i++;
 	}
-	i = 0;
-	while (i < map->size.h)
-	{
-		ft_strdel(&heat->map_copy[i]);
-		i++;
-	}
+	free(heat->array);
 	i = 0;
 	while (i < piece->size.h)
 	{
 		ft_strdel(&piece->array[i]);
 		i++;
 	}
+	free(piece->array);
 }
 
 /* This function writes out the coordinates for the placement of the 
@@ -65,9 +73,6 @@ int	init(t_map *map, t_heat *heat, t_piece *piece)
 	map->opponent = "xX";
 	/* Setting up the heat - struct */
 	ft_bzero(heat, sizeof(*heat));
-	heat->heat = 100000;
-	heat->orig.y = 0;
-	heat->orig.x = 0;
 	heat->size.h = 0;
 	heat->size.w = 0;
 	/* Setting up the piece -struct */
@@ -108,10 +113,10 @@ int	main(void)
 		}
 		if (!play(&map, &heat, &piece))
 			break;
-		free_structs(&map, &heat, &piece);
+		free_piece(&piece);
 	}
 	free_structs(&map, &heat, &piece);
 	write_out(0, 0);
 	system("leaks tburakow.filler 1<&2");
-	return (0);
+	return(0);
 }

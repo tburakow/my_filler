@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:48:47 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/29 20:20:31 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/30 13:09:03 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,22 +116,9 @@ void	fprint_out_heat(t_heat *heat, char *s)
 		}
 	}
 	fprintf(fp, "\n----------------------------------------------\n");
-	i = 0;
-	if (heat->map_copy)	
-	{
-		while (i < heat->size.h)
-		{
-			if (heat->map_copy[i])
-				fprintf(fp, "%s\n", heat->map_copy[i]);
-			i++;
-		}
-	}
-	fprintf(fp, "\n----------------------------------------------\n");
 	if (heat->size.h && heat->size.w)
 		fprintf(fp, "heat h : %d, heat : %d\n\n", heat->size.h, heat->size.w);
 	if (heat->heat)
 		fprintf(fp, "heat is : %d", heat->heat);
-	if (heat->orig.y && heat->orig.x)
-		fprintf(fp, "heat orig. y : %d, heat orig. x : %d\n\n", heat->orig.y, heat->orig.x);
 	fclose(fp);
 }

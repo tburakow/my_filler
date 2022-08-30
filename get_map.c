@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:29:28 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/29 19:05:39 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/30 14:49:30 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ int	fill_map(t_map *map)
 		j = 4;
 		while (j < 5)
 		{
-			/* fprint_out_int(j, "j at fill_map"); */
-			map->array[i] = ft_strdup(&line[j]);
+			if (!map->array[i])
+				map->array[i] = (char *)ft_memalloc(sizeof(char) * map->size.w + 1);
+			map->array[i] = ft_strcpy(map->array[i], &line[j]);
 			j++;
 		}
 		ft_strdel(&line);
