@@ -6,11 +6,24 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 09:46:52 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/29 21:11:38 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/30 11:11:43 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
+
+void	free_piece(t_piece *piece)
+{
+	int	i;
+	
+	i = 0;
+	while (i < piece->size.h)
+	{
+		ft_strdel(&piece->array[i]);
+		i++;
+	}
+	free(piece->array);
+}
 
 void	free_structs(t_map *map, t_heat *heat, t_piece *piece)
 {
@@ -43,6 +56,7 @@ void	free_structs(t_map *map, t_heat *heat, t_piece *piece)
 		ft_strdel(&piece->array[i]);
 		i++;
 	}
+	free(piece->array);
 }
 
 /* This function writes out the coordinates for the placement of the 
@@ -108,7 +122,7 @@ int	main(void)
 		}
 		if (!play(&map, &heat, &piece))
 			break;
-		free_structs(&map, &heat, &piece);
+		free_piece(&piece);
 	}
 	free_structs(&map, &heat, &piece);
 	write_out(0, 0);

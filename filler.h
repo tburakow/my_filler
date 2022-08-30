@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/29 19:16:39 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/30 11:11:56 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	fprint_out_piece(t_piece *piece, char *s);
 int		init(t_map *map, t_heat *heat, t_piece *piece);
 void	write_out(int y, int x);
 void	free_structs(t_map *map, t_heat *heat, t_piece *piece);
+void	free_piece(t_piece *piece);
 
 /* In the get_heat.c -file */
 int	get_heat(t_heat *heat, t_map *map);
