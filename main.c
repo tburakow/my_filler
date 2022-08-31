@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 09:46:52 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/30 14:56:31 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/31 13:06:32 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,6 @@ int	main(void)
 	}
 	free_structs(&map, &heat, &piece);
 	write_out(0, 0);
-	system("leaks tburakow.filler 1<&2");
+	/* system("leaks tburakow.filler 1<&2"); */
 	return(0);
 }

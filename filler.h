@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/30 15:53:33 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/31 12:23:27 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int		get_heat(t_heat *heat, t_map *map);
 int		heat_setup(t_heat *heat, t_map *map);
 int		calculate_heat(t_heat *heat, t_map *map, int y, int x);
 int 	set_heat_limit(t_map *map);
-void	check_for_heat(t_heat *heat, t_map *map, int y, int x);
+int	check_for_heat(t_heat *heat, t_map *map, int y, int x);
 void	parse_heat(t_heat *heat, t_map *map, int y, int x);
 
 /* in the get_piece.c -file */
