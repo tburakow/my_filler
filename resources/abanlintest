@@ -1,0 +1,90 @@
+Running abanlin small map. I am 'O'
+Test 2
+== O fin: 103
+== X fin: 61
+Test 3
+== O fin: 110
+== X fin: 49
+Test 4
+== O fin: 100
+== X fin: 60
+Test 5
+== O fin: 99
+== X fin: 64
+Running abanlin small map. I am 'X'
+== O fin: 53
+== X fin: 116
+Test 2
+== O fin: 39
+== X fin: 131
+Test 3
+== O fin: 45
+== X fin: 125
+Test 4
+== O fin: 42
+== X fin: 140
+Test 5
+== O fin: 34
+== X fin: 130
+
+
+Running abanlin medium map. I am 'O'
+== O fin: 259
+== X fin: 103
+Test 2
+== O fin: 273
+== X fin: 81
+Test 3
+== O fin: 265
+== X fin: 74
+Test 4
+== O fin: 266
+== X fin: 95
+Test 5
+== O fin: 261
+== X fin: 95
+Running abanlin medium map. I am 'X'
+== O fin: 51
+== X fin: 296
+Test 2
+== O fin: 59
+== X fin: 312
+Test 3
+== O fin: 2
+== X fin: 331
+Test 4
+== O fin: 58
+== X fin: 311
+Test 5
+== O fin: 4
+== X fin: 339
+
+
+Running abanlin large map. I am 'O'
+Test 2
+== O fin: 1964
+== X fin: 76
+Test 3
+== O fin: 1887
+== X fin: 97
+Test 4
+== O fin: 1908
+== X fin: 103
+Test 5
+== O fin: 1602
+== X fin: 416
+Running abanlin large map. I am 'X'
+== O fin: 437
+== X fin: 1555
+Test 2
+== O fin: 215
+== X fin: 1822
+Test 3
+== O fin: 275
+== X fin: 1772
+Test 4
+== O fin: 388
+== X fin: 1652
+Test 5
+== O fin: 477
+== X fin: 1530

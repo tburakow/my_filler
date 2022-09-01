@@ -6,12 +6,13 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 09:46:52 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/31 13:06:32 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/31 13:49:00 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
+/* Frees a struct of type t_piece. */
 void	free_piece(t_piece *piece)
 {
 	int i;
@@ -25,6 +26,7 @@ void	free_piece(t_piece *piece)
 	free(piece->array);
 }
 
+/* Frees all three major types of structs found in the program. */
 void	free_structs(t_map *map, t_heat *heat, t_piece *piece)
 {
 	int	i;
@@ -63,7 +65,7 @@ void	write_out(int y, int x)
 	ft_putchar('\n');
 }
 
-/* Initializing the structs. */
+/* Initializes the three major structs. */
 int	init(t_map *map, t_heat *heat, t_piece *piece)
 {
 	/* Here we set the map -struct : */

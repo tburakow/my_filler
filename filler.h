@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/31 12:23:27 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/08/31 14:49:15 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ typedef struct s_size
 	int		w;
 }				t_size;	
 
-typedef	struct s_map
+typedef struct s_map
 {
 	int			players_set;
 	char		*player;
 	char		*opponent;
 	char		**array;
-	t_size	 	size;
+	t_size		size;
 }				t_map;
 
 typedef struct s_heat
@@ -66,6 +66,7 @@ int		sub_error_output(char *s);
 
 /* in the get_player.c -file */
 int		get_player(t_map *map);
+void	switch_players(t_map *map);
 
 /* In the get_map.c -file. */
 int		get_map_size(t_map *map);
@@ -82,22 +83,25 @@ int		init(t_map *map, t_heat *heat, t_piece *piece);
 void	write_out(int y, int x);
 void	free_structs(t_map *map, t_heat *heat, t_piece *piece);
 
+/* In adjust_to_map.c -file */
+int		adjust_to_map(t_heat *heat, t_map *map, int y, int x);
+
 /* In the get_heat.c -file */
 int		get_heat(t_heat *heat, t_map *map);
 int		heat_setup(t_heat *heat, t_map *map);
 int		calculate_heat(t_heat *heat, t_map *map, int y, int x);
-int 	set_heat_limit(t_map *map);
-int	check_for_heat(t_heat *heat, t_map *map, int y, int x);
+int		set_heat_limit(t_map *map);
+int		check_for_heat(t_heat *heat, t_map *map, int y, int x);
 void	parse_heat(t_heat *heat, t_map *map, int y, int x);
 
 /* in the get_piece.c -file */
-int	get_piece(t_piece *piece);
-int	get_piece_size(t_piece *piece);
-int	get_piece_actual(t_piece *piece);
+int		get_piece(t_piece *piece);
+int		get_piece_size(t_piece *piece);
+int		get_piece_actual(t_piece *piece);
 
 /* In the play.c -file */
-int	play(t_map *map, t_heat *heat, t_piece *piece);
-int	try_piece(t_map *map, t_heat *heat, t_piece *piece, t_coords *current);
-int	validate_place(t_map *map, t_piece *piece, t_coords *current);
-int	hits_and_crashes(t_map *map, char *s, t_coords *current, t_coords *spot);
+int		play(t_map *map, t_heat *heat, t_piece *piece);
+int		try_piece(t_map *map, t_heat *heat, t_piece *piece, t_coords *current);
+int		validate_place(t_map *map, t_piece *piece, t_coords *current);
+int		hits_and_crashes(t_map *map, char *s, t_coords *curr, t_coords *spot);
 #endif

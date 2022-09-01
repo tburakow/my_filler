@@ -1,0 +1,94 @@
+Running champely small map. I am 'O'
+== O fin: 166
+== X fin: 0
+Test 2
+== O fin: 175
+== X fin: 0
+Test 3
+== O fin: 158
+== X fin: 0
+Test 4
+== O fin: 167
+== X fin: 0
+Test 5
+== O fin: 163
+== X fin: 0
+Running champely small map. I am 'X'
+== O fin: 0
+== X fin: 173
+Test 2
+== O fin: 0
+== X fin: 159
+Test 3
+== O fin: 0
+== X fin: 162
+Test 4
+== O fin: 0
+== X fin: 178
+Test 5
+== O fin: 0
+== X fin: 165
+
+
+Running champely medium map. I am 'O'
+== O fin: 365
+== X fin: 0
+Test 2
+== O fin: 366
+== X fin: 0
+Test 3
+== O fin: 352
+== X fin: 0
+Test 4
+== O fin: 366
+== X fin: 0
+Test 5
+== O fin: 334
+== X fin: 0
+Running champely medium map. I am 'X'
+== O fin: 0
+== X fin: 337
+Test 2
+== O fin: 0
+== X fin: 331
+Test 3
+== O fin: 0
+== X fin: 321
+Test 4
+== O fin: 0
+== X fin: 366
+Test 5
+== O fin: 0
+== X fin: 353
+
+
+Running champely large map. I am 'O'
+== O fin: 1531
+== X fin: 0
+Test 2
+== O fin: 2099
+== X fin: 0
+Test 3
+== O fin: 1574
+== X fin: 0
+Test 4
+== O fin: 2038
+== X fin: 0
+Test 5
+== O fin: 2029
+== X fin: 0
+Running champely large map. I am 'X'
+== O fin: 0
+== X fin: 2057
+Test 2
+== O fin: 0
+== X fin: 2056
+Test 3
+== O fin: 0
+== X fin: 2071
+Test 4
+== O fin: 0
+== X fin: 2064
+Test 5
+== O fin: 0
+== X fin: 2097

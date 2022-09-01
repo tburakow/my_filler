@@ -6,14 +6,14 @@
 #    By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/09 12:15:46 by tburakow          #+#    #+#              #
-#    Updated: 2022/08/31 12:47:03 by tburakow         ###   ########.fr        #
+#    Updated: 2022/09/01 12:07:15 by tburakow         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = tburakow.filler
 
 FUNCTIONS = main print_outs get_map get_player sub_error_output \
-get_heat_two get_piece play
+get_heat get_piece play adjust_to_map
 
 FILES = $(patsubst %, %.c, $(FUNCTIONS))
 
