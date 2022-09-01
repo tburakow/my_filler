@@ -186,3 +186,97 @@ Test 4
 Test 5
 == O fin: 198
 == X fin: 1855
+Running grati small map. I am 'O'
+== O fin: 123
+== X fin: 66
+Test 2
+== O fin: 110
+== X fin: 61
+Test 3
+== O fin: 93
+== X fin: 81
+Test 4
+== O fin: 93
+== X fin: 62
+Test 5
+== O fin: 97
+== X fin: 77
+Running grati small map. I am 'X'
+== O fin: 66
+== X fin: 95
+Test 2
+== O fin: 47
+== X fin: 111
+Test 3
+== O fin: 56
+== X fin: 107
+Test 4
+== O fin: 59
+== X fin: 108
+Test 5
+== O fin: 49
+== X fin: 114
+
+
+Running grati medium map. I am 'O'
+== O fin: 209
+== X fin: 103
+Test 2
+== O fin: 278
+== X fin: 99
+Test 3
+== O fin: 284
+== X fin: 76
+Test 4
+== O fin: 201
+== X fin: 135
+Test 5
+== O fin: 266
+== X fin: 73
+Running grati medium map. I am 'X'
+== O fin: 52
+== X fin: 276
+Test 2
+== O fin: 79
+== X fin: 312
+Test 3
+== O fin: 56
+== X fin: 281
+Test 4
+== O fin: 56
+== X fin: 296
+Test 5
+== O fin: 8
+== X fin: 336
+
+
+Running grati large map. I am 'O'
+== O fin: 1978
+== X fin: 103
+Test 2
+== O fin: 1948
+== X fin: 154
+Test 3
+== O fin: 1941
+== X fin: 126
+Test 4
+== O fin: 1986
+== X fin: 126
+Test 5
+== O fin: 1855
+== X fin: 193
+Running grati large map. I am 'X'
+== O fin: 220
+== X fin: 1776
+Test 2
+== O fin: 346
+== X fin: 1652
+Test 3
+== O fin: 214
+== X fin: 1877
+Test 4
+== O fin: 191
+== X fin: 1821
+Test 5
+== O fin: 222
+== X fin: 1783

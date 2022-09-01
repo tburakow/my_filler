@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/31 14:49:15 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/01 14:37:30 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,19 @@ void	fprint_out_piece(t_piece *piece, char *s);
 int		init(t_map *map, t_heat *heat, t_piece *piece);
 void	write_out(int y, int x);
 void	free_structs(t_map *map, t_heat *heat, t_piece *piece);
+void	free_piece(t_piece *piece);
 
-/* In adjust_to_map.c -file */
+/* In heat_extras.c -file */
 int		adjust_to_map(t_heat *heat, t_map *map, int y, int x);
+int		check_heat_axial(t_heat *heat, t_map *map, int y, int x);
+int		check_heat_diagonal(t_heat *heat, t_map *map, int y, int x);
+int		check_for_heat(t_heat *heat, t_map *map, int y, int x);
 
 /* In the get_heat.c -file */
 int		get_heat(t_heat *heat, t_map *map);
 int		heat_setup(t_heat *heat, t_map *map);
 int		calculate_heat(t_heat *heat, t_map *map, int y, int x);
 int		set_heat_limit(t_map *map);
-int		check_for_heat(t_heat *heat, t_map *map, int y, int x);
-void	parse_heat(t_heat *heat, t_map *map, int y, int x);
 
 /* in the get_piece.c -file */
 int		get_piece(t_piece *piece);
@@ -103,5 +105,8 @@ int		get_piece_actual(t_piece *piece);
 int		play(t_map *map, t_heat *heat, t_piece *piece);
 int		try_piece(t_map *map, t_heat *heat, t_piece *piece, t_coords *current);
 int		validate_place(t_map *map, t_piece *piece, t_coords *current);
+int		place_piece(t_map *map, t_heat *heat, t_piece *piece);
+
+/* In the hits_and_crashes.c -file */
 int		hits_and_crashes(t_map *map, char *s, t_coords *curr, t_coords *spot);
 #endif

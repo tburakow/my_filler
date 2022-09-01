@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 11:42:01 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/01 12:20:22 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/01 12:56:18 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,55 +32,43 @@ int	heat_setup(t_heat *heat, t_map *map)
 	return (OK);
 }
 
-/* This function sets the heat limit to match the longer of the two axis (x , y).
+/* This function sets the heat limit to match the longer 
+of the two axis (x , y).
 this ensures that there are no areas with "flat" heat, and also that the 
 get_heat loop runs only the required amount of times. */
-int set_heat_limit(t_map *map)
+int	set_heat_limit(t_map *map)
 {
 	if (map->size.h > map->size.w)
-		return(map->size.h);
-	return(map->size.w);
+		return (map->size.h);
+	return (map->size.w);
 }
 
-/* This function uses the check_for_heat function to find the lowest heat next to
-the cell being checked (it does not check diagonals.) If a square occupied by
+/* This function uses the check_heat_* -functions to 
+find the lowest heat next to
+the current cell. If a square occupied by
 the opponent is found, the heat is set as '1'. */
 int	calculate_heat(t_heat *heat, t_map *map, int y, int x)
 {
 	int		value;
 	int		temp;
-	
+
 	value = 500;
 	temp = 0;
-	if (y > 0)
-		temp = check_for_heat(heat, map, y - 1, x);
+	temp = check_heat_axial(heat, map, y, x);
 	if (temp < value)
 		value = temp;
-	if (x > 0)
-		temp = check_for_heat(heat, map, y, x - 1);
-	if (temp < value)
-		value = temp;
-	if (y + 1 < heat->size.h)
-		temp = check_for_heat(heat, map, y + 1, x);
-	if (temp < value)
-		value = temp;
-	if (x + 1 < heat->size.w)
-		temp = check_for_heat(heat, map, y, x + 1);
+	temp = check_heat_diagonal(heat, map, y, x);
 	if (temp < value)
 		value = temp;
 	heat->array[y][x] = value;
+	if (adjust_to_map(heat, map, y, x))
+		heat->array[y][x]--;
 	return (OK);
 }
 
-int	check_for_heat(t_heat *heat, t_map *map, int y, int x)
-{
-	if (ft_strchr(map->opponent, map->array[y][x]))
-		return (1);
-	else if (heat->array[y][x] > 0)
-		return (heat->array[y][x] + 1);
-	return (1000);
-}
-
+/* This function iterates through the heatmap arrays, and calculates
+the heat for each cell (coordinate) in the array. The smaller the
+heat, the closer the opponent is. */
 int	get_heat(t_heat *heat, t_map *map)
 {
 	int			x;
@@ -100,9 +88,7 @@ int	get_heat(t_heat *heat, t_map *map)
 			while (x < heat->size.w)
 			{
 				if (!calculate_heat(heat, map, y, x))
-					return(sub_error_output("failed to calculate heat."));
-				if (adjust_to_map(heat, map, y, x))
-					heat->array[y][x]--;
+					return (sub_error_output("failed to calculate heat."));
 				x++;
 			}
 			y++;
