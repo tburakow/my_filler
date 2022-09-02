@@ -90,3 +90,97 @@ Test 4
 == O fin: 709
 == X fin: 1294
 Test 5
+Running superjeannot small map. I am 'O'
+== O fin: 113
+== X fin: 49
+Test 2
+== O fin: 113
+== X fin: 40
+Test 3
+== O fin: 116
+== X fin: 38
+Test 4
+== O fin: 121
+== X fin: 34
+Test 5
+== O fin: 110
+== X fin: 56
+Running superjeannot small map. I am 'X'
+== O fin: 43
+== X fin: 130
+Test 2
+== O fin: 40
+== X fin: 133
+Test 3
+== O fin: 108
+== X fin: 25
+Test 4
+== O fin: 49
+== X fin: 117
+Test 5
+== O fin: 42
+== X fin: 125
+
+
+Running superjeannot medium map. I am 'O'
+== O fin: 214
+== X fin: 118
+Test 2
+== O fin: 257
+== X fin: 94
+Test 3
+== O fin: 217
+== X fin: 136
+Test 4
+== O fin: 224
+== X fin: 108
+Test 5
+== O fin: 283
+== X fin: 90
+Running superjeannot medium map. I am 'X'
+== O fin: 83
+== X fin: 262
+Test 2
+== O fin: 133
+== X fin: 234
+Test 3
+== O fin: 104
+== X fin: 256
+Test 4
+== O fin: 86
+== X fin: 262
+Test 5
+== O fin: 114
+== X fin: 244
+
+
+Running superjeannot large map. I am 'O'
+== O fin: 1759
+== X fin: 272
+Test 2
+== O fin: 1918
+== X fin: 141
+Test 3
+== O fin: 1770
+== X fin: 236
+Test 4
+== O fin: 1963
+== X fin: 94
+Test 5
+== O fin: 2056
+== X fin: 4
+Running superjeannot large map. I am 'X'
+== O fin: 137
+== X fin: 1904
+Test 2
+== O fin: 152
+== X fin: 1950
+Test 3
+== O fin: 142
+== X fin: 1932
+Test 4
+== O fin: 170
+== X fin: 1874
+Test 5
+== O fin: 140
+== X fin: 1883
