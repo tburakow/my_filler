@@ -19,4 +19,13 @@ pygame.display.set_caption("The great visualizer")
 carryOn = True
 
 # screen update speed
-clock = pygame.time.Clock
+clock = pygame.time.Clock()
+
+while carryOn:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            carryOn = False
+        
+        #Put start logic here. Choose players etc.
+
+        
