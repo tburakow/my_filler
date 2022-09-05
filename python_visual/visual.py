@@ -21,11 +21,14 @@ carryOn = True
 # screen update speed
 clock = pygame.time.Clock()
 
-def start_visual():
+def start_visual(map_rows, map_cols):
+
+    rows, cols = map_rows, map_cols
+    arr = [[0]*cols]*rows
+    
     import sys
     for line in sys.stdin:
-        if line.find("Plateau"):
-            break
+
     print(f'{line}')
 
 
