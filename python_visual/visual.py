@@ -13,13 +13,21 @@ FIGK = ( 34, 87, 200)
 # Opening a window
 size = (1920, 1280)
 screen = pygame.display.set_mode(size)
-pygame.display.set_caption("The great visualizer")
+pygame.display.set_caption("The great visualizer -- by tburakow")
 
 # Loop until window closed.
 carryOn = True
 
 # screen update speed
 clock = pygame.time.Clock()
+
+def start_visual():
+    import sys
+    for line in sys.stdin:
+        if line.find("Plateau"):
+            break
+    print(f'{line}')
+
 
 while carryOn:
     for event in pygame.event.get():
@@ -28,4 +36,23 @@ while carryOn:
         
         #Put start logic here. Choose players etc.
 
+        #Put the loop stuff here.
+        start_visual()
+
+        #draw graphics starts here.
+        screen.fill(WHITE)
+        pygame.draw.rect(screen, RED, [55, 200, 100, 70], 0)
+        pygame.draw.line(screen, BLUE, [0, 0], [100, 100], 5)
+        pygame.draw.ellipse(screen, FIGK, [20,20,200,100], 2)
+
+        #updating screen
+        pygame.display.flip()
+
+        #framerate
+        clock.tick(60)
+
+
+
+#exit pygame
+pygame.quit()
         
