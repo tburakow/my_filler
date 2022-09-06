@@ -1,6 +1,5 @@
 # Importing pygame library.
 import pygame
-import pygame.font
 import pygame_menu as pgm
 pygame.init()
 
@@ -24,21 +23,12 @@ p1 = 1
 p2 = 1
 map = 1
 
-# Loop until window closed.
-carryOn = True
-
-# screen update speed
-clock = pygame.time.Clock()
-
-#def start_visual(map_rows, map_cols):
-#
- #   rows, cols = map_rows, map_cols
-  #  arr = [[0]*cols]*rows
-   # 
-    #import sys
-    #for line in sys.stdin:
-
-    #print(f'{line}')
+menu = pgm.Menu(
+    height=800,
+    theme=pgm.themes.THEME_SOLARIZED,
+    title='SETUP',
+    width=1080
+)
 
 def set_player_one(value, player):
     p1 = value
@@ -53,19 +43,41 @@ def set_map(value, map):
     pass
 
 def start_visual():
-    # Do the job here !
-    pass
+	# Loop until window closed.
+	carryOn = True
 
-menu = pgm.Menu('Welcome', 800, 500,
-                       theme=pgm.themes.THEME_RED)
+	# screen update speed
+	clock = pygame.time.Clock()
 
-menu.add.text_input('Player 1 :', [('tburakow', 1), ('carli', 2)], onchange=set_player_one)
+	while carryOn:
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				carryOn = False
+			#draw graphics starts here.
+
+			screen.fill(WHITE)
+			pygame.draw.rect(screen, RED, [55, 200, 100, 70], 0)
+			pygame.draw.line(screen, BLUE, [0, 0], [100, 100], 5)
+			pygame.draw.ellipse(screen, FIGK, [20,20,200,100], 2)
+
+			#updating screen
+			pygame.display.flip()
+
+			#framerate
+			clock.tick(60)
+
+	#exit pygame
+	pygame.quit()
+
+menu.add.selector('Player 1 :', [('tburakow', 1), ('carli', 2)], onchange=set_player_one)
 menu.add.selector('Player 2 :', [('tburakow', 1), ('carli', 2)], onchange=set_player_two)
 menu.add.selector('Map :', [('small', 1), ('medium', 2), ('large', 3)], onchange=set_map)
 menu.add.button('Play', start_visual)
 menu.add.button('Quit', pgm.events.EXIT)
 
-while carryOn:
+menu.mainloop(screen)
+
+""" while carryOn:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             carryOn = False
@@ -73,7 +85,7 @@ while carryOn:
         #Put start logic here. Choose players etc.
         
         #Put the loop stuff here.
-
+		
 
         #draw graphics starts here.
         screen.fill(WHITE)
@@ -85,10 +97,7 @@ while carryOn:
         pygame.display.flip()
 
         #framerate
-        clock.tick(60)
+        clock.tick(60) """
 
 
-
-#exit pygame
-pygame.quit()
         
