@@ -186,3 +186,93 @@ Test 4
 Test 5
 == O fin: 142
 == X fin: 1871
+Running carli small map. I am 'O'
+== O fin: 87
+== X fin: 71
+Test 2
+== O fin: 113
+== X fin: 53
+Test 3
+== O fin: 127
+== X fin: 36
+Test 4
+== O fin: 121
+== X fin: 45
+Test 5
+== O fin: 107
+== X fin: 68
+Running carli small map. I am 'X'
+== O fin: 67
+== X fin: 104
+Test 2
+== O fin: 37
+== X fin: 120
+Test 3
+== O fin: 70
+== X fin: 94
+Test 4
+== O fin: 60
+== X fin: 119
+Test 5
+== O fin: 31
+== X fin: 137
+
+
+Running carli medium map. I am 'O'
+== O fin: 227
+== X fin: 139
+Test 2
+== O fin: 293
+== X fin: 42
+Test 3
+== O fin: 209
+== X fin: 116
+Test 4
+== O fin: 205
+== X fin: 147
+Test 5
+== O fin: 208
+== X fin: 161
+Running carli medium map. I am 'X'
+== O fin: 183
+== X fin: 128
+Test 2
+== O fin: 140
+== X fin: 197
+Test 3
+== O fin: 6
+== X fin: 341
+Test 4
+== O fin: 1
+== X fin: 345
+Test 5
+== O fin: 95
+== X fin: 151
+
+
+Running carli large map. I am 'O'
+Test 2
+Test 3
+== O fin: 1658
+== X fin: 322
+Test 4
+== O fin: 1656
+== X fin: 378
+Test 5
+== O fin: 1642
+== X fin: 422
+Running carli large map. I am 'X'
+== O fin: 351
+== X fin: 1685
+Test 2
+== O fin: 139
+== X fin: 1882
+Test 3
+== O fin: 462
+== X fin: 1450
+Test 4
+== O fin: 281
+== X fin: 1719
+Test 5
+== O fin: 373
+== X fin: 1661
