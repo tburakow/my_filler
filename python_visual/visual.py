@@ -389,7 +389,7 @@ def start_visual(re):
 
 menu.add.selector('Player 1 :', [('tburakow', 0), ('carli', 1), ('abanlin', 2), ('champely', 3), ('grati', 4), ('hcao', 5), ('superjeannot', 6)], onchange=set_player_one)
 menu.add.selector('Player 2 :', [('tburakow', 0), ('carli', 1), ('abanlin', 2), ('champely', 3), ('grati', 4), ('hcao', 5), ('superjeannot', 6)], onchange=set_player_two)
-menu.add.selector('Map :', [('small', 0), ('medium', 1), ('large', 2)], onchange=set_map)
+menu.add.selector('Map :', [('small(00)', 0), ('medium(01)', 1), ('large(02)', 2)], onchange=set_map)
 menu.add.button('Play', run)
 menu.add.button('Quit', pgm.events.EXIT)
 
