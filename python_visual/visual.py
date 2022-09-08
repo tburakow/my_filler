@@ -1,4 +1,6 @@
 # Importing pygame library.
+from email.utils import encode_rfc2231
+from xml.dom.pulldom import END_DOCUMENT
 import pygame
 import time
 import os
@@ -23,14 +25,19 @@ file1 = 0
 #defining colors
 BLACK = ( 0, 0, 0)
 WHITE = ( 255, 255, 255)
-GREEN = ( 0, 255, 0)
+GREEN = ( 0, 205, 0)
+LGREEN = ( 50, 255, 0)
 RED   = ( 255, 0, 0)
-BLUE  = ( 0, 0, 255)
+BLUE  = ( 0, 0, 150)
 FIGK = ( 34, 87, 200)
 ORANGE = ( 255, 191, 0)
 ORANKI = ( 255, 230, 0)
 PURPLE = ( 106, 13, 173)
-PURPUL = ( 150, 50, 200)
+PURPUL = ( 190, 50, 220)
+
+# values for playyer scores
+end_one = 0
+end_two = 0 
 
 # Opening a window
 size = (1800, 1200)
@@ -44,43 +51,147 @@ menu = pgm.Menu(
     width=1080
 )
 
-# function to get the current map
-def parse_and_read_map():
+# function to present the end result of the game.
+def print_end_result():
+	# variable for text left alignment
+	left = 580
+	# variable for modifying y
+	y_mod = 40
+
+	#defining font for diplaying the player scores.
+	displayfont = pygame.font.Font("/Library/Fonts/Trebuchet MS Bold.ttf", 32)
+
+	#create the background for end result - box, and it's border.
+	end_box = pygame.Rect(0, 0, 700, 400)
+	end_box.center = (900, 620)
+	end_box_edge = pygame.Rect(0, 0, 750, 450)
+	end_box_edge.center = end_box.center
+
+	#creating player one's end result text.
+	end1 = ('Player 1 (\"{1}") score: \"{0}\"'.format(end_one, arr1[p1])) # creating the string
+	end1_post = end1.replace('"', '') # removing the double quotes.
+	end1_text = displayfont.render(end1_post, True, ORANGE) #create text object
+	end1_rect = end1_text.get_rect() # create text rectangle
+	end1_rect.left = (left) # distance from left edge
+	end1_rect.top = (420 + y_mod) # distance from top edge
+
+	#creating player two's end result text.
+	end2 = ('Player 2 (\"{1}") score: \"{0}\"'.format(end_two, arr1[p2])) # creating the string
+	end2_post = end2.replace('"', '') # removing the double quotes.
+	end2_text = displayfont.render(end2_post, True, GREEN) #create text object
+	end2_rect = end2_text.get_rect() # create text rectangle
+	end2_rect.left = (left) # distance from left edge
+	end2_rect.top = (520 + y_mod) # distance from top edge
+
+	# creating winner text.
+	if (end_one > end_two):
+		win = ('Player 1 (\"{0}") wins!'.format(arr1[p1]))
+	else:
+		win = ('Player 2 (\"{0}") wins!'.format(arr1[p2]))
+	win_post = win.replace('"', '') # removing the double quotes.
+	win_text = displayfont.render(win_post, True, RED) #create text object
+	win_rect = win_text.get_rect() # create text rectangle
+	win_rect.left = (left) # distance from left edge
+	win_rect.top = (620 + y_mod) # distance from top edge
+
+	# creating "press any key to quit" text.
+	end = ("Press 'return' to quit, or 'r' to replay.") # creating the string
+	end_text = displayfont.render(end, True, WHITE) #create text object
+	end_rect = end_text.get_rect() # create text rectangle
+	end_rect.left = (left + 50) # distance from left edge
+	end_rect.top = (700 + y_mod) # distance from top edge
+
+	# drawing the box on screen
+	pygame.draw.rect(screen, RED, end_box_edge)
+	pygame.draw.rect(screen, BLACK, end_box)
+
+	# drawing the text on screen
+	screen.blit(end1_text, end1_rect)
+	screen.blit(end2_text, end2_rect)
+	screen.blit(end_text, end_rect)
+	screen.blit(win_text, win_rect)
+
+# function to detect the match has ended.
+def check_for_end(line):
+	global file1
+	global end_one
+	global end_two
+	if line.find("fin") != -1:
+		for z in line.split():
+			if z.isdigit():
+				end_one = (int(z))
+		line = file1.readline().rstrip(':\n')
+		for z in line.split():
+			if z.isdigit():
+				end_two = (int(z))
+		return 1
+	return 0
+
+# function to iterate through map rows and print squares accordingly.
+def parse_and_draw_map():
 	# creating the correct size squares.
 	square_h = bg_h / map_size[0] # we divide the map(background) area with the number of squares each way
 	square_w = bg_w / map_size[1]
-	square = pygame.Rect(0, 0, square_w, square_h, border_radius=5)
+	square = pygame.Rect(0, 0, square_w, square_h, border_radius=0)
+	# creating the smaller squares inside the "virtual" squares to prevent squares "fuzing" on screen.
+	s2_h = square_h - square_h / 10
+	s2_w = square_w - square_w / 10
+	s2 = pygame.Rect(0, 0, s2_w, s2_h, border_radius=s2_w * 2)
 	global file1
 	line = file1.readline().rstrip(':\n')
-	while (line.find("Plateau") == -1): # read lines of file until we reach 
+	while (line.find("0123") == -1): # read lines of file until we reach the map actual
+		if check_for_end(line) == 1:
+			print_end_result()
+			return(2)
 		line = file1.readline().rstrip(':\n')
 	x = 0
-	while x < map_size[0]:
+	while x < map_size[0]: # while we are within the height (row count) or the map.
 		line = file1.readline().rstrip(':\n')
-		sans_digits = ''.join([i for i in line if not i.isdigit()]) #iterate through the string removing numbers.
+		sans_digits = ''.join([i for i in line if not i.isdigit() or not ' ']) #iterate through the string removing numbers.
 		y = 0
-		while y < map_size[1]:
-			if sans_digits.find('X', y, y + 1) != -1:
+		while y < map_size[1]: # while we are within the width (column count) of the map
+			if sans_digits[1:].find('X', y, y + 1) != -1: # search starting from index 1
 				square.left = (900 - bg_w / 2) + (y * square_w)
+				#print(y, y * square_w)
 				square.top = (620 - bg_h / 2) + (x * square_h)
-				pygame.draw.rect(screen, PURPLE, square)
-			if sans_digits.find('x', y, y + 1) != -1:
+				#print(x * square_h)
+				s2.center = square.center
+				pygame.draw.rect(screen, BLUE, square) # printing the "virtual" square.
+				pygame.draw.rect(screen, GREEN, s2) # printing the actual square.
+			if sans_digits[1:].find('x', y, y + 1) != -1: # search starting from index 1
 				square.left = (900 - bg_w / 2) + (y  * square_w)
+				#print(y, y * square_w)
 				square.top = (620 - bg_h / 2) + (x * square_h)
-				pygame.draw.rect(screen, PURPUL, square)
-			if sans_digits.find('O', y, y + 1) != -1:
+				#print(x * square_h)
+				s2.center = square.center
+				pygame.draw.rect(screen, BLUE, square) # printing the "virtual" square.
+				pygame.draw.rect(screen, LGREEN, s2) # printing the actual square.
+			if sans_digits[1:].find('O', y, y + 1) != -1:  # search starting from index 1
 				square.left = (900 - bg_w / 2) + (y * square_w)
+				#print(y, y * square_w)
 				square.top = (620 - bg_h / 2) + (x  * square_h)
-				pygame.draw.rect(screen, ORANGE, square)
-			if sans_digits.find('o', y, y + 1) != -1:
+				#print(x * square_h)
+				s2.center = square.center
+				pygame.draw.rect(screen, BLUE, square) # printing the "virtual" square.
+				pygame.draw.rect(screen, ORANGE, s2) # printing the actual square.
+			if sans_digits[1:].find('o', y, y + 1) != -1:  # search starting from index 1
 				square.left = (900 - bg_w / 2) + (y * square_w)
+				#print(y, y * square_w)
 				square.top = (620 - bg_h / 2) + (x * square_h)
-				pygame.draw.rect(screen, ORANKI, square)
+				#print(x * square_h)
+				s2.center = square.center
+				pygame.draw.rect(screen, BLUE, square) # printing the "virtual" square.
+				pygame.draw.rect(screen, ORANKI, s2) # printing the actual square.
 			y += 1
 		#the_map = arr.array('b', [])
 		#the_map[x] = sans_digits
 		x += 1
-	return
+		# check if the game has ended
+	line = file1.readline().rstrip(':\n')
+	if check_for_end(line) == 1:
+		print_end_result()
+		return(2)
+	return (1)
 
 
 # function to read the firt lines from stdin and parse for map size etc.
@@ -131,7 +242,10 @@ def set_map(value, map):
 	#print(map_nro)
 	pass
 
-def start_visual():
+def run():
+	start_visual(0)
+
+def start_visual(re):
 	# Loop until window closed.
 	carryOn = True
 
@@ -143,17 +257,18 @@ def start_visual():
 	# create the command
 	command = "../resources/filler_vm -p1 ../resources/players/\"{0}\".filler -p2 ../resources/players/\"{1}\".filler -v -f ../resources/maps/\"{2}\" > temp_text".format(arr1[p1], arr1[p2], arr2[map_nro])
 
-	# run the filler_vm
-	os.system(command)
+	# run the filler_vm if not a re-run if not re-run.
+	if re != 1:
+		os.system(command)
 
 	time.sleep(0.1)
 	# getting the correct map size from the initial output
 	get_map_size()
 
-	print(map_size)
+	# print(map_size)
 
-	# Setting up variable speed, default setting : 1
-	speed = 80
+	# Setting up variable speed, default setting : 10
+	speed = 20
 
 	#pygame -loop
 	while carryOn:
@@ -177,7 +292,7 @@ def start_visual():
 		# creating player 2 text to print on screen
 		p2_pre = ('Player 2: \"{0}\"'.format(arr1[p2])) # creating the string
 		p2_post = p2_pre.replace('"', '') # removing the double quotes.
-		p2_text = displayfont.render(p2_post, True, PURPLE) #create text object
+		p2_text = displayfont.render(p2_post, True, GREEN) #create text object
 		p2_rect = p2_text.get_rect() # create text rectangle
 		p2_rect.right = (1700) # distance from right edge
 		p2_rect.top = (80) # distance from top edge
@@ -185,7 +300,7 @@ def start_visual():
 		# creating map info on screen.
 		map_pre = ('\"{0}\"'.format(arr2[map_nro])) # creating the string
 		map_post = map_pre.replace('"', '') # removing the double quotes.
-		map_text = displayfont.render(map_post, True, GREEN) #create text object
+		map_text = displayfont.render(map_post, True, RED) #create text object
 		map_rect = map_text.get_rect() # create text rectangle
 		map_rect.center = (900, 80) # position of center of object
 
@@ -201,15 +316,32 @@ def start_visual():
 		map_bg_bord = pygame.Rect(0, 0, bg_w + 40, bg_h + 40, border_radius=15) #this second one is a border for the actual bg.
 		map_bg_bord.center = (900, 620)
 
-		# creating the correct size squares.
-		square_h = bg_h / map_size[0] # we divide the map(background) area with the number of squares each way
-		square_w = bg_w / map_size[1]
-		square = pygame.Rect(0, 0, square_w, square_h, border_radius=5)
+		# for loop checking for keystrokes
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
-				command = "rm temp_text"
+				command = "rm temp_text" # set command to remove the temporary text file (temp_text)
+				os.system(command) # run command to remove the temporary text file (temp_text)
 				carryOn = False
-
+			# keystrokes to control the speed. 1 = slowest, 9 = full speed.
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_1:
+					speed = 2
+				if event.key == pygame.K_2:
+					speed = 4
+				if event.key == pygame.K_3:
+					speed = 6
+				if event.key == pygame.K_4:
+					speed = 8
+				if event.key == pygame.K_5:
+					speed = 5
+				if event.key == pygame.K_6:
+					speed = 12
+				if event.key == pygame.K_7:
+					speed = 14
+				if event.key == pygame.K_8:
+					speed = 16
+				if event.key == pygame.K_9:
+					speed = 150
 		# placing the texts on screen.
 		screen.blit(p1_text, p1_rect)
 		screen.blit(p2_text, p2_rect)
@@ -219,16 +351,32 @@ def start_visual():
 		pygame.draw.rect(screen, RED, map_bg_bord)
 		pygame.draw.rect(screen, BLUE, map_bg)
 
-		# keystrokes to control the speed. 0 = pause, 9 = full speed. 
-		
-		# check if match ended 
+		# parsing and drawing the map.
+		if parse_and_draw_map() == 2:
+			pygame.display.flip()
+			paused = True
+			while paused:
+				for event in pygame.event.get():
+					if event.type == pygame.KEYDOWN:
+						if event.key == pygame.K_RETURN:
+							command = "rm temp_text" # set command to remove the temporary text file (temp_text)
+							os.system(command) # run command to remove the temporary text file (temp_text)
+							paused = False
+							carryOn = False
+						if event.key == pygame.K_r:
+							paused = False
+							start_visual(1)
+				#command = "rm temp_text" # set command to remove the temporary text file (temp_text)
+				#os.system(command) # run command to remove the temporary text file (temp_text)
+			#while 1:
+				#if event.type == pygame.KEYDOWN:
+					#command = "rm temp_text" # set command to remove the temporary text file (temp_text)
+					#os.system(command) # run command to remove the temporary text file (temp_text)
+					#carryOn = False
+					#break
 
-		# fetching the map situation.
-		parse_and_read_map()
-
-		#time.sleep(0.5 / speed)
-		# check if match ended 
-
+		# sleep to slow down
+		time.sleep(1 / speed)
 
 		#updating screen
 		pygame.display.flip()
@@ -240,9 +388,9 @@ def start_visual():
 	pygame.quit()
 
 menu.add.selector('Player 1 :', [('tburakow', 0), ('carli', 1), ('abanlin', 2), ('champely', 3), ('grati', 4), ('hcao', 5), ('superjeannot', 6)], onchange=set_player_one)
-menu.add.selector('Player 1 :', [('tburakow', 0), ('carli', 1), ('abanlin', 2), ('champely', 3), ('grati', 4), ('hcao', 5), ('superjeannot', 6)], onchange=set_player_two)
+menu.add.selector('Player 2 :', [('tburakow', 0), ('carli', 1), ('abanlin', 2), ('champely', 3), ('grati', 4), ('hcao', 5), ('superjeannot', 6)], onchange=set_player_two)
 menu.add.selector('Map :', [('small', 0), ('medium', 1), ('large', 2)], onchange=set_map)
-menu.add.button('Play', start_visual)
+menu.add.button('Play', run)
 menu.add.button('Quit', pgm.events.EXIT)
 
 menu.mainloop(screen)
