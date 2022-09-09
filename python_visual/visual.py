@@ -4,8 +4,11 @@ from xml.dom.pulldom import END_DOCUMENT
 import pygame
 import time
 import os
+from pygame import mixer
 import pygame_menu as pgm
-pygame.init()
+
+pygame.init() # initialize pygame
+mixer.init() # initialize mixer 
 
 #initial setup of global variables to match menu defaults
 p1 = 0
@@ -42,14 +45,46 @@ end_two = 0
 # Opening a window
 size = (1800, 1200)
 screen = pygame.display.set_mode(size)
+
+# loading menu background image
+background_image = pgm.BaseImage(
+    image_path=("title.png")
+)
 pygame.display.set_caption("The great visualizer -- by tburakow")
 
+# loading title.
+#title = pygame.image.load("title.png")
+
+# update the screen.
+#pygame.display.flip()
+
+#drawing title on screen.
+#screen.blit(title, (0, 0))
+# creating theme for the menu:
+myfont = pgm.font.FONT_8BIT
+titlefont = pgm.font.FONT_COMIC_NEUE
+tumetheme = pgm.Theme(background_color=(255, 255, 0, 0),
+					title_background_color=(0, 0, 0, 0),
+					title_font_shadow=True,
+					widget_padding=25,
+					title_font=titlefont,
+					widget_font=myfont,
+					widget_font_color=GREEN
+					)
+tumetheme.background_color = background_image
+pgm.locals.POSITION_SOUTH
+
 menu = pgm.Menu(
-    height=800,
-    theme=pgm.themes.THEME_SOLARIZED,
+    height=1200,
+    theme=tumetheme,
     title='SETUP',
-    width=1080
+    width=1800
 )
+
+# defining menu background
+def main_background():
+	background_image.draw(screen)
+
 
 # function to present the end result of the game.
 def print_end_result():
@@ -249,10 +284,12 @@ def start_visual(re):
 	# Loop until window closed.
 	carryOn = True
 
-	# screen update speed
 	clock = pygame.time.Clock()
 
-	# arrays for players and maps
+	# loading music.
+	mixer.music.load("meadow_fog.mp3")
+	# setting initial music volume.
+	mixer.music.set_volume(0.2)
 
 	# create the command
 	command = "../resources/filler_vm -p1 ../resources/players/\"{0}\".filler -p2 ../resources/players/\"{1}\".filler -v -f ../resources/maps/\"{2}\" > temp_text".format(arr1[p1], arr1[p2], arr2[map_nro])
@@ -265,7 +302,11 @@ def start_visual(re):
 	# getting the correct map size from the initial output
 	get_map_size()
 
-	# print(map_size)
+	# play music
+	blast = True
+	while blast == True:
+		mixer.music.play(-1)
+		break
 
 	# Setting up variable speed, default setting : 10
 	speed = 20
@@ -278,8 +319,11 @@ def start_visual(re):
 		screen.fill(WHITE)
 		pygame.draw.rect(screen, BLACK, [50, 40, 1700, 1100], 0, border_radius=20)
 
-		#defining font for diplaying the players and map.
+		# defining font for diplaying the players and map.
 		displayfont = pygame.font.Font("/Library/Fonts/Trebuchet MS Bold.ttf", 32)
+
+		# defining font for diplaying the info.
+		infofont = pygame.font.Font("/Library/Fonts/Trebuchet MS Bold.ttf", 20)
 
 		# creating the player 1 text to print on screen
 		p1_pre = ('Player 1: \"{0}\"'.format(arr1[p1])) # creating the string
@@ -303,6 +347,20 @@ def start_visual(re):
 		map_text = displayfont.render(map_post, True, RED) #create text object
 		map_rect = map_text.get_rect() # create text rectangle
 		map_rect.center = (900, 80) # position of center of object
+
+		# creating the info1 text to print on screen
+		info_pre = ("1 to 9 to control speed.") # creating the string
+		info_text = infofont.render(info_pre, True, WHITE) #create text object
+		info_rect = info_text.get_rect() # create text rectangle
+		info_rect.left = (100) # distance from left edge
+		info_rect.top = (300) # distance from top edge
+
+		# creating the info2 text to print on screen
+		info2_pre = ("press 'M' to mute.") # creating the string
+		info2_text = infofont.render(info2_pre, True, WHITE) #create text object
+		info2_rect = info2_text.get_rect() # create text rectangle
+		info2_rect.left = (100) # distance from left edge
+		info2_rect.top = (360) # distance from top edge
 
 		# creating map bg
 		if map_size[0] > map_size[1]: # if map is higher than it is wide. We set height at max.
@@ -333,19 +391,26 @@ def start_visual(re):
 				if event.key == pygame.K_4:
 					speed = 8
 				if event.key == pygame.K_5:
-					speed = 5
+					speed = 15
 				if event.key == pygame.K_6:
-					speed = 12
+					speed = 20
 				if event.key == pygame.K_7:
-					speed = 14
+					speed = 50
 				if event.key == pygame.K_8:
-					speed = 16
+					speed == 100
 				if event.key == pygame.K_9:
-					speed = 150
+					speed = 1000
+				if event.key == pygame.K_m:
+					mixer.music.set_volume(1)
+				if event.key == pygame.K_n:
+					mixer.music.set_volume(0)
+
 		# placing the texts on screen.
 		screen.blit(p1_text, p1_rect)
 		screen.blit(p2_text, p2_rect)
 		screen.blit(map_text, map_rect)
+		screen.blit(info_text, info_rect)
+		screen.blit(info2_text, info2_rect)
 
 		# drawing the map background on screen, border first.
 		pygame.draw.rect(screen, RED, map_bg_bord)
@@ -354,18 +419,22 @@ def start_visual(re):
 		# parsing and drawing the map.
 		if parse_and_draw_map() == 2:
 			pygame.display.flip()
-			paused = True
-			while paused:
+			pause = True
+			while pause:
 				for event in pygame.event.get():
 					if event.type == pygame.KEYDOWN:
-						if event.key == pygame.K_RETURN:
+						if event.key == pygame.K_RETURN or event.key == pygame.K_ESCAPE:
 							command = "rm temp_text" # set command to remove the temporary text file (temp_text)
 							os.system(command) # run command to remove the temporary text file (temp_text)
-							paused = False
+							pause = False
 							carryOn = False
 						if event.key == pygame.K_r:
-							paused = False
+							pause = False
 							start_visual(1)
+						if event.key == pygame.K_m:
+							mixer.music.set_volume(1)
+						if event.key == pygame.K_n:
+							mixer.music.set_volume(0)
 				#command = "rm temp_text" # set command to remove the temporary text file (temp_text)
 				#os.system(command) # run command to remove the temporary text file (temp_text)
 			#while 1:
@@ -386,6 +455,7 @@ def start_visual(re):
 
 	#exit pygame
 	pygame.quit()
+
 
 menu.add.selector('Player 1 :', [('tburakow', 0), ('carli', 1), ('abanlin', 2), ('champely', 3), ('grati', 4), ('hcao', 5), ('superjeannot', 6)], onchange=set_player_one)
 menu.add.selector('Player 2 :', [('tburakow', 0), ('carli', 1), ('abanlin', 2), ('champely', 3), ('grati', 4), ('hcao', 5), ('superjeannot', 6)], onchange=set_player_two)
