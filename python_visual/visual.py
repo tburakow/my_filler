@@ -5,7 +5,7 @@ import pygame
 import time
 import os
 from pygame import mixer
-import pygame_menu as pgm
+import sys
 
 pygame.init() # initialize pygame
 mixer.init() # initialize mixer 
@@ -23,7 +23,11 @@ arr1 = ["tburakow", "carli", "abanlin", "champely", "grati", "hcao", "superjeann
 arr2 = ["map00", "map01", "map02"]
 
 # setup of global variable file1, this variable will eventually contain all the game progression.
-file1 = 0
+#file1 = 0
+file1 = open('temp_text', 'w')
+
+# setup the check for whether we are replaying a game or not.
+new_run = 0
 
 #defining colors
 BLACK = ( 0, 0, 0)
@@ -46,44 +50,46 @@ end_two = 0
 size = (1800, 1200)
 screen = pygame.display.set_mode(size)
 
-# loading menu background image
-background_image = pgm.BaseImage(
-    image_path=("title.png")
-)
 pygame.display.set_caption("The great visualizer -- by tburakow")
 
-# loading title.
-#title = pygame.image.load("title.png")
+def find_player(line):
+	if line.find("tburakow") != -1:
+		return (0)
+	if line.find("carli") != -1:
+		return (1)
+	if line.find("abanlin") != -1:
+		return (2)
+	if line.find("champely") != -1:
+		return (3)
+	if line.find("grati") != -1:
+		return (4)
+	if line.find("hcao") != -1:
+		return (5)
+	else:
+		return (6)
+	
 
-# update the screen.
-#pygame.display.flip()
-
-#drawing title on screen.
-#screen.blit(title, (0, 0))
-# creating theme for the menu:
-myfont = pgm.font.FONT_8BIT
-titlefont = pgm.font.FONT_COMIC_NEUE
-tumetheme = pgm.Theme(background_color=(255, 255, 0, 0),
-					title_background_color=(0, 0, 0, 0),
-					title_font_shadow=True,
-					widget_padding=25,
-					title_font=titlefont,
-					widget_font=myfont,
-					widget_font_color=GREEN
-					)
-tumetheme.background_color = background_image
-pgm.locals.POSITION_SOUTH
-
-menu = pgm.Menu(
-    height=1200,
-    theme=tumetheme,
-    title='SETUP',
-    width=1800
-)
-
-# defining menu background
-def main_background():
-	background_image.draw(screen)
+def get_player():
+	global file1
+	global p1
+	global p2
+	x = 0
+	while x < 9:
+		# read a line from stdin
+		if new_run == 0:
+			line = sys.stdin.readline().rstrip(':\n')
+			file1.write(line)
+			file1.write('\n')
+		else:
+			line = file1.readline().rstrip(':\n')
+		if (line.find("p1") != -1):
+			#access global variable map_size
+			p1 = find_player(line)
+		if (line.find("p2") != -1):
+			#access global variable map_size
+			p2 = find_player(line)
+		x += 1
+	pass
 
 
 # function to present the end result of the game.
@@ -151,11 +157,17 @@ def check_for_end(line):
 	global file1
 	global end_one
 	global end_two
+	global new_run
 	if line.find("fin") != -1:
 		for z in line.split():
 			if z.isdigit():
 				end_one = (int(z))
-		line = file1.readline().rstrip(':\n')
+		if new_run == 0:
+			line = sys.stdin.readline().rstrip(':\n')
+			file1.write(line)
+			file1.write('\n')
+		else:
+			line = file1.readline().rstrip(':\n')
 		for z in line.split():
 			if z.isdigit():
 				end_two = (int(z))
@@ -173,15 +185,30 @@ def parse_and_draw_map():
 	s2_w = square_w - square_w / 10
 	s2 = pygame.Rect(0, 0, s2_w, s2_h, border_radius=s2_w * 2)
 	global file1
-	line = file1.readline().rstrip(':\n')
+	if new_run == 0:
+		line = sys.stdin.readline().rstrip(':\n')
+		file1.write(line)
+		file1.write('\n')
+	else:
+		line = file1.readline().rstrip(':\n')
 	while (line.find("0123") == -1): # read lines of file until we reach the map actual
 		if check_for_end(line) == 1:
 			print_end_result()
 			return(2)
-		line = file1.readline().rstrip(':\n')
+		if new_run == 0:
+			line = sys.stdin.readline().rstrip(':\n')
+			file1.write(line)
+			file1.write('\n')
+		else:
+			line = file1.readline().rstrip(':\n')
 	x = 0
 	while x < map_size[0]: # while we are within the height (row count) or the map.
-		line = file1.readline().rstrip(':\n')
+		if new_run == 0:
+			line = sys.stdin.readline().rstrip(':\n')
+			file1.write(line)
+			file1.write('\n')
+		else:
+			line = file1.readline().rstrip(':\n')
 		sans_digits = ''.join([i for i in line if not i.isdigit() or not ' ']) #iterate through the string removing numbers.
 		y = 0
 		while y < map_size[1]: # while we are within the width (column count) of the map
@@ -222,7 +249,12 @@ def parse_and_draw_map():
 		#the_map[x] = sans_digits
 		x += 1
 		# check if the game has ended
-	line = file1.readline().rstrip(':\n')
+	if new_run == 0:
+		line = sys.stdin.readline().rstrip(':\n')
+		file1.write(line)
+		file1.write('\n')
+	else:
+		line = file1.readline().rstrip(':\n')
 	if check_for_end(line) == 1:
 		print_end_result()
 		return(2)
@@ -233,11 +265,15 @@ def parse_and_draw_map():
 def get_map_size():
 	x = 0
 	global file1
-	file1 = open('temp_text', 'r')
 	# loop until we have reached string with "Plateau" 
 	while x < 10:
 		# read a line from stdin
-		line = file1.readline().rstrip(':\n')
+		if new_run == 0:
+			line = sys.stdin.readline().rstrip(':\n')
+			file1.write(line)
+			file1.write('\n')
+		else:
+			line = file1.readline().rstrip(':\n')
 		# if we find string which contains the word "Plateau"
 		if (line.find("Plateau") != -1):
 			#access global variable map_size
@@ -247,42 +283,16 @@ def get_map_size():
 				if z.isdigit():
 					map_size.append(int(z))
 			
-		x += 1		
+		x += 1
 	pass
 
-# function to define player one 
-def set_player_one(value, player):
-	# access global variable p1
-	global p1
-	# set global variable p1
-	p1 = player
-	#print(p1)
-	pass
-
-# function to define player two
-def set_player_two(value, player):
-	# access global variable p2
-	global p2
-	# set global variable p2
-	p2 = player
-	#print(p2)
-	pass
-
-# function to define map
-def set_map(value, map):
-	#access global variable map_nro
-	global map_nro
-	# set global variable map_nro
-	map_nro = map
-	#print(map_nro)
-	pass
-
-def run():
-	start_visual(0)
-
-def start_visual(re):
+def start_visual():
 	# Loop until window closed.
 	carryOn = True
+
+	global new_run
+
+	global file1
 
 	clock = pygame.time.Clock()
 
@@ -291,14 +301,11 @@ def start_visual(re):
 	# setting initial music volume.
 	mixer.music.set_volume(0.2)
 
-	# create the command
-	command = "../resources/filler_vm -p1 ../resources/players/\"{0}\".filler -p2 ../resources/players/\"{1}\".filler -v -f ../resources/maps/\"{2}\" > temp_text".format(arr1[p1], arr1[p2], arr2[map_nro])
-
-	# run the filler_vm if not a re-run if not re-run.
-	if re != 1:
-		os.system(command)
-
 	time.sleep(0.1)
+
+	# getting the players
+	get_player()
+
 	# getting the correct map size from the initial output
 	get_map_size()
 
@@ -340,13 +347,6 @@ def start_visual(re):
 		p2_rect = p2_text.get_rect() # create text rectangle
 		p2_rect.right = (1700) # distance from right edge
 		p2_rect.top = (80) # distance from top edge
-
-		# creating map info on screen.
-		map_pre = ('\"{0}\"'.format(arr2[map_nro])) # creating the string
-		map_post = map_pre.replace('"', '') # removing the double quotes.
-		map_text = displayfont.render(map_post, True, RED) #create text object
-		map_rect = map_text.get_rect() # create text rectangle
-		map_rect.center = (900, 80) # position of center of object
 
 		# creating the info1 text to print on screen
 		info_pre = ("1 to 9 to control speed.") # creating the string
@@ -408,7 +408,6 @@ def start_visual(re):
 		# placing the texts on screen.
 		screen.blit(p1_text, p1_rect)
 		screen.blit(p2_text, p2_rect)
-		screen.blit(map_text, map_rect)
 		screen.blit(info_text, info_rect)
 		screen.blit(info2_text, info2_rect)
 
@@ -429,8 +428,11 @@ def start_visual(re):
 							pause = False
 							carryOn = False
 						if event.key == pygame.K_r:
+							file1.close()
+							file1 = open('temp_text', 'r')
+							new_run = 1
 							pause = False
-							start_visual(1)
+							start_visual()
 						if event.key == pygame.K_m:
 							mixer.music.set_volume(1)
 						if event.key == pygame.K_n:
@@ -456,15 +458,7 @@ def start_visual(re):
 	#exit pygame
 	pygame.quit()
 
-
-menu.add.selector('Player 1 :', [('tburakow', 0), ('carli', 1), ('abanlin', 2), ('champely', 3), ('grati', 4), ('hcao', 5), ('superjeannot', 6)], onchange=set_player_one)
-menu.add.selector('Player 2 :', [('tburakow', 0), ('carli', 1), ('abanlin', 2), ('champely', 3), ('grati', 4), ('hcao', 5), ('superjeannot', 6)], onchange=set_player_two)
-menu.add.selector('Map :', [('small(00)', 0), ('medium(01)', 1), ('large(02)', 2)], onchange=set_map)
-menu.add.button('Play', run)
-menu.add.button('Quit', pgm.events.EXIT)
-
-menu.mainloop(screen)
-
+start_visual()
 
 
 
