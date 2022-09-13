@@ -10,10 +10,14 @@ import sys
 pygame.init() # initialize pygame
 mixer.init() # initialize mixer 
 
-#initial setup of global variables to match menu defaults
+# initial setup of global variables to match menu defaults
 p1 = 0
 p2 = 0
 map_nro = 0
+
+# setup variables for loud mute. 
+mute = 0
+loud = 0
 
 #initial setup of global variable map_size
 map_size = []
@@ -294,6 +298,10 @@ def start_visual():
 
 	global file1
 
+	global loud
+
+	global mute
+
 	clock = pygame.time.Clock()
 
 	# loading music.
@@ -399,7 +407,7 @@ def start_visual():
 				if event.key == pygame.K_8:
 					speed == 100
 				if event.key == pygame.K_9:
-					speed = 1000
+					speed = 10000
 				if event.key == pygame.K_m:
 					mixer.music.set_volume(1)
 				if event.key == pygame.K_n:
@@ -431,12 +439,15 @@ def start_visual():
 							file1.close()
 							file1 = open('temp_text', 'r')
 							new_run = 1
+							loud = 0
+							mute = 0
 							pause = False
 							start_visual()
 						if event.key == pygame.K_m:
 							mixer.music.set_volume(1)
 						if event.key == pygame.K_n:
 							mixer.music.set_volume(0)
+
 				#command = "rm temp_text" # set command to remove the temporary text file (temp_text)
 				#os.system(command) # run command to remove the temporary text file (temp_text)
 			#while 1:
