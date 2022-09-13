@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 14:45:45 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/13 18:13:57 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/13 18:15:37 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ middle is taken, when the sides (thirds) are hotter. The "hot center"
 adjustment is not used for small maps(height under 30.)*/
 int	adjust_to_map(t_heat *heat, t_map *map, int y, int x)
 {
-	if (map->array[map->size.h / 2][map->size.w / 2] == '.' && map->size.h < 30)
+	if (map->array[map->size.h / 2][map->size.w / 2] == '.' && map->size.h > 30)
 	{
 		if (y > map->size.h / 3 && y < map->size.h / 3 * 2 && x > \
 		map->size.w / 3 && x < map->size.w / 3 * 2 && heat->array[y][x] >= 2)
