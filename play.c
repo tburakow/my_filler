@@ -6,13 +6,16 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:49:00 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/30 15:11:34 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/13 21:42:51 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void	score_piece(t_heat *heat, t_piece *piece, t_coords *current)
+/* This function uses the heatmap to calculate the "score" for the piece's 
+current position. a smaller score means a better position. If the score
+attained is better than the former best, it's updated.*/
+void	score_piece(t_heat *heat, t_piece *piece, t_coords *curr)
 {
 	int		score;
 	int		i;
@@ -21,68 +24,51 @@ void	score_piece(t_heat *heat, t_piece *piece, t_coords *current)
 	i = 0;
 	j = 0;
 	score = 0;
-	/* fprint_out_piece(piece, "start of score piece."); */
 	while (i <= piece->end.y)
 	{
 		j = 0;
 		while (j <= piece->end.x)
 		{
 			if (piece->array[i][j] == '*')
-				score += heat->array[i + current->y][j + current->x];
+				score += heat->array[i + curr->y][j + curr->x];
 			j++;
 		}
 		i++;
 	}
 	if (score < piece->best_score)
 	{
-		piece->best.y = current->y;
-		piece->best.x = current->x;
+		piece->best.y = curr->y;
+		piece->best.x = curr->x;
 		piece->best_score = score;
 	}
 }
 
-int	hits_and_crashes(t_map *map, char *s, t_coords *current, t_coords *spot)
-{
-	int y;
-	int x;
-
-	y = current->y + spot->y;
-	x = current->x + spot->x;
-	if (ft_strchr(s, map->array[y][x]))
-		return (1);
-	return (0);
-}
-
-int	validate_place(t_map *map, t_piece *piece, t_coords *current)
+/* This function validates the current position of the piece. It 
+checks that there is only a single point of overlap between 
+the piece and the already placed "player" pieces on the 
+map, and no overlap between "player" and "opponent" -pieces. */
+int	validate_place(t_map *map, t_piece *piece, t_coords *curr)
 {
 	t_coords	*spot;
 	int			hits;
-	int 		crashes;
+	int			crashes;
 
-	/* fprint_out_piece(piece, "start of validate piece."); */
 	spot = (t_coords *)ft_memalloc(sizeof(t_coords *));
-	spot->y = 0;
-	spot->x = 0;
+	spot->y = -1;
+	spot->x = -1;
 	hits = 0;
 	crashes = 0;
-/* 	dprintf(2, "piece->size.h : %d\n", piece->size.h);
-	dprintf(2, "piece->size.w : %d\n", piece->size.w);
-	dprintf(2, "piece->end.x : %d\n", piece->end.x);
-	dprintf(2, "piece->end.y : %d\n", piece->end.y); */
-	while (spot->y <= piece->end.y)
+	while (++spot->y <= piece->end.y)
 	{
-		spot->x = 0;
-		while (spot->x <= piece->end.x)
+		spot->x = -1;
+		while (++spot->x <= piece->end.x)
 		{
-			/* dprintf(2, "spot->y : %d, spot->x : %d\n", spot->y, spot->x); */
 			if (piece->array[spot->y][spot->x] == '*')
 			{
-				hits += hits_and_crashes(map, map->player, current, spot);
-				crashes += hits_and_crashes(map, map->opponent, current, spot);
+				hits += hits_and_crashes(map, map->player, curr, spot);
+				crashes += hits_and_crashes(map, map->opponent, curr, spot);
 			}
-			spot->x++;
 		}
-		spot->y++;
 	}
 	free(spot);
 	if (hits == 1 && crashes == 0)
@@ -90,51 +76,80 @@ int	validate_place(t_map *map, t_piece *piece, t_coords *current)
 	return (KO);
 }
 
-int	try_piece(t_map *map, t_heat *heat, t_piece *piece, t_coords *current)
+/* This function iterates through the map (starting half the width/height
+outside of the map to accomodate pieces with a lot of empty space)
+searching for coordinates where the shape of the piece fits inside the
+map's edges. */
+int	try_piece(t_map *map, t_heat *heat, t_piece *piece, t_coords *curr)
 {
 	int		return_value;
 
 	piece->best_score = 1000000;
-	current->y = map->size.h / 2 * -1;
-	current->x = map->size.w / 2 * -1;
-	/* fprint_out_piece(piece, "start of try piece."); */
+	curr->y = map->size.h / 2 * -1;
+	curr->x = map->size.w / 2 * -1;
 	return_value = 0;
-	while (current->y + piece->start.y < 0)
-		current->y++;
-	while (current->y + piece->end.y < map->size.h)
+	while (curr->y + piece->start.y < 0)
+		curr->y++;
+	while (curr->y + piece->end.y < map->size.h)
 	{
-		//dprintf(2, "y + y : %d  size.h : %d\n", current->y + piece->end.y, map->size.h);
-		current->x = map->size.w / 2 * -1;
-		while (current->x + piece->start.x < 0)
-			current->x++;
-		while (current->x + piece->end.x < map->size.w)
+		curr->x = map->size.w / 2 * -1;
+		while (curr->x + piece->start.x < 0)
+			curr->x++;
+		while (curr->x + piece->end.x < map->size.w)
 		{
-			//dprintf(2, "x + x : %d  size.w : %d\n", current->x + piece->end.x, map->size.w);
-			if (validate_place(map, piece, current))
+			if (validate_place(map, piece, curr))
 			{
-				score_piece(heat, piece, current);
+				score_piece(heat, piece, curr);
 				return_value = OK;
 			}
-			current->x++;
+			curr->x++;
 		}
-		current->y++;
+		curr->y++;
 	}
-	/* fprint_out_piece(piece, "end of try piece."); */
 	return (return_value);
 }
 
-int	play(t_map *map, t_heat *heat, t_piece *piece)
+/* This function checks whether a piece can be placed on the map. */
+int	place_piece(t_map *map, t_heat *heat, t_piece *piece)
 {
-	t_coords	*current;
+	t_coords	*curr;
 	int			piece_placed;
-	
-	current = (t_coords *)ft_memalloc(sizeof(t_coords));
+
+	curr = (t_coords *)ft_memalloc(sizeof(t_coords));
 	piece_placed = 0;
-	if (try_piece(map, heat, piece, current))
+	if (try_piece(map, heat, piece, curr))
 	{
 		piece_placed = 1;
 		write_out(piece->best.y, piece->best.x);
 	}
-	free(current);
-	return (piece_placed);	
+	free(curr);
+	return (piece_placed);
+}
+
+/* This function loops the player until a piece can no longer be placed. */
+int	play(t_map *map, t_heat *heat, t_piece *piece)
+{
+	while (1)
+	{
+		map->turn++;
+		if (!get_map(map))
+		{
+			return (sub_error_output("error : get map failed."));
+			break ;
+		}
+		if (!get_heat(heat, map))
+		{
+			return (sub_error_output("error : failed to get heat."));
+			break ;
+		}
+		if (!get_piece(piece))
+		{
+			return (sub_error_output("error : failed to get piece."));
+			break ;
+		}
+		if (!place_piece(map, heat, piece))
+			break ;
+		free_piece(piece);
+	}
+	return (0);
 }
