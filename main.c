@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 09:46:52 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/13 21:20:50 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/18 19:30:16 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ int	init(t_map *map, t_heat *heat, t_piece *piece)
 	map->opponent = "xX";
 	map->dir = 'Z';
 	map->turn = 0;
+	map->start.y = 100000;
+	map->start.x = 100000;
+	map->end.y = 0;
+	map->end.x = 0;
 	ft_bzero(heat, sizeof(*heat));
 	heat->size.h = 0;
 	heat->size.w = 0;

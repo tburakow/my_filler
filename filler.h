@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/18 18:49:31 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/18 19:24:44 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ typedef struct s_map
 	t_size		size;
 	char		dir;
 	int			turn;
+	t_coords	start;
+	t_coords	end;
 }				t_map;
 
 typedef struct s_heat

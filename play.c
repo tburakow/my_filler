@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:49:00 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/13 21:42:51 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/18 19:26:43 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,12 @@ int	try_piece(t_map *map, t_heat *heat, t_piece *piece, t_coords *curr)
 	curr->y = map->size.h / 2 * -1;
 	curr->x = map->size.w / 2 * -1;
 	return_value = 0;
-	while (curr->y + piece->start.y < 0)
+	while (curr->y + piece->start.y < 0 && piece->end.y < map->start.y)
 		curr->y++;
 	while (curr->y + piece->end.y < map->size.h)
 	{
 		curr->x = map->size.w / 2 * -1;
-		while (curr->x + piece->start.x < 0)
+		while (curr->x + piece->start.x < 0 && piece->end.y < map->start.y)
 			curr->x++;
 		while (curr->x + piece->end.x < map->size.w)
 		{

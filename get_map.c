@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:29:28 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/13 21:36:58 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/18 19:36:24 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,38 @@ int	get_map_size(t_map *map)
 	return (OK);
 }
 
+static void	get_start_end(t_map *map, int y, int x)
+{
+	if (map->array[y][x] < map->start.y)
+		map->start.y = y;
+	if (map->array[y][x] < map->start.x)
+		map->start.x = x;
+	if (map->array[y][x] > map->start.y)
+		map->end.y = y;
+	if (map->array[y][x] > map->start.y)
+		map->end.x = x;
+}
+
+static void	get_map_start(t_map *map)
+{
+	int y;
+	int x;
+
+	y = 0;
+	x = 0;
+	while (y < map->size.h)
+	{
+		x = 0;
+		while (x < map->size.w)
+		{
+			if (ft_strchr(map->player, map->array[y][x]))
+				get_start_end(map, y, x);
+			x++;
+		}
+		y++;
+	}
+}
+
 /* This function gets the map size and the character strings that
  the map is comprised of */
 int	get_map(t_map *map)
@@ -107,5 +139,6 @@ int	get_map(t_map *map)
 		return (sub_error_output("error : failed to fill map\n"));
 	if (map->dir == 'Z')
 		parse_direction(map);
+	get_map_start(map);
 	return (OK);
 }
