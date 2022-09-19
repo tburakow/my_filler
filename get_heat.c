@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 11:42:01 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/18 19:21:59 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/19 15:39:29 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	get_heat(t_heat *heat, t_map *map)
 			while (++x < heat->size.w)
 			{
 				if (!calculate_heat(heat, map, y, x))
-					return (sub_error_output("failed to calculate heat."));
+					return (sub_error_output("failed to calculate heat."));// elvis
 			}
 		}
 	}
