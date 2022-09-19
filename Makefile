@@ -6,7 +6,7 @@
 #    By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/09 12:15:46 by tburakow          #+#    #+#              #
-#    Updated: 2022/09/18 17:11:16 by tburakow         ###   ########.fr        #
+#    Updated: 2022/09/19 18:09:48 by tburakow         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,7 @@ NAME = tburakow.filler
 
 FUNCTIONS = main get_map get_player sub_error_output \
 get_heat get_piece play heat_extras hits_and_crashes \
-parse_direction print_outs heat_checks_one \
-heat_checks_two
+parse_direction print_outs
 
 FILES = $(patsubst %, %.c, $(FUNCTIONS))
 
@@ -25,7 +24,7 @@ all: $(NAME)
 
 $(NAME):
 	make -C ft_printf/
-	gcc -Wall -Wextra -Werror -I. -L ft_printf/ -l ftprintf $(FILES) -o $(NAME)
+	gcc -Wall -Wextra -Werror -I. -L ft_printf/ -l ftprintf -fsanitize=address $(FILES) -o $(NAME)
 
 clean:
 	rm -f $(OBJECTS)

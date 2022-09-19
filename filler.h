@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/19 12:00:29 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/19 18:35:45 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_heat
 	int			**array;
 	t_size		size;
 	int			heat;
+	char		**map_copy;
 }				t_heat;
 
 typedef struct s_piece
@@ -64,6 +65,12 @@ typedef struct s_piece
 	char		**array;
 	int			best_score;
 }				t_piece;
+
+typedef struct s_get_heat
+{
+	t_map	*map;
+	t_heat	*heat;
+}				t_get_heat;
 
 /* in the sub_error_output.c -file */
 int		sub_error_output(char *s);
@@ -89,8 +96,7 @@ void	free_piece(t_piece *piece);
 
 /* In heat_extras.c -file */
 int		adjust_to_map(t_heat *heat, t_map *map, int y, int x);
-int		check_heat_diag(t_heat *heat, t_map *map, t_coords *cell, int value);
-int		check_heat_axial(t_heat *heat, t_map *map, t_coords *cell, int value);
+void	heat_for_cells(t_get_heat *get_heat, int y, int x, int value);
 int		adjust_to_direction(t_map *map, int y, int x);
 void	force_to_edges(t_heat *heat, t_map *map, int y, int x);
 
@@ -115,9 +121,9 @@ void	fprint_out_piece(t_piece *piece, char *s);
 /* In the get_heat.c -file */
 int		get_heat(t_heat *heat, t_map *map);
 int		heat_setup(t_heat *heat, t_map *map);
-int		calculate_heat(t_heat *heat, t_map *map, int y, int x);
-int		set_heat_limit(t_map *map);
+int		generate_heat(t_heat *heat, t_map *map);
 void	run_adjustments(t_heat *heat, t_map *map);
+int		create_map_copy(t_map *map, t_heat *heat);
 
 /* in the get_piece.c -file */
 int		get_piece(t_piece *piece);

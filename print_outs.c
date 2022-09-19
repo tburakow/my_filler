@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:48:47 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/19 12:02:53 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/19 20:19:46 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,15 @@ void	fprint_out_heat(t_heat *heat, char *s)
 				j++;
 			}
 			fprintf(fp, "\n");
+			i++;
+		}
+	}
+	i = 0;
+	if (heat->map_copy)
+	{
+		while (i < heat->size.h)
+		{
+			fprintf(fp, "%s\n", heat->map_copy[i]);
 			i++;
 		}
 	}

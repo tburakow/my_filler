@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 14:45:45 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/19 12:24:08 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/19 20:22:33 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,34 +56,36 @@ int	adjust_to_map(t_heat *heat, t_map *map, int y, int x)
 	return (0);
 }
 
-/* This function checks uses the check_for_heat -function to check the squares
-above/below and to left or right of the current square for enemy presence or
-non-zero (i.e. set) heat value. */
-int	check_heat_axial(t_heat *heat, t_map *map, t_coords *cell, int value)
+void	heat_for_cells(t_get_heat *get_heat, int y, int x, int value)
 {
-	if (cell->y > 0)
-		value = check_up(heat, map, cell, value);
-	if (cell->x > 0)
-		value = check_left(heat, map, cell, value);
-	if (cell->y + 1 < heat->size.h)
-		value = check_down(heat, map, cell, value);
-	if (cell->x + 1 < heat->size.w)
-		value = check_right(heat, map, cell, value);
-	return (value);
-}
-
-/* This function checks uses the check_for_heat -function to check the squares
-diagonally adjacent to the current square for enemy presence or
-non-zero (i.e. set) heat value. */
-int	check_heat_diag(t_heat *heat, t_map *map, t_coords *cell, int value)
-{
-	if (cell->y > 0 && cell->x > 0)
-		value = check_up_left(heat, map, cell, value);
-	if (cell->x > 0 && cell->y + 1 < heat->size.h)
-		value = check_down_left(heat, map, cell, value);
-	if (cell->y + 1 < heat->size.h && cell->x + 1 < heat->size.w)
-		value = check_down_right(heat, map, cell, value);
-	if (cell->x + 1 < heat->size.w && cell->y > 0)
-		value = check_up_right(heat, map, cell, value);
-	return (value);
+	get_heat->heat->map_copy[y][x] = 'H';
+	if (ft_toupper(get_heat->map->array[y][x]) == get_heat->map->opponent)
+		value = 1;
+	if (value < get_heat->heat->array[y][x])
+		get_heat->heat->array[y][x] = value;
+	if (y > 0)
+		if (get_heat->heat->map_copy[y - 1][x] != 'H')
+			heat_for_cells(get_heat, y - 1, x, value + 1);
+	if (x > 0)
+		if (get_heat->heat->map_copy[y][x - 1] != 'H')
+			heat_for_cells(get_heat, y, x - 1, value + 1);
+	if (y < get_heat->heat->size.h - 1)
+		if (get_heat->heat->map_copy[y + 1][x] != 'H')
+			heat_for_cells(get_heat, y + 1, x, value + 1);
+	if (x < get_heat->heat->size.w - 1)
+		if (get_heat->heat->map_copy[y][x + 1] != 'H')
+			heat_for_cells(get_heat, y, x + 1, value + 1);
+	if (y > 0 && x > 0)
+		if (get_heat->heat->map_copy[y - 1][x - 1] != 'H')
+			heat_for_cells(get_heat, y - 1, x - 1, value + 1);
+	if (x > 0 && y < get_heat->heat->size.h - 1)
+		if (get_heat->heat->map_copy[y][x - 1] != 'H')
+			heat_for_cells(get_heat, y + 1, x - 1, value + 1);
+	if (y < get_heat->heat->size.h - 1 && x < get_heat->heat->size.w - 1)
+		if (get_heat->heat->map_copy[y + 1][x] != 'H')
+			heat_for_cells(get_heat, y + 1, x + 1, value + 1);
+	if (x < get_heat->heat->size.w - 1 && y > 0)
+		if (get_heat->heat->map_copy[y][x + 1] != 'H')
+			heat_for_cells(get_heat, y - 1, x + 1, value + 1);
+	return;
 }

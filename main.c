@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 09:46:52 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/19 15:07:30 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/19 18:26:28 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	free_structs(t_map *map, t_heat *heat, t_piece *piece)
 	while (i < map->size.h)
 	{
 		free(heat->array[i]);
+		free(heat->map_copy[i]);
 		heat->array[i] = NULL;
 		i++;
 	}
