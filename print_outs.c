@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:48:47 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/19 12:02:53 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/19 22:09:00 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ void	fprint_out_map(t_map *map, char *s)
 	{
 		while (i < map->size.h)
 		{
-			if (map->array[i])
-				fprintf(fp, "%s\n", (char *)map->array[i]);
+			fprintf(fp, "%s\n", (char *)map->array[i]);
 			i++;
 		}
 	}
