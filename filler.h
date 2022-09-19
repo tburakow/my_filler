@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/18 19:24:44 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/19 12:00:29 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef struct s_size
 typedef struct s_map
 {
 	int			players_set;
-	char		*player;
-	char		*opponent;
+	char		player;
+	char		opponent;
 	char		**array;
 	t_size		size;
 	char		dir;
@@ -131,5 +131,5 @@ int		validate_place(t_map *map, t_piece *piece, t_coords *current);
 int		place_piece(t_map *map, t_heat *heat, t_piece *piece);
 
 /* In the hits_and_crashes.c -file */
-int		hits_and_crashes(t_map *map, char *s, t_coords *curr, t_coords *spot);
+int		hits_and_crashes(t_map *map, char s, t_coords *curr, t_coords *spot);
 #endif

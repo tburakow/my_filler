@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 20:39:06 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/14 22:03:26 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/19 12:01:19 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	parse_direction(t_map *map)
 		{
 			if (map->array[y][x] != '.')
 			{
-				if (ft_strchr(map->player, map->array[y][x]) != NULL)
+				if (ft_toupper(map->array[y][x]) == map->player)
 					map->dir = 'L';
-				if (ft_strchr(map->opponent, map->array[y][x]) != NULL)
+				if (ft_toupper(map->array[y][x]) == map->opponent)
 					map->dir = 'R';
 			}
 			x++;

@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:06:27 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/31 13:56:58 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/19 11:53:26 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 /* This function switches the player to 'X', and opponent to 'O' */
 void	switch_players(t_map *map)
 {
-	map->player = "xX";
-	map->opponent = "oO";
+	map->player = 'X';
+	map->opponent = 'O';
 }
 
 /* This function determines which player the program should play as. */

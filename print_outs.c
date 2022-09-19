@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:48:47 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/16 22:50:08 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/19 12:02:53 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	fprint_out_map(t_map *map, char *s)
 	fprintf(fp, "\n%s\n\n", s);
 	fprintf(fp, "----------------------------------------------\n");
 	if (map->player)
-		fprintf(fp, "player : %s\n", map->player);
+		fprintf(fp, "player : %c\n", map->player);
 	if (map->opponent)
-		fprintf(fp, "opponent : %s\n", map->opponent);
+		fprintf(fp, "opponent : %c\n", map->opponent);
 	if (map->array)
 	{
 		while (i < map->size.h)

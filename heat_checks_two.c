@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 17:05:37 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/18 17:32:27 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/19 11:59:26 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_up_left(t_heat *heat, t_map *map, t_coords *cell, int value)
 {
-	if (ft_strchr(map->opponent, map->array[cell->y - 1][cell->x - 1]))
+	if (ft_toupper(map->array[cell->y - 1][cell->x - 1]) == map->opponent)
 		return (10);
 	if (heat->array[cell->y - 1][cell->x - 1] < value)
 		return (heat->array[cell->y - 1][cell->x - 1] + 1);
@@ -23,7 +23,7 @@ int	check_up_left(t_heat *heat, t_map *map, t_coords *cell, int value)
 
 int	check_down_left(t_heat *heat, t_map *map, t_coords *cell, int value)
 {
-	if (ft_strchr(map->opponent, map->array[cell->y + 1][cell->x - 1]))
+	if (ft_toupper(map->array[cell->y + 1][cell->x - 1]) == map->opponent)
 		return (10);
 	if (heat->array[cell->y + 1][cell->x - 1] < value)
 		return (heat->array[cell->y + 1][cell->x - 1] + 1);
@@ -32,7 +32,7 @@ int	check_down_left(t_heat *heat, t_map *map, t_coords *cell, int value)
 
 int	check_down_right(t_heat *heat, t_map *map, t_coords *cell, int value)
 {
-	if (ft_strchr(map->opponent, map->array[cell->y + 1][cell->x + 1]))
+	if (ft_toupper(map->array[cell->y + 1][cell->x + 1]) == map->opponent)
 		return (10);
 	if (heat->array[cell->y + 1][cell->x + 1] < value)
 		return (heat->array[cell->y + 1][cell->x + 1] + 1);
@@ -41,7 +41,7 @@ int	check_down_right(t_heat *heat, t_map *map, t_coords *cell, int value)
 
 int	check_up_right(t_heat *heat, t_map *map, t_coords *cell, int value)
 {
-	if (ft_strchr(map->opponent, map->array[cell->y - 1][cell->x + 1]))
+	if (ft_toupper(map->array[cell->y - 1][cell->x + 1]) == map->opponent)
 		return (10);
 	if (heat->array[cell->y - 1][cell->x + 1] < value)
 		return (heat->array[cell->y - 1][cell->x + 1] + 1);
