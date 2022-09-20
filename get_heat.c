@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 11:42:01 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/20 13:39:32 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/20 14:34:51 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	update_on_players(t_heat *heat, t_map *map, int i)
 		if (ft_toupper(map->array[i][j] == map->player))
 			heat->array[i][j] = -1;
 		if (map->array[i][j] == '.')
-			heat->array[i][j] = 2;
+			heat->array[i][j] = 0;
 		j++;
 	}
 }
@@ -39,7 +39,11 @@ int	heat_setup(t_heat *heat, t_map *map)
 	j = 0;
 	heat->size.h = map->size.h;
 	heat->size.w = map->size.w;
-	heat->queue = (t_slot *)ft_memalloc(sizeof(t_slot) * Q_SIZE);
+	if(!heat->queue)
+		heat->queue = (t_slot *)ft_memalloc(sizeof(t_slot) * 4000);
+	ft_bzero(heat->queue, 4000);
+	heat->read = 0;
+	heat->write = 0;
 	if (!heat->array)
 		heat->array = (int **)ft_memalloc(sizeof(int *) * heat->size.h);
 	while (i < heat->size.h)
@@ -68,18 +72,33 @@ get_heat loop runs only the required amount of times. */
 find the lowest heat next to
 the current cell. If a square occupied by
 the opponent is found, the heat is set as '10'. */
-int	calculate_heat(t_heat *heat, t_coords *cell, int value)
+int		parse_queue(t_heat *heat)
 {
-	int		returns;
+	while (read_queue())
+}
 
-	returns = 0;
+void	create_queue_obj(t_heat *heat, t_coords *cell, int value)
+{
+	heat->queue[heat->write].value = value;
+	heat->queue[heat->write].posit.x = cell->x;
+	heat->queue[heat->write].posit.y = cell->y;
+	heat->write++;
+}
+
+int	calculate_heat(t_heat *heat, t_coords *cell)
+{
+	int		cut;
+
+	cut = 1;
+	create_queue_obj(heat, cell, 1);
 	//dprintf(2, "return = %d", returns);
-	if (value == 1)
-		value = 2;
-	returns = check_heat_axial(heat, cell, value);
-	returns += check_heat_diag(heat, cell, value);
+	while (cut)
+	{
+		if (!parse_queue(heat))
+			cut = 0;
+	}
 	//dprintf(2, "return = %d", returns);
-	return (returns);
+	return (1);
 }
 
 /* This function iterates through the heatmap arrays, and calculates
@@ -100,7 +119,13 @@ int	get_heat(t_heat *heat, t_map *map)
 		return (sub_error_output("error : heat_map setup failed."));
 	while (value)
 	{
-		
+		while(++cell.y < heat->size.h)
+		{
+			cell.x = -1;
+			while(++cell.x < heat->size.w)
+			if (heat->array[cell.y][cell.x])
+				value = calculate_heat(heat, &cell)
+		}
 	}
 	fprint_out_heat(heat, "jee");
 	run_adjustments(heat, map);

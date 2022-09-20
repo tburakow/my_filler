@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/20 13:28:45 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/20 14:16:32 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,14 @@ typedef struct s_map
 typedef struct s_slot
 {
 	t_coords	posit;
-	t_coords	value;
+	int			value;
 }				t_slot;
 
 typedef struct s_heat
 {
 	t_slot		*queue;
+	int			read;
+	int			write;
 	int			**array;
 	t_size		size;
 	int			heat;
@@ -123,7 +125,7 @@ void	fprint_out_piece(t_piece *piece, char *s);
 /* In the get_heat.c -file */
 int		get_heat(t_heat *heat, t_map *map);
 int		heat_setup(t_heat *heat, t_map *map);
-int		calculate_heat(t_heat *heat, t_coords *cell, int value);
+int		calculate_heat(t_heat *heat, t_coords *cell);
 int		set_heat_limit(t_map *map);
 void	run_adjustments(t_heat *heat, t_map *map);
 
