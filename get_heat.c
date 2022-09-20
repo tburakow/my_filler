@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 11:42:01 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/20 13:00:19 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/20 15:52:29 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	calculate_heat(t_heat *heat, t_coords *cell, int value)
 	//dprintf(2, "return = %d", returns);
 	if (value == 1)
 		value = 2;
-	returns = check_heat_axial(heat, cell, value);
+	returns += check_heat_axial(heat, cell, value);
 	returns += check_heat_diag(heat, cell, value);
 	//dprintf(2, "return = %d", returns);
 	return (returns);
