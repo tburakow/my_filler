@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/19 12:00:29 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/20 11:42:59 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include "ft_printf/libft/libft.h"
 # include "ft_printf/ft_printf.h"
-# include <string.h>
-# include <stdio.h>
 
 # define STDIN 0
 # define KO 0
@@ -105,12 +103,6 @@ int		check_up_left(t_heat *heat, t_map *map, t_coords *cell, int value);
 int		check_down_left(t_heat *heat, t_map *map, t_coords *cell, int value);
 int		check_up_right(t_heat *heat, t_map *map, t_coords *cell, int value);
 int		check_down_right(t_heat *heat, t_map *map, t_coords *cell, int value);
-
-/* In the print_outs.c -file */
-void	fprint_out_map(t_map *map, char *s);
-void	fprint_out_int(int i, char *s);
-void	fprint_out_heat(t_heat *heat, char *s);
-void	fprint_out_piece(t_piece *piece, char *s);
 
 /* In the get_heat.c -file */
 int		get_heat(t_heat *heat, t_map *map);

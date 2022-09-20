@@ -6,7 +6,7 @@
 #    By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/09 12:15:46 by tburakow          #+#    #+#              #
-#    Updated: 2022/09/18 17:11:16 by tburakow         ###   ########.fr        #
+#    Updated: 2022/09/20 11:43:53 by tburakow         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = tburakow.filler
 
 FUNCTIONS = main get_map get_player sub_error_output \
 get_heat get_piece play heat_extras hits_and_crashes \
-parse_direction print_outs heat_checks_one \
+parse_direction heat_checks_one \
 heat_checks_two
 
 FILES = $(patsubst %, %.c, $(FUNCTIONS))
