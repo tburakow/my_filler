@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:14:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/01 13:46:36 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/20 13:59:28 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int	get_piece(t_piece *piece)
 	if (!get_piece_size(piece))
 		return (sub_error_output("error : failed to get piece size."));
 	piece->array = (char **)ft_memalloc(sizeof(char *) * piece->size.h + 1);
+	handle_null(piece->array, "error: piece array allocation failed.");
 	while (i < piece->size.h)
 	{
 		if (get_next_line(STDIN, &line) < 0)

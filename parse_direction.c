@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 20:39:06 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/19 12:01:19 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/20 13:51:56 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,15 @@ int	adjust_to_time(t_map *map, int y, int x)
 				return (1);
 	}
 	return (0);
+}
+
+/* This function handles the cases where memory allocation has failed. */
+void	*handle_null(void *input, char *s)
+{
+	if (!input)
+	{
+		sub_error_output(s);
+		exit(1);
+	}
+	return (input);
 }

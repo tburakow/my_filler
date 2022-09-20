@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/20 11:42:59 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/20 13:48:08 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int		get_map(t_map *map);
 /* in the parse_direction.c -file  */
 void	parse_direction(t_map *map);
 int		adjust_to_time(t_map *map, int y, int x);
-void	adjust_to_size(t_heat *heat, t_map *map, int y, int x);
+void	*handle_null(void *input, char *s);
 
 /* In main.c -file */
 int		init(t_map *map, t_heat *heat, t_piece *piece);

@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 11:42:01 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/18 19:21:59 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/20 13:48:53 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	heat_setup(t_heat *heat, t_map *map)
 	{
 		if (!heat->array[i])
 			heat->array[i] = (int *)ft_memalloc(sizeof(int) * heat->size.w);
+		handle_null(heat->array[i], "error: heat array allocation failed.");
 		ft_bzero(heat->array[i], heat->size.w);
 		i++;
 	}
