@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/19 21:50:54 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/20 13:28:45 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define KO 0
 # define OK 1
 # define MIN -1
+# define Q_SIZE 4096;
 
 typedef struct s_coords
 {
@@ -48,8 +49,15 @@ typedef struct s_map
 	t_coords	end;
 }				t_map;
 
+typedef struct s_slot
+{
+	t_coords	posit;
+	t_coords	value;
+}				t_slot;
+
 typedef struct s_heat
 {
+	t_slot		*queue;
 	int			**array;
 	t_size		size;
 	int			heat;

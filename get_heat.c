@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 11:42:01 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/20 13:00:19 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/20 13:39:32 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	heat_setup(t_heat *heat, t_map *map)
 	j = 0;
 	heat->size.h = map->size.h;
 	heat->size.w = map->size.w;
+	heat->queue = (t_slot *)ft_memalloc(sizeof(t_slot) * Q_SIZE);
 	if (!heat->array)
 		heat->array = (int **)ft_memalloc(sizeof(int *) * heat->size.h);
 	while (i < heat->size.h)
@@ -92,39 +93,14 @@ int	get_heat(t_heat *heat, t_map *map)
 	//int			heat_limit;
 
 	//heat_limit = set_heat_limit(map);
-	cell.y = 0;
-	cell.x = 0;
-	returns = 1;
-	value = 0;
+	cell.y = -1;
+	cell.x = -1;
+	value = 1;
 	if (heat_setup(heat, map) != OK)
 		return (sub_error_output("error : heat_map setup failed."));
-	while (1)
+	while (value)
 	{
-		value ++;
-		dprintf(2, "value = %d\n", value);
-		cell.y = -1;
-		while (++cell.y < heat->size.h)
-		{
-			//dprintf(2, "return = %d\n", returns);
-			//dprintf(2, "value = %d", value);
-			cell.x = -1;
-			while (++cell.x < heat->size.w)
-			{
-				//dprintf(2, "return = %d\n", returns);
-				if (heat->array[cell.y][cell.x] == value)
-				{
-					//dprintf(2, "value = %d", value);
-					returns += calculate_heat(heat, &cell, value);
-				}
-			}
-		}
-		if (value == 1)
-			value = 2;
-		dprintf(2, "return = %d\n", returns);
-		if (returns == 0)
-			break;
-		returns = 0;
-		//dprintf(2, "HALOO!");
+		
 	}
 	fprint_out_heat(heat, "jee");
 	run_adjustments(heat, map);
