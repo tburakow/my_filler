@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:49:00 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/19 15:11:56 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/20 11:09:11 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	score_piece(t_heat *heat, t_piece *piece, t_coords *curr)
 		j = 0;
 		while (j <= piece->end.x)
 		{
-			if (piece->array[i][j] == '*')
+			if (piece->array[i][j] == '*' && heat->array[i][j] > -1)
 				score += heat->array[i + curr->y][j + curr->x];
 			j++;
 		}

@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:48:47 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/19 22:09:00 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/20 11:06:57 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,7 @@ void	fprint_out_heat(t_heat *heat, char *s)
 			j = 0;
 			while (j < heat->size.w)
 			{
-				if (heat->array[i][j])
-					fprintf(fp, "%d, ", heat->array[i][j]);
+				fprintf(fp, "%d, ", heat->array[i][j]);
 				j++;
 			}
 			fprintf(fp, "\n");
