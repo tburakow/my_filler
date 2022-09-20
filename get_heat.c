@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 11:42:01 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/19 23:02:23 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/20 13:00:19 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static void	update_on_players(t_heat *heat, t_map *map, int i)
 	while (j < heat->size.w)
 	{
 		if (ft_toupper(map->array[i][j] == map->opponent))
-			heat->array[i][j] = -1;
-		if (ft_toupper(map->array[i][j] == map->player))
 			heat->array[i][j] = 1;
+		if (ft_toupper(map->array[i][j] == map->player))
+			heat->array[i][j] = -1;
 		if (map->array[i][j] == '.')
 			heat->array[i][j] = 2;
 		j++;
