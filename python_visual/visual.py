@@ -4,6 +4,9 @@ import os
 
 pygame.init() # initialize pygame
 
+logo = pygame.image.load("./title.png")
+pygame.display.set_icon(logo)
+
 p1 = 0
 p2 = 0
 map_nro = 0

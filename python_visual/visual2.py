@@ -10,6 +10,9 @@ import sys
 pygame.init() # initialize pygame
 mixer.init() # initialize mixer 
 
+logo = pygame.image.load("./title.png")
+pygame.display.set_icon(logo)
+
 # initial setup of global variables to match menu defaults
 p1 = 0
 p2 = 0
