@@ -6,12 +6,14 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 11:42:01 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/21 13:22:30 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/21 14:06:10 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
+/* This function updates the heat map to include the positions of 
+both the player, and the opponent. */
 static void	update_on_players(t_heat *heat, t_map *map, int i)
 {
 	int		j;
@@ -29,7 +31,8 @@ static void	update_on_players(t_heat *heat, t_map *map, int i)
 	}
 }
 
-/* This function sets up the heatmap*/
+/* This function sets up the heatmap.
+It's called once every turn of the game.*/
 int	heat_setup(t_heat *heat, t_map *map)
 {
 	int		i;
@@ -54,21 +57,26 @@ int	heat_setup(t_heat *heat, t_map *map)
 	return (OK);
 }
 
-static int	scan_adjacent_cells(t_heat *heat, t_coords *cell, int value)
+/* This function calls the check_heat_axial and check_heat_diag -functions 
+to set the surrounding cells to the correct value. If no cells are 
+set, the heatmap has been filled. */
+int	scan_adjacent_cells(t_heat *heat, t_coords *cell, int value)
 {
 	int		changes;
 
 	changes = 0;
 	changes += check_heat_axial(heat, cell, value);
 	changes += check_heat_diag(heat, cell, value);
-	return(changes);
+	return (changes);
 }
 
-static int	heat_update(t_heat *heat, int target, int value)
+/* This function iterates through the heat map, replacing the values
+of the not-yet-set cells with the current value. */
+int	heat_update(t_heat *heat, int target, int value)
 {
-	int 		changes;
+	int			changes;
 	t_coords	cell;
-	
+
 	cell.y = 0;
 	cell.x = 0;
 	changes = 0;
@@ -86,7 +94,9 @@ static int	heat_update(t_heat *heat, int target, int value)
 	return (changes);
 }
 
-
+/* This function is the main function for getting the values for 
+the heat map. The heat map is later used to place the pieces
+to  optimal positions. */
 int	get_heat(t_heat *heat, t_map *map)
 {
 	int		target;
@@ -102,28 +112,4 @@ int	get_heat(t_heat *heat, t_map *map)
 	}
 	run_adjustments(heat, map);
 	return (OK);
-}
-
-/*This function runs some map-size specific, and time specific adjustments
-on the ehat of each shell*/
-void	run_adjustments(t_heat *heat, t_map *map)
-{
-	int		x;
-	int		y;
-
-	x = 0;
-	y = 0;
-	while (y < heat->size.h)
-	{
-		x = 0;
-		while (x < heat->size.w)
-		{
-			if (adjust_to_map(heat, map, y, x))
-				heat->array[y][x]--;
-			if (adjust_to_direction(map, y, x))
-				heat->array[y][x]--;
-			x++;
-		}
-		y++;
-	}
 }

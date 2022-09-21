@@ -4,16 +4,20 @@ import os
 
 pygame.init() # initialize pygame
 
+# define logo
 logo = pygame.image.load("./title.png")
+# draw logo
 pygame.display.set_icon(logo)
 
 p1 = 0
 p2 = 0
 map_nro = 0
 
+# defining the player and map lists.
 arr1 = ["tburakow", "carli", "abanlin", "champely", "grati", "hcao", "superjeannot"]
 arr2 = ["map00", "map01", "map02"]
 
+#defining colors
 BLACK = ( 0, 0, 0)
 WHITE = ( 255, 255, 255)
 GREEN = ( 0, 205, 0)
@@ -26,6 +30,7 @@ ORANKI = ( 255, 230, 0)
 PURPLE = ( 106, 13, 173)
 PURPUL = ( 190, 50, 220)
 
+# define menu window size
 size = (1000, 800)
 screen = pygame.display.set_mode(size)
 
@@ -35,6 +40,7 @@ background_image = pgm.BaseImage(
 )
 pygame.display.set_caption("The great visualizer -- by tburakow")
 
+# setting the font and menu theme.
 myfont = pgm.font.FONT_8BIT
 titlefont = pgm.font.FONT_COMIC_NEUE
 tumetheme = pgm.Theme(background_color=(255, 255, 0, 0),
@@ -48,6 +54,7 @@ tumetheme = pgm.Theme(background_color=(255, 255, 0, 0),
 tumetheme.background_color = background_image
 pgm.locals.POSITION_SOUTH
 
+#setting the menu size
 menu = pgm.Menu(
     height=800,
     theme=tumetheme,
@@ -55,6 +62,7 @@ menu = pgm.Menu(
     width=1000
 )
 
+# the run function. This launches the actual visualizer.
 def run():
 	command = "../resources/filler_vm -p1 ../resources/players/\"{0}\".filler -p2 ../resources/players/\"{1}\".filler -v -f ../resources/maps/\"{2}\" | python3 visual2.py".format(arr1[p1], arr1[p2], arr2[map_nro])
 	os.system(command)

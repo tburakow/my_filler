@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 20:39:06 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/20 13:51:56 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/21 14:06:58 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,6 @@ void	parse_direction(t_map *map)
 	}
 }
 
-/* This function aims to patch the "leak" near the starting point of the player.
-I.E. prevent the opponent from getting behind the player. */
-int	adjust_to_time(t_map *map, int y, int x)
-{
-	if (map->turn > map->size.h * 2)
-	{
-		if (map->dir == 'L')
-			if (y > map->size.h / 2 && x > map->size.w / 2)
-				return (1);
-		if (map->dir == 'R')
-			if (y < map->size.h / 2 && x < map->size.w / 2)
-				return (1);
-	}
-	return (0);
-}
-
 /* This function handles the cases where memory allocation has failed. */
 void	*handle_null(void *input, char *s)
 {
@@ -65,4 +49,28 @@ void	*handle_null(void *input, char *s)
 		exit(1);
 	}
 	return (input);
+}
+
+/*This function runs some map-size specific, and time specific adjustments
+on the ehat of each shell*/
+void	run_adjustments(t_heat *heat, t_map *map)
+{
+	int		x;
+	int		y;
+
+	x = 0;
+	y = 0;
+	while (y < heat->size.h)
+	{
+		x = 0;
+		while (x < heat->size.w)
+		{
+			if (adjust_to_map(heat, map, y, x))
+				heat->array[y][x]--;
+			if (adjust_to_direction(map, y, x))
+				heat->array[y][x]--;
+			x++;
+		}
+		y++;
+	}
 }

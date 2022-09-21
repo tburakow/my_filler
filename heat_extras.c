@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 14:45:45 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/21 13:13:38 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/21 14:06:39 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	adjust_to_direction(t_map *map, int y, int x)
 			return (1);
 	return (0);
 }
-
 
 /* This function adjusts the heat of the cell specified by the coordinates 
 y and x, if the middle of the map is not taken (i.e. early game), in which 

@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/21 13:21:40 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/21 14:20:24 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int		get_map(t_map *map);
 
 /* in the parse_direction.c -file  */
 void	parse_direction(t_map *map);
-int		adjust_to_time(t_map *map, int y, int x);
 void	*handle_null(void *input, char *s);
+void	run_adjustments(t_heat *heat, t_map *map);
 
 /* In main.c -file */
 int		init(t_map *map, t_heat *heat, t_piece *piece);
@@ -104,6 +104,8 @@ int		check_down_right(t_heat *heat, t_coords *cell, int value);
 int		get_heat(t_heat *heat, t_map *map);
 int		heat_setup(t_heat *heat, t_map *map);
 void	run_adjustments(t_heat *heat, t_map *map);
+int		scan_adjacent_cells(t_heat *heat, t_coords *cell, int value);
+int		heat_update(t_heat *heat, int target, int value);
 
 /* in the get_piece.c -file */
 int		get_piece(t_piece *piece);
@@ -117,5 +119,5 @@ int		validate_place(t_map *map, t_piece *piece, t_coords *current);
 int		place_piece(t_map *map, t_heat *heat, t_piece *piece);
 
 /* In the hits_and_crashes.c -file */
-int		hits_and_crashes(t_map *map, char s, t_coords *curr, t_coords *spot);
+int		hits_crashes(t_map *map, t_coords *curr, t_coords *spot);
 #endif

@@ -10,7 +10,9 @@ import sys
 pygame.init() # initialize pygame
 mixer.init() # initialize mixer 
 
+# define logo
 logo = pygame.image.load("./title.png")
+# draw logo
 pygame.display.set_icon(logo)
 
 # initial setup of global variables to match menu defaults
@@ -326,7 +328,7 @@ def start_visual():
 		mixer.music.play(-1)
 		break
 
-	# Setting up variable speed, default setting : 10
+	# Setting up variable speed, default setting : 20
 	speed = 20
 
 	#pygame -loop

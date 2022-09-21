@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:49:00 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/21 13:16:43 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/21 14:19:04 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,13 @@ map, and no overlap between "player" and "opponent" -pieces. */
 int	validate_place(t_map *map, t_piece *piece, t_coords *curr)
 {
 	t_coords	*spot;
-	int			hits;
-	int			crashes;
+	int			hit_crash;
 
 	spot = (t_coords *)ft_memalloc(sizeof(t_coords *));
 	handle_null(spot, "error :spot failed to allocate.");
 	spot->y = -1;
 	spot->x = -1;
-	hits = 0;
-	crashes = 0;
+	hit_crash = 0;
 	while (++spot->y <= piece->end.y)
 	{
 		spot->x = -1;
@@ -66,13 +64,12 @@ int	validate_place(t_map *map, t_piece *piece, t_coords *curr)
 		{
 			if (piece->array[spot->y][spot->x] == '*')
 			{
-				hits += hits_and_crashes(map, map->player, curr, spot);
-				crashes += hits_and_crashes(map, map->opponent, curr, spot);
+				hit_crash += hits_crashes(map, curr, spot);
 			}
 		}
 	}
 	free(spot);
-	if (hits == 1 && crashes == 0)
+	if (hit_crash == 1)
 		return (OK);
 	return (KO);
 }
