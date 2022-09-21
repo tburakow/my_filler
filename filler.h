@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/20 13:48:08 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/21 11:27:54 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "ft_printf/libft/libft.h"
 # include "ft_printf/ft_printf.h"
+# include <string.h>
+# include <stdio.h>
 
 # define STDIN 0
 # define KO 0
@@ -87,22 +89,22 @@ void	free_piece(t_piece *piece);
 
 /* In heat_extras.c -file */
 int		adjust_to_map(t_heat *heat, t_map *map, int y, int x);
-int		check_heat_diag(t_heat *heat, t_map *map, t_coords *cell, int value);
-int		check_heat_axial(t_heat *heat, t_map *map, t_coords *cell, int value);
+int		check_heat_diag(t_heat *heat, t_coords *cell, int value);
+int		check_heat_axial(t_heat *heat, t_coords *cell, int value);
 int		adjust_to_direction(t_map *map, int y, int x);
 void	force_to_edges(t_heat *heat, t_map *map, int y, int x);
 
 /* In the heat_checks_one.c -file */
-int		check_up(t_heat *heat, t_map *map, t_coords *cell, int value);
-int		check_left(t_heat *heat, t_map *map, t_coords *cell, int value);
-int		check_down(t_heat *heat, t_map *map, t_coords *cell, int value);
-int		check_right(t_heat *heat, t_map *map, t_coords *cell, int value);
+int		check_up(t_heat *heat, t_coords *cell, int value);
+int		check_left(t_heat *heat, t_coords *cell, int value);
+int		check_down(t_heat *heat, t_coords *cell, int value);
+int		check_right(t_heat *heat, t_coords *cell, int value);
 
 /* In the heat_checks_two.c -file */
-int		check_up_left(t_heat *heat, t_map *map, t_coords *cell, int value);
-int		check_down_left(t_heat *heat, t_map *map, t_coords *cell, int value);
-int		check_up_right(t_heat *heat, t_map *map, t_coords *cell, int value);
-int		check_down_right(t_heat *heat, t_map *map, t_coords *cell, int value);
+int		check_up_left(t_heat *heat, t_coords *cell, int value);
+int		check_down_left(t_heat *heat, t_coords *cell, int value);
+int		check_up_right(t_heat *heat, t_coords *cell, int value);
+int		check_down_right(t_heat *heat, t_coords *cell, int value);
 
 /* In the get_heat.c -file */
 int		get_heat(t_heat *heat, t_map *map);

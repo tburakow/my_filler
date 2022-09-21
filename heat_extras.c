@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 14:45:45 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/19 12:24:08 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/21 11:19:21 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,31 +59,37 @@ int	adjust_to_map(t_heat *heat, t_map *map, int y, int x)
 /* This function checks uses the check_for_heat -function to check the squares
 above/below and to left or right of the current square for enemy presence or
 non-zero (i.e. set) heat value. */
-int	check_heat_axial(t_heat *heat, t_map *map, t_coords *cell, int value)
+int	check_heat_axial(t_heat *heat, t_coords *cell, int value)
 {
+	int		changes;
+
+	changes = 0;
 	if (cell->y > 0)
-		value = check_up(heat, map, cell, value);
+		changes += check_up(heat, cell, value);
 	if (cell->x > 0)
-		value = check_left(heat, map, cell, value);
+		changes += check_left(heat, cell, value);
 	if (cell->y + 1 < heat->size.h)
-		value = check_down(heat, map, cell, value);
+		changes += check_down(heat, cell, value);
 	if (cell->x + 1 < heat->size.w)
-		value = check_right(heat, map, cell, value);
-	return (value);
+		changes += check_right(heat, cell, value);
+	return (changes);
 }
 
 /* This function checks uses the check_for_heat -function to check the squares
 diagonally adjacent to the current square for enemy presence or
 non-zero (i.e. set) heat value. */
-int	check_heat_diag(t_heat *heat, t_map *map, t_coords *cell, int value)
+int	check_heat_diag(t_heat *heat, t_coords *cell, int value)
 {
+	int		changes;
+
+	changes = 0;
 	if (cell->y > 0 && cell->x > 0)
-		value = check_up_left(heat, map, cell, value);
+		changes += check_up_left(heat, cell, value);
 	if (cell->x > 0 && cell->y + 1 < heat->size.h)
-		value = check_down_left(heat, map, cell, value);
+		changes += check_down_left(heat, cell, value);
 	if (cell->y + 1 < heat->size.h && cell->x + 1 < heat->size.w)
-		value = check_down_right(heat, map, cell, value);
+		changes += check_down_right(heat, cell, value);
 	if (cell->x + 1 < heat->size.w && cell->y > 0)
-		value = check_up_right(heat, map, cell, value);
-	return (value);
+		changes += check_up_right(heat, cell, value);
+	return (changes);
 }
