@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 11:42:01 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/20 13:48:53 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/21 10:49:06 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,53 +44,12 @@ int	set_heat_limit(t_map *map)
 	return (map->size.w);
 }
 
-/* This function uses the check_heat_* -functions to 
-find the lowest heat next to
-the current cell. If a square occupied by
-the opponent is found, the heat is set as '10'. */
-int	calculate_heat(t_heat *heat, t_map *map, int y, int x)
+int	*get_heat(t_heat *heat, t_map * map)
 {
-	int			value;
-	t_coords	cell;
+	int		target;
+	int		value;
 
-	value = 500;
-	cell.x = x;
-	cell.y = y;
-	value = check_heat_axial(heat, map, &cell, value);
-	value = check_heat_diag(heat, map, &cell, value);
-	heat->array[y][x] = value;
-	return (OK);
-}
-
-/* This function iterates through the heatmap arrays, and calculates
-the heat for each cell (coordinate) in the array. The smaller the
-heat, the closer the opponent is. */
-int	get_heat(t_heat *heat, t_map *map)
-{
-	int			x;
-	int			y;
-	int			heat_limit;
-
-	heat_limit = set_heat_limit(map);
-	y = 0;
-	x = 0;
-	if (heat_setup(heat, map) != OK)
-		return (sub_error_output("error : heat_map setup failed."));
-	while (heat_limit-- > 0)
-	{
-		y = -1;
-		while (++y < heat->size.h)
-		{
-			x = -1;
-			while (++x < heat->size.w)
-			{
-				if (!calculate_heat(heat, map, y, x))
-					return (sub_error_output("failed to calculate heat."));
-			}
-		}
-	}
-	run_adjustments(heat, map);
-	return (OK);
+	target = 
 }
 
 /*This function runs some map-size specific, and time specific adjustments
