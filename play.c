@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:49:00 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/20 11:22:21 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/21 13:16:43 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	validate_place(t_map *map, t_piece *piece, t_coords *curr)
 	int			crashes;
 
 	spot = (t_coords *)ft_memalloc(sizeof(t_coords *));
+	handle_null(spot, "error :spot failed to allocate.");
 	spot->y = -1;
 	spot->x = -1;
 	hits = 0;

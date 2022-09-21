@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 11:42:01 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/21 11:31:43 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/21 13:22:30 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	update_on_players(t_heat *heat, t_map *map, int i)
 		if (ft_toupper(map->array[i][j] == map->player))
 			heat->array[i][j] = -2;
 		if (map->array[i][j] == '.')
-			heat->array[i][j] = 0;
+			heat->array[i][j] = 10000;
 		j++;
 	}
 }
@@ -43,8 +43,10 @@ int	heat_setup(t_heat *heat, t_map *map)
 	while (i < heat->size.h)
 	{
 		if (!heat->array[i])
+		{
 			heat->array[i] = (int *)ft_memalloc(sizeof(int) * heat->size.w);
-		handle_null(heat->array[i], "error: heat array allocation failed.");
+			handle_null(heat->array[i], "error: heat array allocation failed.");
+		}
 		ft_bzero(heat->array[i], heat->size.w);
 		update_on_players(heat, map, i);
 		i++;
@@ -92,10 +94,9 @@ int	get_heat(t_heat *heat, t_map *map)
 
 	target = -1;
 	value = 1;
-	while (heat_update(heat, target, value) != 0)
+	heat_setup(heat, map);
+	while (heat_update(heat, target, value))
 	{
-		dprintf(2, "target = %d", target);
-		dprintf(2, "value = %d", value);
 		target = value;
 		value++;
 	}
@@ -119,11 +120,8 @@ void	run_adjustments(t_heat *heat, t_map *map)
 		{
 			if (adjust_to_map(heat, map, y, x))
 				heat->array[y][x]--;
-			if (map->size.h < 20 && adjust_to_direction(map, y, x))
-				heat->array[y][x] -= 2;
-			if (map->size.h < 20 && adjust_to_time(map, y, x))
-				heat->array[y][x] -= 2;
-			force_to_edges(heat, map, y, x);
+			if (adjust_to_direction(map, y, x))
+				heat->array[y][x]--;
 			x++;
 		}
 		y++;

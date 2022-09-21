@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 14:45:45 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/21 11:19:21 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/21 13:13:38 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,6 @@ int	adjust_to_direction(t_map *map, int y, int x)
 	return (0);
 }
 
-/* Creates a line of "very hot" cells behind the opponent. */
-void	force_to_edges(t_heat *heat, t_map *map, int y, int x)
-{
-	if (map->dir == 'R' && y == heat->size.h - 1 && x > heat->size.w / 2)
-		heat->array[y][x] = 5;
-	if (map->dir == 'L' && y == 0 && x < heat->size.w / 2)
-		heat->array[y][x] = 5;
-}
 
 /* This function adjusts the heat of the cell specified by the coordinates 
 y and x, if the middle of the map is not taken (i.e. early game), in which 

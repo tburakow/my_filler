@@ -410,7 +410,7 @@ def start_visual():
 				if event.key == pygame.K_8:
 					speed == 100
 				if event.key == pygame.K_9:
-					speed = 10000
+					speed = 100000
 				if event.key == pygame.K_m:
 					mixer.music.set_volume(1)
 				if event.key == pygame.K_n:

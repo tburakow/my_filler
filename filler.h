@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 13:04:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/21 11:27:54 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/21 13:21:40 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include "ft_printf/libft/libft.h"
 # include "ft_printf/ft_printf.h"
-# include <string.h>
-# include <stdio.h>
 
 # define STDIN 0
 # define KO 0
@@ -44,15 +42,12 @@ typedef struct s_map
 	t_size		size;
 	char		dir;
 	int			turn;
-	t_coords	start;
-	t_coords	end;
 }				t_map;
 
 typedef struct s_heat
 {
 	int			**array;
 	t_size		size;
-	int			heat;
 }				t_heat;
 
 typedef struct s_piece
@@ -92,7 +87,6 @@ int		adjust_to_map(t_heat *heat, t_map *map, int y, int x);
 int		check_heat_diag(t_heat *heat, t_coords *cell, int value);
 int		check_heat_axial(t_heat *heat, t_coords *cell, int value);
 int		adjust_to_direction(t_map *map, int y, int x);
-void	force_to_edges(t_heat *heat, t_map *map, int y, int x);
 
 /* In the heat_checks_one.c -file */
 int		check_up(t_heat *heat, t_coords *cell, int value);
@@ -109,8 +103,6 @@ int		check_down_right(t_heat *heat, t_coords *cell, int value);
 /* In the get_heat.c -file */
 int		get_heat(t_heat *heat, t_map *map);
 int		heat_setup(t_heat *heat, t_map *map);
-int		calculate_heat(t_heat *heat, t_map *map, int y, int x);
-int		set_heat_limit(t_map *map);
 void	run_adjustments(t_heat *heat, t_map *map);
 
 /* in the get_piece.c -file */

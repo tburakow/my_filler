@@ -14,19 +14,22 @@ read pname
 echo Write map size - 0, 1 or 2:
 read size
 
+echo How many games?
+read gamenro
+
 if ((size < 0 || size > 2)); then
     echo "Wrong size"
     exit 1
 fi
 
 cd resources
-while [ $GAMES -le 25 ]
+while [ $GAMES -le $gamenro ]
 do
     if [ $(expr $GAMES % 2) == "0" ]
     then
         ./filler_vm -f ./maps/map0$size -p1 players/$pname.filler -p2 ../tburakow.filler -q
     else
-        ./filler_vm -f ./maps/map0$size -p1 players/$pname.filler -p2 ../tburakow.filler -q
+        ./filler_vm -f ./maps/map0$size -p2 players/$pname.filler -p1 ../tburakow.filler -q
     fi
     if (cat $TRACE | grep $ME)
     then

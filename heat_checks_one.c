@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 17:05:23 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/21 11:10:50 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/21 13:11:04 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /* Checks the cell above the current cell */
 int	check_up(t_heat *heat, t_coords *cell, int value)
 {
-	if (heat->array[cell->y - 1][cell->x] == 0)
+	if (heat->array[cell->y - 1][cell->x] == 10000)
 	{
 		heat->array[cell->y - 1][cell->x] = value;
 		return (1);
@@ -26,7 +26,7 @@ int	check_up(t_heat *heat, t_coords *cell, int value)
 /* Checks the cell to the left of the current cell */
 int	check_left(t_heat *heat, t_coords *cell, int value)
 {
-	if (heat->array[cell->y][cell->x - 1] == 0)
+	if (heat->array[cell->y][cell->x - 1] == 10000)
 	{
 		heat->array[cell->y][cell->x - 1] = value;
 		return (1);
@@ -37,7 +37,7 @@ int	check_left(t_heat *heat, t_coords *cell, int value)
 /* Checks the cell below the current cell */
 int	check_down(t_heat *heat, t_coords *cell, int value)
 {
-	if (heat->array[cell->y + 1][cell->x] == 0)
+	if (heat->array[cell->y + 1][cell->x] == 10000)
 	{
 		heat->array[cell->y + 1][cell->x] = value;
 		return (1);
@@ -48,7 +48,7 @@ int	check_down(t_heat *heat, t_coords *cell, int value)
 /* Checks the cell to the right of the current cell */
 int	check_right(t_heat *heat, t_coords *cell, int value)
 {
-	if (heat->array[cell->y][cell->x + 1] == 0)
+	if (heat->array[cell->y][cell->x + 1] == 10000)
 	{
 		heat->array[cell->y][cell->x + 1] = value;
 		return (1);
