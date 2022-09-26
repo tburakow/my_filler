@@ -6,13 +6,13 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 14:45:45 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/21 14:06:39 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/26 21:47:30 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-/* This function increases the heat in the quarter of the map 
+/* This function increases the heat in the quarter of the map
 behind the opponent. */
 int	adjust_to_direction(t_map *map, int y, int x)
 {
@@ -25,9 +25,9 @@ int	adjust_to_direction(t_map *map, int y, int x)
 	return (0);
 }
 
-/* This function adjusts the heat of the cell specified by the coordinates 
-y and x, if the middle of the map is not taken (i.e. early game), in which 
-case the middle of the map (middle third) is "hotter", and after the 
+/* This function adjusts the heat of the cell specified by the coordinates
+y and x, if the middle of the map is not taken (i.e. early game), in which
+case the middle of the map (middle third) is "hotter", and after the
 middle is taken, when the sides (thirds) are hotter. The "hot center"
 adjustment is not used for small maps(height under 25.) It's also time-
 dependent, only working for a limited time.*/

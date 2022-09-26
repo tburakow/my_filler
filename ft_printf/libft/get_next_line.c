@@ -6,11 +6,20 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 13:56:34 by tburakow          #+#    #+#             */
-/*   Updated: 2022/08/26 09:33:29 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/26 21:00:34 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+static int	add_to_line_two(char **line, char **arr, const int fd)
+{
+	*line = ft_strdup(arr[fd]);
+	ft_strdel(&arr[fd]);
+	if (!line)
+		return (0);
+	return (1);
+}
 
 int	add_to_line(char **line, char **arr, const int fd)
 {
@@ -23,18 +32,19 @@ int	add_to_line(char **line, char **arr, const int fd)
 	if (arr[fd][i] == '\n')
 	{
 		tmp = ft_strdup(&(arr[fd][i + 1]));
+		if (!tmp)
+			return (-1);
 		arr[fd][i] = '\0';
 		*line = ft_strdup(arr[fd]);
+		if (!line)
+			return (-1);
 		free(arr[fd]);
 		arr[fd] = tmp;
 		if (arr[fd][0] == '\0')
 			ft_strdel(&arr[fd]);
 	}
-	else
-	{
-		*line = ft_strdup(arr[fd]);
-		ft_strdel(&arr[fd]);
-	}
+	else if (!add_to_line_two(line, arr, fd))
+		return (-1);
 	return (1);
 }
 

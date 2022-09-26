@@ -6,13 +6,13 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:49:00 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/21 14:19:04 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/26 20:49:33 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-/* This function uses the heatmap to calculate the "score" for the piece's 
+/* This function uses the heatmap to calculate the "score" for the piece's
 current position. a smaller score means a better position. If the score
 attained is better than the former best, it's updated.*/
 void	score_piece(t_heat *heat, t_piece *piece, t_coords *curr)
@@ -43,9 +43,9 @@ void	score_piece(t_heat *heat, t_piece *piece, t_coords *curr)
 	}
 }
 
-/* This function validates the current position of the piece. It 
-checks that there is only a single point of overlap between 
-the piece and the already placed "player" pieces on the 
+/* This function validates the current position of the piece. It
+checks that there is only a single point of overlap between
+the piece and the already placed "player" pieces on the
 map, and no overlap between "player" and "opponent" -pieces. */
 int	validate_place(t_map *map, t_piece *piece, t_coords *curr)
 {
@@ -53,7 +53,8 @@ int	validate_place(t_map *map, t_piece *piece, t_coords *curr)
 	int			hit_crash;
 
 	spot = (t_coords *)ft_memalloc(sizeof(t_coords *));
-	handle_null(spot, "error :spot failed to allocate.");
+	if (!handle_null(spot, "error :spot failed to allocate."))
+		return (KO);
 	spot->y = -1;
 	spot->x = -1;
 	hit_crash = 0;
@@ -114,6 +115,8 @@ int	place_piece(t_map *map, t_heat *heat, t_piece *piece)
 	int			piece_placed;
 
 	curr = (t_coords *)ft_memalloc(sizeof(t_coords));
+	if (!handle_null(&curr, "error: failed to alloc for current piece."))
+		return (KO);
 	piece_placed = 0;
 	if (try_piece(map, heat, piece, curr))
 	{

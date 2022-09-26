@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:29:28 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/20 13:54:25 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/25 18:43:28 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,14 @@ void	skip_line(void)
 
 /* This function fills the map->array coordinates with the current characters
 found on the map */
-int	fill_map(t_map *map)
+int	fill_map(t_map *map, int i, int j)
 {
 	char	*line;
-	int		i;
-	int		j;
 
-	i = -1;
-	j = 0;
 	if (!map->array)
 		map->array = (char **)ft_memalloc(sizeof(char *) * map->size.h + 1);
-	handle_null(map->array, "error: map_array not allocated.");
+	if (!handle_null(map->array, "error: map_array not allocated."))
+		return (KO);
 	while (++i < map->size.h)
 	{
 		if (get_next_line(STDIN, &line) <= 0)
@@ -46,7 +43,8 @@ int	fill_map(t_map *map)
 			if (!map->array[i])
 				map->array[i] = (char *)ft_memalloc(sizeof(char) \
 				* map->size.w + 1);
-			handle_null(map->array[i], "error: map array row alloc.failed.");
+			if (!handle_null(map->array[i], "error: map row alloc.failed."))
+				return (KO);
 			map->array[i] = ft_strcpy(map->array[i], &line[j]);
 		}
 		ft_strdel(&line);
@@ -98,12 +96,18 @@ int	get_map_size(t_map *map)
 }
 
 /* This function gets the map size and the character strings that
- the map is comprised of */
+ the map is comprised of. i and j are declared and initialized in
+  this function to reduce clutter in fill_map.*/
 int	get_map(t_map *map)
 {
+	int		i;
+	int		j;
+
+	i = -1;
+	j = 0;
 	if (!get_map_size(map))
 		return (sub_error_output("error : failed to get map size\n"));
-	if (!fill_map(map))
+	if (!fill_map(map, i, j))
 		return (sub_error_output("error : failed to fill map\n"));
 	if (map->dir == 'Z')
 		parse_direction(map);

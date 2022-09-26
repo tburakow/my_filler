@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 13:14:16 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/20 13:59:28 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/25 18:44:32 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,21 +102,23 @@ int	get_piece(t_piece *piece)
 	char	*line;
 	int		i;
 
-	i = 0;
+	i = -1;
 	if (!get_piece_size(piece))
 		return (sub_error_output("error : failed to get piece size."));
 	piece->array = (char **)ft_memalloc(sizeof(char *) * piece->size.h + 1);
-	handle_null(piece->array, "error: piece array allocation failed.");
-	while (i < piece->size.h)
+	if (!handle_null(piece->array, "error: piece array allocation failed."))
+		return (KO);
+	while (++i < piece->size.h)
 	{
 		if (get_next_line(STDIN, &line) < 0)
 			return (sub_error_output("error : failed to read line for piece"));
 		if (!piece->array[i])
 			piece->array[i] = (char *)ft_memalloc(sizeof(char) \
 			* piece->size.w + 1);
+		if (!handle_null(piece->array[i], "error: piece array alloc. failed."))
+			return (KO);
 		piece->array[i] = ft_strcpy(piece->array[i], line);
 		ft_strdel(&line);
-		i++;
 	}
 	if (!get_piece_actual(piece))
 		return (sub_error_output("error : failed to optimize piece."));

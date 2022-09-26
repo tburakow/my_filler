@@ -6,7 +6,7 @@
 #    By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/09 12:15:46 by tburakow          #+#    #+#              #
-#    Updated: 2022/08/26 19:39:02 by tburakow         ###   ########.fr        #
+#    Updated: 2022/09/26 23:14:57 by tburakow         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,16 +45,16 @@ OBJS = $(LIBFUNCS:=.o)
 all: $(NAME)
 
 $(NAME):
-	make -C libft/
-	gcc -Wall -Wextra -Werror -c -g $(FILES)
-	ar rcs $(NAME) $(OBJS) $(OBJECTS)
+	@make -C libft/
+	@gcc -Wall -Wextra -Werror -c $(FILES)
+	@ar rcs $(NAME) $(OBJS) $(OBJECTS)
 
 clean:
-	rm -f $(OBJECTS) $(OBJS)
-	make -C libft/ clean
+	@rm -f $(OBJECTS) $(OBJS)
+	@make -C libft/ clean
 
 fclean: clean
-	rm -rf $(NAME)
-	make -C libft/ fclean
+	@rm -rf $(NAME)
+	@make -C libft/ fclean
 
 re: fclean all

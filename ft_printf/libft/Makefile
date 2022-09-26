@@ -84,17 +84,17 @@ FUNCS = ft_isalpha \
 	simple_vector \
 	error_output
 
-		 
+
 all:	$(NAME)
-	
+
 $(NAME):	$(SRCS)
-	gcc -Wall -Wextra -Werror -c -g $(SRCS)
-	ar rcs $(NAME) $(OBJS)
+	@gcc -Wall -Wextra -Werror -c $(SRCS)
+	@ar rcs $(NAME) $(OBJS)
 
 clean:
-	/bin/rm -f $(OBJS)
+	@/bin/rm -f $(OBJS)
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME)
 
 re:	fclean all

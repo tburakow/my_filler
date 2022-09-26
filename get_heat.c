@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 11:42:01 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/21 14:06:10 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/25 19:12:47 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /* This function updates the heat map to include the positions of 
 both the player, and the opponent. */
-static void	update_on_players(t_heat *heat, t_map *map, int i)
+void	update_on_players(t_heat *heat, t_map *map, int i)
 {
 	int		j;
 
@@ -42,13 +42,15 @@ int	heat_setup(t_heat *heat, t_map *map)
 	heat->size.w = map->size.w;
 	if (!heat->array)
 		heat->array = (int **)ft_memalloc(sizeof(int *) * heat->size.h);
-	handle_null(heat->array, "error: heat array allocation failed.");
+	if (!handle_null(heat->array, "error: heat array allocation failed."))
+		return (KO);
 	while (i < heat->size.h)
 	{
 		if (!heat->array[i])
 		{
 			heat->array[i] = (int *)ft_memalloc(sizeof(int) * heat->size.w);
-			handle_null(heat->array[i], "error: heat array allocation failed.");
+			if (!handle_null(heat->array[i], "error: heat array alloc failed."))
+				return (KO);
 		}
 		ft_bzero(heat->array[i], heat->size.w);
 		update_on_players(heat, map, i);

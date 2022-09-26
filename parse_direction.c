@@ -6,7 +6,7 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 20:39:06 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/21 14:06:58 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/27 00:25:03 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	*handle_null(void *input, char *s)
 	if (!input)
 	{
 		sub_error_output(s);
-		exit(1);
 	}
 	return (input);
 }

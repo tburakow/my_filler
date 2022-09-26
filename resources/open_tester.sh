@@ -22,7 +22,6 @@ if ((size < 0 || size > 2)); then
     exit 1
 fi
 
-cd resources
 while [ $GAMES -le $gamenro ]
 do
     if [ $(expr $GAMES % 2) == "0" ]

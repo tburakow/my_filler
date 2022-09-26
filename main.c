@@ -6,56 +6,24 @@
 /*   By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 09:46:52 by tburakow          #+#    #+#             */
-/*   Updated: 2022/09/21 14:27:42 by tburakow         ###   ########.fr       */
+/*   Updated: 2022/09/26 21:13:03 by tburakow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-/* Frees a struct of type t_piece. */
-void	free_piece(t_piece *piece)
-{
-	int	i;
-
-	i = 0;
-	while (i < piece->size.h)
-	{
-		ft_strdel(&piece->array[i]);
-		i++;
-	}
-	free(piece->array);
-}
-
 /* Frees all three major types of structs found in the program. */
 void	free_structs(t_map *map, t_heat *heat, t_piece *piece)
 {
-	int	i;
-
-	i = 0;
-	while (i < map->size.h)
-	{
-		ft_strdel(&map->array[i]);
-		i++;
-	}
-	free(map->array);
-	i = 0;
-	while (i < map->size.h)
-	{
-		free(heat->array[i]);
-		heat->array[i] = NULL;
-		i++;
-	}
-	free(heat->array);
-	i = 0;
-	while (i < piece->size.h)
-	{
-		ft_strdel(&piece->array[i]);
-		i++;
-	}
-	free(piece->array);
+	if (map)
+		free_map(map);
+	if (heat)
+		free_heat(heat);
+	if (piece)
+		free_piece(piece);
 }
 
-/* This function writes out the coordinates for the placement of the 
+/* This function writes out the coordinates for the placement of the
 current piece */
 void	write_out(int y, int x)
 {
@@ -99,7 +67,7 @@ int	main(void)
 	{
 		if (!play(&map, &heat, &piece))
 			break ;
-	}	
+	}
 	free_structs(&map, &heat, &piece);
 	write_out(0, 0);
 	return (0);
