@@ -22,8 +22,6 @@ if ((size < 0 || size > 2)); then
     exit 1
 fi
 
-cp ../tburakow.filler ./players/
-
 while [ $GAMES -le $gamenro ]
 do
     if [ $(expr $GAMES % 2) == "0" ]
@@ -40,7 +38,5 @@ do
     fi
     GAMES=$(( $GAMES + 1 ))
 done
-
-rm ./players/tburakow.filler
 echo $ME: $MYWIN
 echo $pname: $ENEMYWIN

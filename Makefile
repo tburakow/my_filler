@@ -6,7 +6,7 @@
 #    By: tburakow <tburakow@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/09 12:15:46 by tburakow          #+#    #+#              #
-#    Updated: 2022/09/27 00:25:39 by tburakow         ###   ########.fr        #
+#    Updated: 2022/09/28 19:49:13 by tburakow         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = tburakow.filler
 
 CC := gcc
 
-CFLAGS := -Wall -Werror -Wextra
+CFLAGS := -Wall -Werror -Wextra #-fsanitize=address -g
 
 FUNCTIONS = main get_map get_player sub_error_output \
 get_heat get_piece play heat_extras hits_and_crashes \

@@ -64,11 +64,13 @@ menu = pgm.Menu(
 
 # the run function. This launches the actual visualizer.
 def run():
+	command = "cp ../tburakow.filler ../resources/players/"
+	os.system(command)
 	command = "../resources/filler_vm -p1 ../resources/players/\"{0}\".filler -p2 ../resources/players/\"{1}\".filler -v -f ../resources/maps/\"{2}\" | python3 visual2.py".format(arr1[p1], arr1[p2], arr2[map_nro])
 	os.system(command)
 	pygame.quit()
 
-# function to define player one 
+# function to define player one
 def set_player_one(value, player):
 	# access global variable p1
 	global p1

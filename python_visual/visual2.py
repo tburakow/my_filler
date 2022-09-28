@@ -8,7 +8,7 @@ from pygame import mixer
 import sys
 
 pygame.init() # initialize pygame
-mixer.init() # initialize mixer 
+mixer.init() # initialize mixer
 
 # define logo
 logo = pygame.image.load("./title.png")
@@ -20,7 +20,7 @@ p1 = 0
 p2 = 0
 map_nro = 0
 
-# setup variables for loud mute. 
+# setup variables for loud mute.
 mute = 0
 loud = 0
 
@@ -53,7 +53,7 @@ PURPUL = ( 190, 50, 220)
 
 # values for playyer scores
 end_one = 0
-end_two = 0 
+end_two = 0
 
 # Opening a window
 size = (1800, 1200)
@@ -76,7 +76,7 @@ def find_player(line):
 		return (5)
 	else:
 		return (6)
-	
+
 
 def get_player():
 	global file1
@@ -274,7 +274,7 @@ def parse_and_draw_map():
 def get_map_size():
 	x = 0
 	global file1
-	# loop until we have reached string with "Plateau" 
+	# loop until we have reached string with "Plateau"
 	while x < 10:
 		# read a line from stdin
 		if new_run == 0:
@@ -291,7 +291,7 @@ def get_map_size():
 			for z in line.split():
 				if z.isdigit():
 					map_size.append(int(z))
-			
+
 		x += 1
 	pass
 
@@ -391,7 +391,7 @@ def start_visual():
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				command = "rm temp_text" # set command to remove the temporary text file (temp_text)
-				os.system(command) # run command to remove the temporary text file (temp_text)
+				os.system(command)
 				carryOn = False
 			# keystrokes to control the speed. 1 = slowest, 9 = full speed.
 			if event.type == pygame.KEYDOWN:
@@ -478,4 +478,3 @@ start_visual()
 
 
 
-        
