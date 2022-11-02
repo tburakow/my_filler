@@ -1,5 +1,7 @@
 # Filler
 
+A Hive Helsinki (42 school) game.
+
 ## description
 
 Filler is a project in which we were asked to create a player to battle other players for control of the board.
